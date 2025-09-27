@@ -284,6 +284,8 @@
             font-weight: 600;
             transition: all 0.3s ease;
             display: inline-block;
+            border: none;
+            cursor: pointer;
         }
 
         .btn-primary {
@@ -558,6 +560,262 @@
             color: var(--white);
         }
 
+        /* Booking Section */
+        .booking-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .calendar-section {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .calendar-header h3 {
+            margin: 0;
+            color: var(--text-dark);
+            font-size: 1.5rem;
+        }
+
+        .calendar-nav-btn {
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .calendar-nav-btn:hover {
+            background: var(--secondary-color);
+            transform: scale(1.1);
+        }
+
+        .calendar-grid {
+            width: 100%;
+        }
+
+        .calendar-weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .calendar-weekdays div {
+            text-align: center;
+            font-weight: 600;
+            color: var(--text-light);
+            padding: 0.5rem;
+        }
+
+        .calendar-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.5rem;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .calendar-day:hover {
+            background: var(--bg-light);
+        }
+
+        .calendar-day.other-month {
+            color: var(--text-light);
+            opacity: 0.5;
+        }
+
+        .calendar-day.selected {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+
+        .calendar-day.today {
+            background: var(--accent-color);
+            color: var(--white);
+        }
+
+        .calendar-day.past {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .time-slots-section {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .time-slots-section h4 {
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .selected-date {
+            background: var(--bg-light);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .time-slots {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+        }
+
+        .time-slot {
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--bg-light);
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .time-slot:hover {
+            border-color: var(--primary-color);
+            background: var(--bg-light);
+        }
+
+        .time-slot.selected {
+            background: var(--primary-color);
+            color: var(--white);
+            border-color: var(--primary-color);
+        }
+
+        .time-slot.unavailable {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: #f1f1f1;
+            color: var(--text-light);
+        }
+
+        .time-slot.break-time {
+            background: #fef3cd;
+            border-color: #ffc107;
+            color: #856404;
+            position: relative;
+            cursor: not-allowed;
+        }
+
+        .time-slot.break-time::after {
+            content: "Break";
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ffc107;
+            color: white;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+        }
+
+        .booking-form {
+            background: var(--bg-light);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-top: 1.5rem;
+        }
+
+        .booking-form h5 {
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .booking-form select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: var(--white);
+            color: var(--text-dark);
+        }
+
+        .booking-summary {
+            background: var(--white);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .availability-info {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            margin-top: 2rem;
+        }
+
+        .availability-info h4 {
+            margin-bottom: 1.5rem;
+            text-align: center;
+            color: var(--text-dark);
+        }
+
+        .availability-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .availability-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--bg-light);
+            border-radius: 10px;
+        }
+
+        .availability-icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .availability-item strong {
+            display: block;
+            color: var(--text-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .availability-item p {
+            margin: 0;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
         /* Contact Section */
         .contact {
             background: var(--gradient);
@@ -666,8 +924,42 @@
             }
         }
 
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        .nav-link.active {
+            color: var(--primary-color);
+        }
+
+        .nav-link.active::after {
+            width: 100%;
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
+            .booking-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .time-slots {
+                grid-template-columns: 1fr;
+            }
+
+            .availability-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .calendar-nav-btn {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+
             .video-modal-content {
                 max-width: 95vw;
                 margin: 1rem;
@@ -768,6 +1060,7 @@
                 <li><a href="#about" class="nav-link">About</a></li>
                 <li><a href="#skills" class="nav-link">Skills</a></li>
                 <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#booking" class="nav-link">Schedule</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
             <div class="menu-toggle" id="menu-toggle">
@@ -1050,7 +1343,108 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- Booking Section -->
+    <section class="section" id="booking">
+        <div class="container">
+            <h2 class="section-title">Schedule a Meeting</h2>
+            <p class="section-subtitle">I'm available Monday through Sunday from 10:00 AM to 5:00 PM (Tunisia Time)<br>
+            <small>Please note: I take a break from 12:30 PM to 1:00 PM for lunch and prayer</small></p>
+            
+            <div class="booking-container">
+                <div class="calendar-section">
+                    <div class="calendar-header">
+                        <button id="prevMonth" class="calendar-nav-btn">&lt;</button>
+                        <h3 id="currentMonth"></h3>
+                        <button id="nextMonth" class="calendar-nav-btn">&gt;</button>
+                    </div>
+                    <div class="calendar-grid">
+                        <div class="calendar-weekdays">
+                            <div>Sun</div>
+                            <div>Mon</div>
+                            <div>Tue</div>
+                            <div>Wed</div>
+                            <div>Thu</div>
+                            <div>Fri</div>
+                            <div>Sat</div>
+                        </div>
+                        <div id="calendarDays" class="calendar-days"></div>
+                    </div>
+                </div>
+                
+                <div class="time-slots-section">
+                    <h4>Available Time Slots</h4>
+                    <div id="selectedDate" class="selected-date">Select a date first</div>
+                    <div id="timeSlots" class="time-slots"></div>
+                    <div class="booking-form" id="bookingForm" style="display: none;">
+                        <h5>Book Your Meeting</h5>
+                        <div class="form-group">
+                            <label for="bookingName">Name</label>
+                            <input type="text" id="bookingName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="bookingEmail">Email</label>
+                            <input type="email" id="bookingEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="meetingType">Meeting Type</label>
+                            <select id="meetingType" required>
+                                <option value="">Select type...</option>
+                                <option value="project-discussion">Project Discussion</option>
+                                <option value="consultation">Technical Consultation</option>
+                                <option value="collaboration">Collaboration Opportunity</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="meetingNotes">Additional Notes (Optional)</label>
+                            <textarea id="meetingNotes" placeholder="Please describe what you'd like to discuss..."></textarea>
+                        </div>
+                        <div class="booking-summary">
+                            <strong>Meeting Details:</strong>
+                            <div id="bookingSummary"></div>
+                        </div>
+                        <button type="button" id="confirmBooking" class="btn btn-primary">Confirm Booking</button>
+                        <button type="button" id="cancelBooking" class="btn btn-secondary">Cancel</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="availability-info">
+                <h4>My Availability</h4>
+                <div class="availability-grid">
+                    <div class="availability-item">
+                        <span class="availability-icon">🕙</span>
+                        <div>
+                            <strong>Working Hours</strong>
+                            <p>10:00 AM - 5:00 PM (Tunisia Time)</p>
+                        </div>
+                    </div>
+                    <div class="availability-item">
+                        <span class="availability-icon">🍽️</span>
+                        <div>
+                            <strong>Break Time</strong>
+                            <p>12:30 PM - 1:00 PM (Lunch & Prayer)</p>
+                        </div>
+                    </div>
+                    <div class="availability-item">
+                        <span class="availability-icon">📅</span>
+                        <div>
+                            <strong>Available Days</strong>
+                            <p>Monday - Sunday</p>
+                        </div>
+                    </div>
+                    <div class="availability-item">
+                        <span class="availability-icon">🌍</span>
+                        <div>
+                            <strong>Time Zone</strong>
+                            <p>Central European Time (CET/CEST)</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -1121,7 +1515,7 @@
             video.load();
             
             modal.classList.add('active');
-            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            document.body.style.overflow = 'hidden';
         }
 
         function closeVideoModal() {
@@ -1131,7 +1525,7 @@
             video.pause();
             video.currentTime = 0;
             modal.classList.remove('active');
-            document.body.style.overflow = 'auto'; // Restore scrolling
+            document.body.style.overflow = 'auto';
         }
 
         function playPauseVideo() {
@@ -1196,7 +1590,6 @@
                         behavior: 'smooth',
                         block: 'start'
                     });
-                    // Close mobile menu if open
                     navMenu.classList.remove('active');
                 }
             });
@@ -1209,7 +1602,6 @@
             const submitBtn = this.querySelector('button[type="submit"]');
             const originalText = submitBtn.textContent;
             
-            // Show loading state
             submitBtn.textContent = 'Sending...';
             submitBtn.disabled = true;
             
@@ -1229,18 +1621,15 @@
                 const data = await response.json();
                 
                 if (data.success) {
-                    // Success message
                     showNotification('Thank you! Your message has been sent successfully.', 'success');
                     this.reset();
                 } else {
                     throw new Error('Form submission failed');
                 }
             } catch (error) {
-                // Error message
                 showNotification('Sorry, there was an error sending your message. Please try again.', 'error');
                 console.error('Form submission error:', error);
             } finally {
-                // Reset button state
                 submitBtn.textContent = originalText;
                 submitBtn.disabled = false;
             }
@@ -1268,12 +1657,10 @@
             
             document.body.appendChild(notification);
             
-            // Slide in
             setTimeout(() => {
                 notification.style.transform = 'translateX(0)';
             }, 100);
             
-            // Remove after 5 seconds
             setTimeout(() => {
                 notification.style.transform = 'translateX(100%)';
                 setTimeout(() => {
@@ -1419,25 +1806,337 @@
             });
         });
 
-        // Add ripple animation keyframes
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes ripple {
-                to {
-                    transform: scale(4);
-                    opacity: 0;
+        // Booking Calendar Functionality
+        class BookingCalendar {
+            constructor() {
+                this.currentDate = new Date();
+                this.selectedDate = null;
+                this.selectedTimeSlot = null;
+                this.bookedSlots = new Set(); // In a real app, this would come from a backend
+                
+                this.workingHours = {
+                    start: 10, // 10:00 AM
+                    end: 17,   // 5:00 PM
+                    breakStart: 12.5, // 12:30 PM
+                    breakEnd: 13 // 1:00 PM
+                };
+                
+                this.init();
+            }
+            
+            init() {
+                this.renderCalendar();
+                this.bindEvents();
+                this.generateTimeSlots();
+            }
+            
+            bindEvents() {
+                document.getElementById('prevMonth').addEventListener('click', () => this.previousMonth());
+                document.getElementById('nextMonth').addEventListener('click', () => this.nextMonth());
+                document.getElementById('confirmBooking').addEventListener('click', () => this.confirmBooking());
+                document.getElementById('cancelBooking').addEventListener('click', () => this.cancelBooking());
+            }
+            
+            renderCalendar() {
+                const monthNames = [
+                    'January', 'February', 'March', 'April', 'May', 'June',
+                    'July', 'August', 'September', 'October', 'November', 'December'
+                ];
+                
+                const currentMonthElement = document.getElementById('currentMonth');
+                currentMonthElement.textContent = `${monthNames[this.currentDate.getMonth()]} ${this.currentDate.getFullYear()}`;
+                
+                const calendarDays = document.getElementById('calendarDays');
+                calendarDays.innerHTML = '';
+                
+                const firstDay = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), 1);
+                const lastDay = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth() + 1, 0);
+                const today = new Date();
+                
+                // Add empty cells for days before the first day of the month
+                for (let i = 0; i < firstDay.getDay(); i++) {
+                    const emptyDay = document.createElement('div');
+                    emptyDay.className = 'calendar-day other-month';
+                    calendarDays.appendChild(emptyDay);
+                }
+                
+                // Add days of the month
+                for (let day = 1; day <= lastDay.getDate(); day++) {
+                    const dayElement = document.createElement('div');
+                    dayElement.className = 'calendar-day';
+                    dayElement.textContent = day;
+                    
+                    const dayDate = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), day);
+                    
+                    // Mark today
+                    if (dayDate.toDateString() === today.toDateString()) {
+                        dayElement.classList.add('today');
+                    }
+                    
+                    // Mark past dates
+                    if (dayDate < today.setHours(0, 0, 0, 0)) {
+                        dayElement.classList.add('past');
+                    } else {
+                        dayElement.addEventListener('click', () => this.selectDate(dayDate, dayElement));
+                    }
+                    
+                    calendarDays.appendChild(dayElement);
                 }
             }
             
-            .nav-link.active {
-                color: var(--primary-color);
+            selectDate(date, element) {
+                // Remove previous selection
+                document.querySelectorAll('.calendar-day.selected').forEach(day => {
+                    day.classList.remove('selected');
+                });
+                
+                // Add selection to clicked date
+                element.classList.add('selected');
+                
+                this.selectedDate = date;
+                this.selectedTimeSlot = null;
+                
+                // Update selected date display
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                document.getElementById('selectedDate').textContent = date.toLocaleDateString('en-US', options);
+                
+                this.updateTimeSlots();
             }
             
-            .nav-link.active::after {
-                width: 100%;
+            generateTimeSlots() {
+                const slots = [];
+                
+                // Morning slots (10:00 - 12:30)
+                for (let hour = this.workingHours.start; hour < this.workingHours.breakStart; hour++) {
+                    slots.push(`${hour}:00`);
+                    if (hour + 0.5 < this.workingHours.breakStart) {
+                        slots.push(`${hour}:30`);
+                    }
+                }
+                
+                // Afternoon slots (13:00 - 17:00)
+                for (let hour = this.workingHours.breakEnd; hour < this.workingHours.end; hour++) {
+                    slots.push(`${hour}:00`);
+                    if (hour + 0.5 < this.workingHours.end) {
+                        slots.push(`${hour}:30`);
+                    }
+                }
+                
+                this.timeSlots = slots;
             }
-        `;
-        document.head.appendChild(style);
+            
+            updateTimeSlots() {
+                const timeSlotsContainer = document.getElementById('timeSlots');
+                timeSlotsContainer.innerHTML = '';
+                
+                if (!this.selectedDate) return;
+                
+                const now = new Date();
+                const isToday = this.selectedDate.toDateString() === now.toDateString();
+                
+                this.timeSlots.forEach(timeSlot => {
+                    const slotElement = document.createElement('div');
+                    slotElement.className = 'time-slot';
+                    slotElement.textContent = timeSlot;
+                    
+                    const [hours, minutes] = timeSlot.split(':').map(Number);
+                    const slotTime = new Date(this.selectedDate);
+                    slotTime.setHours(hours, minutes, 0, 0);
+                    
+                    // Check if slot is in break time
+                    const slotHour = hours + (minutes / 60);
+                    if (slotHour >= this.workingHours.breakStart && slotHour < this.workingHours.breakEnd) {
+                        slotElement.classList.add('break-time');
+                        slotElement.title = 'Break time - Lunch & Prayer';
+                        timeSlotsContainer.appendChild(slotElement);
+                        return;
+                    }
+                    
+                    // Check if slot is in the past (for today)
+                    if (isToday && slotTime <= now) {
+                        slotElement.classList.add('unavailable');
+                        slotElement.title = 'Time has passed';
+                        timeSlotsContainer.appendChild(slotElement);
+                        return;
+                    }
+                    
+                    // Check if slot is already booked
+                    const slotKey = `${this.selectedDate.toDateString()}_${timeSlot}`;
+                    if (this.bookedSlots.has(slotKey)) {
+                        slotElement.classList.add('unavailable');
+                        slotElement.title = 'Already booked';
+                        timeSlotsContainer.appendChild(slotElement);
+                        return;
+                    }
+                    
+                    // Add click event for available slots
+                    slotElement.addEventListener('click', () => this.selectTimeSlot(timeSlot, slotElement));
+                    
+                    timeSlotsContainer.appendChild(slotElement);
+                });
+            }
+            
+            selectTimeSlot(timeSlot, element) {
+                if (element.classList.contains('unavailable') || element.classList.contains('break-time')) {
+                    return;
+                }
+                
+                // Remove previous selection
+                document.querySelectorAll('.time-slot.selected').forEach(slot => {
+                    slot.classList.remove('selected');
+                });
+                
+                // Select new slot
+                element.classList.add('selected');
+                this.selectedTimeSlot = timeSlot;
+                
+                // Show booking form
+                this.showBookingForm();
+            }
+            
+            showBookingForm() {
+                const bookingForm = document.getElementById('bookingForm');
+                bookingForm.style.display = 'block';
+                
+                // Update summary
+                this.updateBookingSummary();
+                
+                // Scroll to form
+                bookingForm.scrollIntoView({ behavior: 'smooth' });
+            }
+            
+            updateBookingSummary() {
+                const summary = document.getElementById('bookingSummary');
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                const dateStr = this.selectedDate.toLocaleDateString('en-US', options);
+                
+                summary.innerHTML = `
+                    <div><strong>Date:</strong> ${dateStr}</div>
+                    <div><strong>Time:</strong> ${this.selectedTimeSlot} (Tunisia Time)</div>
+                    <div><strong>Duration:</strong> 30 minutes</div>
+                `;
+            }
+            
+            async confirmBooking() {
+                const name = document.getElementById('bookingName').value.trim();
+                const email = document.getElementById('bookingEmail').value.trim();
+                const meetingType = document.getElementById('meetingType').value;
+                const notes = document.getElementById('meetingNotes').value.trim();
+                
+                if (!name || !email || !meetingType) {
+                    showNotification('Please fill in all required fields.', 'error');
+                    return;
+                }
+                
+                if (!this.isValidEmail(email)) {
+                    showNotification('Please enter a valid email address.', 'error');
+                    return;
+                }
+                
+                const confirmBtn = document.getElementById('confirmBooking');
+                const originalText = confirmBtn.textContent;
+                
+                confirmBtn.textContent = 'Booking...';
+                confirmBtn.disabled = true;
+                
+                try {
+                    await this.sendBookingRequest({
+                        name,
+                        email,
+                        meetingType,
+                        notes,
+                        date: this.selectedDate.toDateString(),
+                        time: this.selectedTimeSlot
+                    });
+                    
+                    // Mark slot as booked
+                    const slotKey = `${this.selectedDate.toDateString()}_${this.selectedTimeSlot}`;
+                    this.bookedSlots.add(slotKey);
+                    
+                    showNotification('Booking confirmed! I\'ll contact you soon to confirm the meeting details.', 'success');
+                    this.resetBookingForm();
+                    this.updateTimeSlots();
+                    
+                } catch (error) {
+                    showNotification('Sorry, there was an error processing your booking. Please try again.', 'error');
+                } finally {
+                    confirmBtn.textContent = originalText;
+                    confirmBtn.disabled = false;
+                }
+            }
+            
+            async sendBookingRequest(bookingData) {
+                const formData = new FormData();
+                formData.append('access_key', 'e634187a-e257-4cf2-90e3-427c5047949c');
+                formData.append('subject', `Meeting Booking Request - ${bookingData.meetingType}`);
+                formData.append('from_name', bookingData.name);
+                formData.append('reply_to', bookingData.email);
+                
+                const message = `
+                    New Meeting Booking Request:
+                    
+                    Name: ${bookingData.name}
+                    Email: ${bookingData.email}
+                    Meeting Type: ${bookingData.meetingType}
+                    Date: ${bookingData.date}
+                    Time: ${bookingData.time} (Tunisia Time)
+                    
+                    Additional Notes:
+                    ${bookingData.notes || 'None'}
+                `;
+                
+                formData.append('message', message);
+                
+                const response = await fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Booking submission failed');
+                }
+            }
+            
+            cancelBooking() {
+                this.resetBookingForm();
+            }
+            
+            resetBookingForm() {
+                document.getElementById('bookingForm').style.display = 'none';
+                document.getElementById('bookingName').value = '';
+                document.getElementById('bookingEmail').value = '';
+                document.getElementById('meetingType').value = '';
+                document.getElementById('meetingNotes').value = '';
+                
+                // Clear selections
+                document.querySelectorAll('.time-slot.selected').forEach(slot => {
+                    slot.classList.remove('selected');
+                });
+                this.selectedTimeSlot = null;
+            }
+            
+            isValidEmail(email) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailRegex.test(email);
+            }
+            
+            previousMonth() {
+                this.currentDate.setMonth(this.currentDate.getMonth() - 1);
+                this.renderCalendar();
+                this.resetBookingForm();
+            }
+            
+            nextMonth() {
+                this.currentDate.setMonth(this.currentDate.getMonth() + 1);
+                this.renderCalendar();
+                this.resetBookingForm();
+            }
+        }
+        
+        // Initialize booking calendar when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            new BookingCalendar();
+        });
     </script>
 </body>
 </html>
