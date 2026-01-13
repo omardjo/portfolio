@@ -27,6 +27,7 @@
             --bg-light: #f8f9fa;
             --white: #ffffff;
             --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            /* Kept the original gradient variable for other sections if needed */
             --gradient: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
         }
 
@@ -120,14 +121,70 @@
         .nav-link:hover { color: var(--accent-color); }
         .menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; }
 
-        /* --- HERO --- */
-        .hero {
-            min-height: 100vh; background: var(--gradient); display: flex;
-            align-items: center; color: var(--white); padding-top: 80px; position: relative;
+        /* --- HERO & CONTACT SPACE THEME SHARED STYLES --- */
+        /* Applied to both .hero and .contact to match the space design */
+        .hero, .contact {
+            /* Space theme background */
+            background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+            position: relative;
+            overflow: hidden; 
         }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center; color: var(--white); padding-top: 80px; 
+        }
+
+        .contact {
+            padding: 5rem 0;
+            color: white;
+        }
+
+        /* --- CSS Stars Generator (Applied to Hero AND Contact) --- */
+        /* Creates stars using box-shadow layers on pseudo-elements */
+        .hero::before, .hero::after, .contact::before, .contact::after {
+            content: " "; position: absolute; top: 0; left: 0; right: 0; bottom: 0; 
+            background: transparent; z-index: 0;
+            pointer-events: none; /* Ensures stars don't block clicks */
+        }
+        
+        /* Small stars layer */
+        .hero::before, .contact::before {
+            width: 1px; height: 1px;
+            box-shadow: 
+                10vw 15vh #fff, 30vw 45vh #fff, 50vw 25vh #fff, 70vw 85vh #fff, 90vw 5vh #fff, 
+                15vw 65vh #fff, 35vw 35vh #fff, 55vw 95vh #fff, 75vw 55vh #fff, 95vw 15vh #fff,
+                5vw 5vh #fff, 25vw 25vh #fff, 45vw 45vh #fff, 65vw 65vh #fff, 85vw 85vh #fff,
+                12vw 92vh #fff, 32vw 72vh #fff, 52vw 52vh #fff, 72vw 32vh #fff, 92vw 12vh #fff,
+                38vw 18vh #fff, 68vw 78vh #fff, 18vw 38vh #fff, 88vw 68vh #fff, 48vw 98vh #fff,
+                8vw 58vh #fff, 28vw 88vh #fff, 58vw 18vh #fff, 78vw 48vh #fff, 98vw 28vh #fff;
+            opacity: 0.5;
+        }
+        
+        /* Medium stars layer */
+        .hero::after, .contact::after {
+            width: 2px; height: 2px;
+            box-shadow: 
+                20vw 30vh #fff, 40vw 60vh #fff, 60vw 20vh #fff, 80vw 90vh #fff,
+                10vw 80vh #fff, 30vw 50vh #fff, 50vw 10vh #fff, 70vw 40vh #fff, 90vw 70vh #fff,
+                15vw 25vh #fff, 65vw 15vh #fff, 85vw 35vh #fff, 5vw 95vh #fff, 55vw 55vh #fff;
+            opacity: 0.7;
+            animation: twinkle 5s infinite alternate;
+        }
+        
+        @keyframes twinkle {
+            0% { opacity: 0.3; } 100% { opacity: 0.8; }
+        }
+
+        /* Floating elements (Hero only) */
         .floating-elements div {
-            position: absolute; background: rgba(255,255,255,0.1); border-radius: 50%;
+            position: absolute;
+            background: rgba(255, 255, 255, 0.05); 
+            border-radius: 50%;
             animation: float 6s infinite ease-in-out;
+            box-shadow: 0 0 20px rgba(52, 152, 219, 0.2);
+            z-index: 1;
         }
         .floating-elements div:nth-child(1) { width: 80px; height: 80px; top: 20%; left: 10%; }
         .floating-elements div:nth-child(2) { width: 50px; height: 50px; top: 60%; right: 15%; animation-delay: 2s; }
@@ -135,6 +192,30 @@
 
         .hero-content { max-width: 1200px; margin: 0 auto; padding: 0 2rem; z-index: 2; }
         .hero-text h1 { font-size: 3.5rem; font-weight: 800; margin-bottom: 1rem; }
+        
+        /* Typewriter Animation CSS */
+        .typing-animation {
+            display: inline-block;
+            overflow: hidden; 
+            border-right: 3px solid var(--accent-color);
+            white-space: nowrap; 
+            margin: 0 auto 1.5rem auto; 
+            letter-spacing: 0.05em; 
+            max-width: fit-content;
+            animation: 
+                typing 3.5s steps(40, end),
+                blink-caret .75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--accent-color); }
+        }
+
         .hero-text .subtitle { font-size: 1.5rem; margin-bottom: 1.5rem; opacity: 0.9; }
         .hero-text p { font-size: 1.1rem; max-width: 600px; margin-bottom: 2rem; opacity: 0.9; }
         
@@ -270,10 +351,12 @@
         .booking-buttons { display: flex; gap: 1rem; margin-top: 1rem; }
         .booking-buttons .btn { flex: 1; text-align: center; }
 
-        /* Contact */
-        .contact { background: var(--gradient); color: white; }
-        .contact .section-title { color: white; }
-        .contact-content { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+        /* Contact - UPDATED to match Space Theme of Hero */
+        .contact .section-title { color: white; position: relative; z-index: 2; }
+        .contact-content { 
+            display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; 
+            position: relative; z-index: 2; /* Ensures content sits above stars */
+        }
         .contact-info h3 { margin-bottom: 1rem; }
         .contact-info p { margin-bottom: 1rem; }
         .contact-form { background: rgba(255,255,255,0.1); padding: 2rem; border-radius: 15px; backdrop-filter: blur(10px); }
@@ -284,7 +367,7 @@
         .contact-form textarea { resize: vertical; min-height: 120px; }
 
         /* Footer */
-        .footer { background: var(--text-dark); color: white; text-align: center; padding: 2rem 0; }
+        .footer { background: var(--text-dark); color: white; text-align: center; padding: 2rem 0; position: relative; z-index: 10; }
         .social-links { margin-bottom: 1rem; }
         .social-links a { color: white; font-size: 1.5rem; margin: 0 10px; text-decoration: none; }
 
@@ -302,6 +385,7 @@
             .chatbot-container { width: 100%; height: 80vh; bottom: 0; right: 0; border-radius: 15px 15px 0 0; }
             .video-modal-content { width: 95%; }
             .time-slots { grid-template-columns: 1fr; }
+            .typing-animation { font-size: 1.2rem; }
         }
     </style>
 </head>
@@ -356,7 +440,7 @@
         <div class="hero-content">
             <div class="hero-text">
                 <h1>Omar Djebbi</h1>
-                <div class="subtitle">Passionate Mobile Developer</div>
+                <div class="subtitle typing-animation">Passionate Mobile Developer</div>
                 <p>I am dedicated to creating incredible and beneficial apps using cross-platform technologies. With a focus on Flutter for mobile and web development, I aim to build scalable applications that solve real-world problems.</p>
                 <div class="cta-buttons">
                     <a href="#projects" class="btn btn-primary">View My Work</a>
@@ -489,6 +573,24 @@
         <div class="container">
             <h2 class="section-title">Featured Projects</h2>
             <div class="projects-grid">
+                
+                <div class="project-card">
+                    <div class="project-image">
+<img 
+  src="./assets/images/kidora-screenshot.png" 
+  style="width: 300px; height: 200px; object-fit: contain;" 
+  alt="Kidora App">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Kidora Tutoring App</h3>
+                        <p class="project-description">A comprehensive tutoring app helping parents track children's progress with engaging learning games for ages 4 to 12. Covers topics beyond school curriculum to ensure deep understanding.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">React Native</span><span class="tech-tag">Spring Boot</span><span class="tech-tag">Docker</span><span class="tech-tag">Render</span>
+                        </div>
+                        <button class="project-link" onclick="openVideoModal('./assets/videos/NewVideoKiodraFixed.mp4', 'Kidora Demo')">Watch Demo</button>
+                    </div>
+                </div>
+
                 <div class="project-card">
                     <div class="project-image">
                         <img src="./assets/images/career-recommendation-screenshot.png" alt="Career App" onerror="this.src='https://via.placeholder.com/400x200?text=Career+App'">
