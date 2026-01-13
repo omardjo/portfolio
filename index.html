@@ -6,6 +6,15 @@
     <title>Omar Djebbi - Portfolio</title>
     <link rel="icon" type="image/x-icon" href="./assets/images/favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+       (function(){
+          // Initialize EmailJS with your Public Key
+          emailjs.init("ArSp_jvOyAPn-eywl");
+       })();
+    </script>
+
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -665,7 +674,6 @@
 
     <script>
         // --- CHATBOT ---
-        // IMPORTANT: Ensure this URL matches your deployed backend URL
         const BACKEND_URL = 'https://omar-portfolio-backend.onrender.com';
         
         const chatToggle = document.getElementById('chatbotToggle');
@@ -698,8 +706,6 @@
             chatMsgs.scrollTop = chatMsgs.scrollHeight;
 
             try {
-                console.log('Sending message to backend:', txt);
-                
                 const response = await fetch(`${BACKEND_URL}/api/chat`, {
                     method: 'POST',
                     headers: {
@@ -857,36 +863,98 @@
             document.getElementById('bookingForm').style.display='none';
             document.querySelectorAll('.time-slot').forEach(x=>x.classList.remove('selected'));
         };
+        renderCal();
+
+        // --- EMAILJS CONFIGURATION ---
+        // REPLACE THESE VARIABLES WITH YOUR ACTUAL IDs FROM EMAILJS DASHBOARD
+        const PUBLIC_KEY = "ArSp_jvOyAPn-eywl";
+        const SERVICE_ID = "service_eagsj3e";
+        
+        // 1. Template for YOU (Admin Notification)
+        const TEMPLATE_ADMIN_ID = "template_admin"; 
+        
+        // 2. Template for VISITOR (Auto-Reply)
+        const TEMPLATE_AUTOREPLY_ID = "template_autoreply"; 
+
+        // --- BOOKING LOGIC ---
         document.getElementById('confirmBooking').onclick = async () => {
             const name = document.getElementById('bookingName').value;
             const email = document.getElementById('bookingEmail').value;
             const type = document.getElementById('meetingType').value;
+            const notes = document.getElementById('meetingNotes').value;
             
             if(!name || !email || !type) {
                 alert('Please fill all required fields');
                 return;
             }
-            
-            alert('Booking confirmed! I will contact you soon.');
-            document.getElementById('bookingForm').style.display='none';
-            document.getElementById('bookingForm').reset();
+
+            const btn = document.getElementById('confirmBooking');
+            btn.textContent = 'Sending...';
+            btn.disabled = true;
+
+            const templateParams = {
+                name: name,
+                title: type, 
+                email: email,
+                message: notes,
+                date: selectedDate ? selectedDate.toLocaleDateString() : 'Not selected',
+                time: selectedTime || 'Not selected'
+            };
+
+            // 1. Send Notification to YOU (Admin)
+            emailjs.send(SERVICE_ID, TEMPLATE_ADMIN_ID, templateParams, PUBLIC_KEY)
+                .then(function() {
+                    // 2. If successful, send Auto-Reply to USER
+                    return emailjs.send(SERVICE_ID, TEMPLATE_AUTOREPLY_ID, templateParams, PUBLIC_KEY);
+                })
+                .then(function() {
+                    alert('Booking confirmed! Check your email.');
+                    document.getElementById('bookingForm').style.display='none';
+                    document.getElementById('bookingForm').reset();
+                    btn.textContent = 'Confirm';
+                    btn.disabled = false;
+                })
+                .catch(function(error) {
+                    alert('Failed to send booking. Please try again.');
+                    console.log('FAILED...', error);
+                    btn.textContent = 'Confirm';
+                    btn.disabled = false;
+                });
         };
 
-        renderCal();
-
         // --- CONTACT FORM ---
-        document.getElementById('contactForm').onsubmit = async (e) => {
+        document.getElementById('contactForm').onsubmit = function(e) {
             e.preventDefault();
+            
             const btn = e.target.querySelector('button');
             btn.textContent = 'Sending...';
             btn.disabled = true;
-            
-            setTimeout(() => {
-                alert('Thank you! Your message has been sent.');
-                e.target.reset();
-                btn.textContent = 'Send Message';
-                btn.disabled = false;
-            }, 1000);
+
+            const templateParams = {
+                name: document.getElementById('contactName').value,
+                title: "General Inquiry",
+                email: document.getElementById('contactEmail').value,
+                message: document.getElementById('contactMessage').value
+            };
+
+            // 1. Send Notification to YOU (Admin)
+            emailjs.send(SERVICE_ID, TEMPLATE_ADMIN_ID, templateParams, PUBLIC_KEY)
+                .then(function() {
+                    // 2. If successful, send Auto-Reply to USER
+                    return emailjs.send(SERVICE_ID, TEMPLATE_AUTOREPLY_ID, templateParams, PUBLIC_KEY);
+                })
+                .then(function() {
+                    alert('Thank you! Your message has been sent.');
+                    document.getElementById('contactForm').reset();
+                    btn.textContent = 'Send Message';
+                    btn.disabled = false;
+                })
+                .catch(function(error) {
+                    alert('Failed to send message. Please try again later.');
+                    console.log('FAILED...', error);
+                    btn.textContent = 'Send Message';
+                    btn.disabled = false;
+                });
         };
     </script>
 </body>
