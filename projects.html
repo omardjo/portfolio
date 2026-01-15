@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects | Omar Djebbi</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <link rel="stylesheet" href="style.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#6366f1',
+                        secondary: '#8b5cf6',
+                        accent: '#06b6d4',
+                        dark: '#0f172a',
+                        light: '#f8fafc'
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
+                        'slide-up': 'slide-up 0.5s ease-out'
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' }
+                        },
+                        'pulse-glow': {
+                            '0%, 100%': { opacity: 1 },
+                            '50%': { opacity: 0.7 }
+                        },
+                        'slide-up': {
+                            '0%': { transform: 'translateY(20px)', opacity: 0 },
+                            '100%': { transform: 'translateY(0)', opacity: 1 }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-dark text-light font-sans overflow-x-hidden antialiased">
+    
+    <div class="space-background">
+        <div class="stars"></div>
+        <div class="stars2"></div>
+    </div>
+
+    <script src="components/navbar.js"></script>
+    <custom-navbar></custom-navbar>
+
+    <div id="videoModal" class="fixed inset-0 z-[10001] hidden items-center justify-center bg-black/90 backdrop-blur-sm">
+        <div class="relative w-full max-w-4xl p-4">
+            <button onclick="closeVideoModal()" class="absolute -top-10 right-4 text-white hover:text-primary transition-colors">
+                <i data-feather="x" class="w-8 h-8"></i>
+            </button>
+            <div class="relative pt-[56.25%] bg-black rounded-xl overflow-hidden shadow-2xl border border-gray-800">
+                <video id="modalVideo" class="absolute inset-0 w-full h-full" controls>
+                    <source id="videoSource" src="" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <h3 id="videoModalTitle" class="text-xl font-bold text-white mt-4 text-center"></h3>
+        </div>
+    </div>
+
+    <section class="pt-32 pb-10">
+        <div class="container mx-auto px-4">
+            <div class="text-center max-w-3xl mx-auto animate-slide-up">
+                <h1 class="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent">
+                    My Projects
+                </h1>
+                <p class="text-xl text-gray-400">
+                    A comprehensive showcase of my work in mobile development, web applications, and innovative solutions.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-10 pb-20">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <div class="group bg-gray-800/50 backdrop-blur-md rounded-2xl overflow-hidden border border-gray-700/50 hover:border-primary/50 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl">
+                    <div class="h-48 bg-gray-900 flex items-center justify-center overflow-hidden">
+                        <img src="./assets/images/kidora-screenshot.png" alt="Kidora App" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-300" onerror="this.src='https://via.placeholder.com/400x300?text=Kidora+App'">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="px-3 py-1 bg-primary/20 text-primary rounded-full text-xs font-semibold border border-primary/20">React Native</span>
+                            <span class="px-3 py-1 bg-secondary/20 text-secondary rounded-full text-xs font-semibold border border-secondary/20">Spring Boot</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 text-white">Kidora Tutoring App</h3>
+                        <p class="text-gray-400 mb-4 text-sm">Comprehensive tutoring app with learning games for ages 4-12.</p>
+                        <button onclick="openVideoModal('./assets/videos/NewVideoKiodraFixed.mp4', 'Kidora Demo')" class="inline-flex items-center text-primary hover:text-white transition-colors text-sm font-semibold">
+                            Watch Demo <i data-feather="play-circle" class="w-4 h-4 ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="group bg-gray-800/50 backdrop-blur-md rounded-2xl overflow-hidden border border-gray-700/50 hover:border-secondary/50 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl">
+                    <div class="h-48 bg-gray-900 flex items-center justify-center overflow-hidden">
+                        <img src="./assets/images/career-recommendation-screenshot.png" alt="Career App" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-300" onerror="this.src='https://via.placeholder.com/400x300?text=Career+App'">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="px-3 py-1 bg-primary/20 text-primary rounded-full text-xs font-semibold border border-primary/20">Flutter</span>
+                            <span class="px-3 py-1 bg-accent/20 text-accent rounded-full text-xs font-semibold border border-accent/20">Flask</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 text-white">Career Recommendation</h3>
+                        <p class="text-gray-400 mb-4 text-sm">Web scraping integration from GitHub/LinkedIn with 95% accuracy.</p>
+                        <button onclick="openVideoModal('./assets/videos/CareerRecommendation.mp4', 'Career App Demo')" class="inline-flex items-center text-secondary hover:text-white transition-colors text-sm font-semibold">
+                            Watch Demo <i data-feather="play-circle" class="w-4 h-4 ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="group bg-gray-800/50 backdrop-blur-md rounded-2xl overflow-hidden border border-gray-700/50 hover:border-accent/50 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl">
+                    <div class="h-48 bg-gray-900 flex items-center justify-center overflow-hidden">
+                        <img src="./assets/images/mes-screenshot.png" alt="MES App" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-300" onerror="this.src='https://via.placeholder.com/400x300?text=MES+Tracking'">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="px-3 py-1 bg-accent/20 text-accent rounded-full text-xs font-semibold border border-accent/20">Dynamics BC</span>
+                            <span class="px-3 py-1 bg-primary/20 text-primary rounded-full text-xs font-semibold border border-primary/20">Flutter</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 text-white">Production Tracking (MES)</h3>
+                        <p class="text-gray-400 mb-4 text-sm">Manufacturing Execution System monitoring 50+ production lines.</p>
+                        <button onclick="openVideoModal('./assets/videos/MesPresentationLV.mp4', 'MES Demo')" class="inline-flex items-center text-accent hover:text-white transition-colors text-sm font-semibold">
+                            Watch Demo <i data-feather="play-circle" class="w-4 h-4 ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="group bg-gray-800/50 backdrop-blur-md rounded-2xl overflow-hidden border border-gray-700/50 hover:border-primary/50 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl">
+                    <div class="h-48 bg-gray-900 flex items-center justify-center overflow-hidden">
+                        <img src="./assets/images/stripe-screenshot.png" alt="Stripe Integration" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-300" onerror="this.src='https://via.placeholder.com/400x300?text=Stripe+App'">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="px-3 py-1 bg-primary/20 text-primary rounded-full text-xs font-semibold border border-primary/20">Flutter</span>
+                            <span class="px-3 py-1 bg-secondary/20 text-secondary rounded-full text-xs font-semibold border border-secondary/20">Nest.js</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 text-white">Stripe Integration App</h3>
+                        <p class="text-gray-400 mb-4 text-sm">Secure payment gateway handling transactions with zero errors.</p>
+                        <button onclick="openVideoModal('./assets/videos/StripeIntegration.mp4', 'Stripe Demo')" class="inline-flex items-center text-primary hover:text-white transition-colors text-sm font-semibold">
+                            Watch Demo <i data-feather="play-circle" class="w-4 h-4 ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="group bg-gray-800/50 backdrop-blur-md rounded-2xl overflow-hidden border border-gray-700/50 hover:border-secondary/50 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl">
+                    <div class="h-48 bg-gray-900 flex items-center justify-center overflow-hidden">
+                        <img src="./assets/images/learnverse-screenshot.png" alt="Learnverse" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-300" onerror="this.src='https://via.placeholder.com/400x300?text=Learnverse'">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="px-3 py-1 bg-secondary/20 text-secondary rounded-full text-xs font-semibold border border-secondary/20">Angular</span>
+                            <span class="px-3 py-1 bg-accent/20 text-accent rounded-full text-xs font-semibold border border-accent/20">Django</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 text-white">Learnverse Platform</h3>
+                        <p class="text-gray-400 mb-4 text-sm">Educational platform supporting 50+ courses with enrollment tracking.</p>
+                        <button onclick="openVideoModal('./assets/videos/LearnVerseVideo.mp4', 'Learnverse Demo')" class="inline-flex items-center text-secondary hover:text-white transition-colors text-sm font-semibold">
+                            Watch Demo <i data-feather="play-circle" class="w-4 h-4 ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="group bg-gray-800/50 backdrop-blur-md rounded-2xl overflow-hidden border border-gray-700/50 hover:border-accent/50 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl">
+                    <div class="h-48 bg-gray-900 flex items-center justify-center overflow-hidden">
+                        <img src="./assets/images/safe-travel-screenshot.png" alt="Safe Travel" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-300" onerror="this.src='https://via.placeholder.com/400x300?text=Safe+Travel'">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="px-3 py-1 bg-accent/20 text-accent rounded-full text-xs font-semibold border border-accent/20">Node.js</span>
+                            <span class="px-3 py-1 bg-primary/20 text-primary rounded-full text-xs font-semibold border border-primary/20">AI</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 text-white">Safe Travel App</h3>
+                        <p class="text-gray-400 mb-4 text-sm">AI-enhanced safety application serving 200+ simulated users.</p>
+                        <a href="https://github.com/safeTravel-IA/SafeTravelFrontEnd" target="_blank" class="inline-flex items-center text-accent hover:text-white transition-colors text-sm font-semibold">
+                            View Code <i data-feather="github" class="w-4 h-4 ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="group bg-gray-800/50 backdrop-blur-md rounded-2xl overflow-hidden border border-gray-700/50 hover:border-primary/50 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl">
+                    <div class="h-48 bg-gray-900 flex items-center justify-center overflow-hidden">
+                        <img src="./assets/images/solar-system-screenshot.jpg" alt="Solar System" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-300" onerror="this.src='https://via.placeholder.com/400x300?text=Solar+System'">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="px-3 py-1 bg-primary/20 text-primary rounded-full text-xs font-semibold border border-primary/20">Unity</span>
+                            <span class="px-3 py-1 bg-accent/20 text-accent rounded-full text-xs font-semibold border border-accent/20">C#</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 text-white">3D Solar System</h3>
+                        <p class="text-gray-400 mb-4 text-sm">3D simulation with real orbital mechanics.</p>
+                        <a href="https://gitlab.com/omardjo/solar_system_project.git" target="_blank" class="inline-flex items-center text-primary hover:text-white transition-colors text-sm font-semibold">
+                            View Repo <i data-feather="github" class="w-4 h-4 ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="text-center mt-16">
+                <a href="index.html" class="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-primary to-secondary rounded-full font-semibold text-white hover:shadow-2xl hover:shadow-primary/30 transition-all duration-300 transform hover:-translate-y-1">
+                    <i data-feather="arrow-left" class="w-5 h-5"></i>
+                    Back to Home
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <script src="components/footer.js"></script>
+    <custom-footer></custom-footer>
+
+    <script src="components/chatbot.js"></script>
+    <custom-chatbot></custom-chatbot>
+
+    <script src="script.js"></script>
+    <script>
+        feather.replace();
+
+        // Video Modal Logic
+        function openVideoModal(videoPath, title) {
+            const modal = document.getElementById('videoModal');
+            const video = document.getElementById('modalVideo');
+            const source = document.getElementById('videoSource');
+            const titleEl = document.getElementById('videoModalTitle');
+
+            source.src = videoPath;
+            video.load();
+            titleEl.innerText = title;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            video.play();
+        }
+
+        function closeVideoModal() {
+            const modal = document.getElementById('videoModal');
+            const video = document.getElementById('modalVideo');
+            video.pause();
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+        
+        document.getElementById('videoModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeVideoModal();
+            }
+        });
+    </script>
+</body>
+</html>
