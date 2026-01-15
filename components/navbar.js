@@ -149,7 +149,7 @@ class CustomNavbar extends HTMLElement {
                     <div class="nav-content">
                         <a href="index.html" class="logo">
                             <i data-feather="code" class="logo-icon"></i>
-                            <span>Omar</span>
+                            <span>Portfolio</span>
                         </a>
                         
                         <div class="nav-links">
