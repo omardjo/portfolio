@@ -45,6 +45,10 @@
 </head>
 <body class="bg-dark text-slate-300 font-sans overflow-x-hidden antialiased">
     
+    <div class="fixed top-0 left-0 w-full h-1.5 z-[9999] bg-gray-800/20 backdrop-blur-sm">
+        <div id="scrollProgressBar" class="h-full bg-gradient-to-r from-accent via-primary to-secondary w-0 shadow-[0_0_10px_rgba(6,182,212,0.7)] transition-all duration-100 ease-out rounded-r-full"></div>
+    </div>
+
     <div class="space-background">
         <div class="stars"></div>
         <div class="stars2"></div>
@@ -209,6 +213,16 @@
 
     <script>
         feather.replace();
+
+        // SCROLL PROGRESS BAR LOGIC
+        window.onscroll = function() { updateProgressBar() };
+
+        function updateProgressBar() {
+            var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            var scrolled = (winScroll / height) * 100;
+            document.getElementById("scrollProgressBar").style.width = scrolled + "%";
+        }
     </script>
 </body>
 </html>
