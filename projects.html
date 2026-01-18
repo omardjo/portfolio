@@ -8,8 +8,11 @@
     <link rel="stylesheet" href="style.css">
     
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    
     <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     
     <script>
         tailwind.config = {
@@ -61,6 +64,11 @@
     <script src="components/navbar.js"></script>
     <custom-navbar></custom-navbar>
 
+    <script src="components/chatbot.js"></script>
+    <custom-chatbot></custom-chatbot>
+
+    <script src="components/audio-player.js"></script>
+    <custom-audio-player></custom-audio-player>
     <div id="videoModal" class="fixed inset-0 z-[10001] hidden items-center justify-center bg-black/90 backdrop-blur-sm">
         <div class="relative w-full max-w-4xl p-4">
             <button onclick="closeVideoModal()" class="absolute -top-10 right-4 text-white hover:text-primary transition-colors">
@@ -226,9 +234,6 @@
     <script src="components/footer.js"></script>
     <custom-footer></custom-footer>
 
-    <script src="components/chatbot.js"></script>
-    <custom-chatbot></custom-chatbot>
-
     <script src="script.js"></script>
     <script>
         feather.replace();
@@ -243,12 +248,19 @@
             document.getElementById("scrollProgressBar").style.width = scrolled + "%";
         }
 
-        // Video Modal Logic
+        // Video Modal Logic with Audio Handling
         function openVideoModal(videoPath, title) {
             const modal = document.getElementById('videoModal');
             const video = document.getElementById('modalVideo');
             const source = document.getElementById('videoSource');
             const titleEl = document.getElementById('videoModalTitle');
+
+            // Find the audio element (it's injected by custom-audio-player)
+            const bgAudio = document.getElementById('bgMusic');
+            if (bgAudio && !bgAudio.paused) {
+                bgAudio.pause();
+                bgAudio.dataset.wasPlaying = "true"; // Remember it was playing
+            }
 
             source.src = videoPath;
             video.load();
@@ -264,6 +276,13 @@
             video.pause();
             modal.classList.add('hidden');
             modal.classList.remove('flex');
+            
+            // Resume background audio if it was playing before
+            const bgAudio = document.getElementById('bgMusic');
+            if (bgAudio && bgAudio.dataset.wasPlaying === "true") {
+                bgAudio.play();
+                bgAudio.dataset.wasPlaying = "false";
+            }
         }
         
         document.getElementById('videoModal').addEventListener('click', function(e) {

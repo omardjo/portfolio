@@ -9,7 +9,6 @@
     
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <script src="https://unpkg.com/feather-icons"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -67,6 +66,9 @@
 
     <script src="components/chatbot.js"></script>
     <custom-chatbot></custom-chatbot>
+
+    <script src="components/audio-player.js"></script>
+    <custom-audio-player></custom-audio-player>
 
     <div id="videoModal" class="fixed inset-0 z-[10001] hidden items-center justify-center bg-black/90 backdrop-blur-sm">
         <div class="relative w-full max-w-4xl p-4">
@@ -369,7 +371,6 @@
                             </ul>
                         </div>
                     </div>
-
                 </div>
 
                 <div class="text-center mt-12">
@@ -378,7 +379,6 @@
                         <i data-feather="clock" class="w-4 h-4"></i>
                     </a>
                 </div>
-
             </div>
         </div>
     </section>
@@ -523,7 +523,9 @@
     <custom-footer></custom-footer>
 
     <script src="script.js"></script>
+    
     <script>
+        // Init Feather Icons
         feather.replace();
 
         // SCROLL PROGRESS BAR LOGIC
@@ -536,12 +538,20 @@
             document.getElementById("scrollProgressBar").style.width = scrolled + "%";
         }
 
-        // Video Modal Logic (Ensure this runs after DOM load)
+        // Video Modal Logic
         function openVideoModal(videoPath, title) {
             const modal = document.getElementById('videoModal');
             const video = document.getElementById('modalVideo');
             const source = document.getElementById('videoSource');
             const titleEl = document.getElementById('videoModalTitle');
+
+            // Find the audio component (since it is inside Shadow DOM or Custom Element now)
+            // But since our custom element injects directly into its innerHTML, document.getElementById works!
+            const bgAudio = document.getElementById('bgMusic');
+            if (bgAudio && !bgAudio.paused) {
+                bgAudio.pause();
+                bgAudio.dataset.wasPlaying = "true";
+            }
 
             source.src = videoPath;
             video.load();
@@ -557,6 +567,13 @@
             video.pause();
             modal.classList.add('hidden');
             modal.classList.remove('flex');
+            
+            const bgAudio = document.getElementById('bgMusic');
+            // We check if it WAS playing, AND if user hasn't muted it in the meantime via other tab logic (rare edge case)
+            if (bgAudio && bgAudio.dataset.wasPlaying === "true") {
+                bgAudio.play();
+                bgAudio.dataset.wasPlaying = "false";
+            }
         }
         
         document.getElementById('videoModal').addEventListener('click', function(e) {
