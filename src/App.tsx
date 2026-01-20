@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-// FIX: Use HashRouter for safe static deployment
+// CHANGE: Import HashRouter instead of BrowserRouter
 import { HashRouter as Router, Routes, Route, useLocation, Link } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { ArrowLeft } from 'lucide-react';
@@ -14,12 +14,14 @@ import { Certifications } from './components/Certifications';
 import { Contact } from './components/Contact';
 import { Chatbot } from './components/Chatbot';
 
+// ScrollToTop Helper
 const ScrollToTop = () => {
   const { pathname } = useLocation();
   useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
   return null;
 };
 
+// BackButton Component
 const BackButton = () => (
   <div className="container mx-auto px-4 mb-6">
     <Link 
@@ -31,7 +33,7 @@ const BackButton = () => (
   </div>
 );
 
-// Pages
+// Page Components
 const Home = () => (
   <>
     <Hero />
@@ -70,9 +72,11 @@ const AllCertificationsPage = () => (
   </div>
 );
 
+// --- MAIN APP ---
 const App = () => {
   return (
     <HelmetProvider>
+      {/* CRITICAL FIX: Using HashRouter ensures GitHub Pages doesn't break on refresh */}
       <Router>
         <ScrollToTop />
         <Layout>

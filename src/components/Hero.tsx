@@ -76,7 +76,7 @@ export const Hero = () => {
 
             <a
               href="/assets/documents/Resume.pdf"
-              download="Omar_Djebbi_Resume.pdf"
+              download="Resume.pdf"
               className="px-6 py-2.5 bg-gray-800 border border-gray-600 text-gray-300 rounded-full font-semibold hover:bg-gray-700 hover:text-white transition-all duration-300 transform hover:-translate-y-1 flex items-center gap-2"
             >
               <Download size={18} /> Download CV
