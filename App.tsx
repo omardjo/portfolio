@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation, Link } from 'react-router-dom';
+// FIX: Use HashRouter for safe static deployment
+import { HashRouter as Router, Routes, Route, useLocation, Link } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { ArrowLeft } from 'lucide-react';
 
-// Components
+// Import Components
 import { Layout } from './components/Layout';
 import { Hero } from './components/Hero';
 import { About } from './components/About';
@@ -13,14 +14,12 @@ import { Certifications } from './components/Certifications';
 import { Contact } from './components/Contact';
 import { Chatbot } from './components/Chatbot';
 
-// Helper to scroll to top
 const ScrollToTop = () => {
   const { pathname } = useLocation();
   useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
   return null;
 };
 
-// Back Button Component
 const BackButton = () => (
   <div className="container mx-auto px-4 mb-6">
     <Link 
@@ -32,7 +31,7 @@ const BackButton = () => (
   </div>
 );
 
-// --- PAGES ---
+// Pages
 const Home = () => (
   <>
     <Hero />
@@ -71,14 +70,11 @@ const AllCertificationsPage = () => (
   </div>
 );
 
-// --- MAIN APP ---
 const App = () => {
   return (
     <HelmetProvider>
-      {/* 1. ROUTER MUST BE THE PARENT OF EVERYTHING */}
       <Router>
         <ScrollToTop />
-        {/* 2. Layout is now INSIDE Router, so useLocation works */}
         <Layout>
           <Routes>
             <Route path="/" element={<Home />} />

@@ -5,6 +5,8 @@ import react from '@vitejs/plugin-react';
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, '.', '');
     return {
+      // 1. IMPORTANT: Base must be '/' for custom domains like portfolio.tijari.biz
+      base: '/', 
       server: {
         port: 3000,
         host: '0.0.0.0',
