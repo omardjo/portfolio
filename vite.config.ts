@@ -5,7 +5,7 @@ import react from '@vitejs/plugin-react';
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, '.', '');
     return {
-      // 1. IMPORTANT: Base must be '/' for custom domains like portfolio.tijari.biz
+      // Base must be '/' for your custom domain
       base: '/', 
       server: {
         port: 3000,
@@ -18,7 +18,8 @@ export default defineConfig(({ mode }) => {
       },
       resolve: {
         alias: {
-          '@': path.resolve(__dirname, '.'),
+          // UPDATE THIS LINE: Point @ to the new src folder
+          '@': path.resolve(__dirname, './src'),
         }
       }
     };
