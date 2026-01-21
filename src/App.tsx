@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
-// CHANGE: Import HashRouter instead of BrowserRouter
+// 1. IMPORT THE CSS FILE HERE TO FIX THE "DAMAGED STYLE" ISSUE
+import './index.css'; 
+
 import { HashRouter as Router, Routes, Route, useLocation, Link } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { ArrowLeft } from 'lucide-react';
@@ -76,7 +78,6 @@ const AllCertificationsPage = () => (
 const App = () => {
   return (
     <HelmetProvider>
-      {/* CRITICAL FIX: Using HashRouter ensures GitHub Pages doesn't break on refresh */}
       <Router>
         <ScrollToTop />
         <Layout>

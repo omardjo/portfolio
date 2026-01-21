@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import './index.css'; // <--- ADD THIS LINE
+// 👇 THIS IS THE MISSING LINE! ADD IT NOW.
+import './index.css'; 
 
 const rootElement = document.getElementById('root');
 if (!rootElement) {
