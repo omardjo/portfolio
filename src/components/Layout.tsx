@@ -1,106 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { Menu, X, Code, Github, Linkedin, Twitter, Mail } from 'lucide-react';
+import React from 'react';
+import { Github, Linkedin, Twitter, Mail } from 'lucide-react';
 import { motion, useScroll, useSpring } from 'framer-motion';
-import { useLocation, Link } from 'react-router-dom'; // Added for routing logic
-import { AudioPlayer } from './AudioPlayer'; // Import the AudioPlayer
 
-const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const location = useLocation(); // Get current page path
-  const isHome = location.pathname === '/';
+// Import the Navbar (Default import)
+import Navbar from './Navbar'; 
+// Import AudioPlayer (ensure this file exists in components folder)
+import { AudioPlayer } from './AudioPlayer';
 
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const navLinks = [
-    { name: 'About', href: '#about' },
-    { name: 'Projects', href: '#projects' }, // If you want this to link to section on home
-    // If 'Projects' should link to the separate page, change href to '/projects' and adjust logic
-    { name: 'Experience', href: '#experience' },
-    { name: 'Certifications', href: '#certifications' },
-    { name: 'Contact', href: '#contact' },
-  ];
-
-  // Helper to determine where a link should go
-  const getLinkTarget = (href: string) => {
-    // If it's a hash link (#about) and we are NOT on home, go to /#about
-    if (href.startsWith('#') && !isHome) {
-      return `/${href}`;
-    }
-    return href;
-  };
-
-  return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-dark/95 backdrop-blur-md border-b border-white/10 py-2' : 'bg-transparent py-4'}`}>
-      <div className="container mx-auto px-4 max-w-6xl">
-        <div className="flex justify-between items-center">
-          {/* Logo links back to Home */}
-          <Link to="/" className="flex items-center gap-2 font-bold text-xl text-white hover:text-primary transition-colors">
-            <Code className="w-6 h-6 text-primary" />
-            <span>Omar Djebbi</span>
-          </Link>
-
-          {/* Desktop Nav */}
-          <div className="hidden md:flex gap-8">
-            {navLinks.map((link) => (
-              <a 
-                key={link.name} 
-                href={getLinkTarget(link.href)} 
-                className="text-slate-300 hover:text-white font-medium transition-colors relative group"
-              >
-                {link.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-secondary transition-all group-hover:w-full" />
-              </a>
-            ))}
-            {/* Direct link to All Projects Page if not in the list above */}
-            {!isHome && (
-               <Link to="/" className="text-slate-300 hover:text-white font-medium transition-colors">
-                  Home
-               </Link>
-            )}
-          </div>
-
-          {/* Mobile Toggle */}
-          <button className="md:hidden text-white" onClick={() => setIsOpen(!isOpen)}>
-            {isOpen ? <X /> : <Menu />}
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile Menu */}
-      {isOpen && (
-        <motion.div 
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="md:hidden absolute top-full left-0 right-0 bg-dark/95 border-b border-white/10 p-4 flex flex-col gap-4 backdrop-blur-md"
-        >
-          {navLinks.map((link) => (
-            <a 
-              key={link.name} 
-              href={getLinkTarget(link.href)}
-              onClick={() => setIsOpen(false)}
-              className="text-slate-300 hover:text-primary py-2 px-4 rounded hover:bg-white/5 transition-all"
-            >
-              {link.name}
-            </a>
-          ))}
-          <Link 
-            to="/projects" 
-            onClick={() => setIsOpen(false)}
-            className="text-slate-300 hover:text-primary py-2 px-4 rounded hover:bg-white/5 transition-all font-semibold"
-          >
-            All Projects Archive
-          </Link>
-        </motion.div>
-      )}
-    </nav>
-  );
-};
-
+// --- Footer Component ---
 const Footer = () => {
   return (
     <footer className="bg-dark/80 backdrop-blur-md border-t border-white/10 pt-12 pb-6 relative z-10">
@@ -140,6 +47,7 @@ const Footer = () => {
   );
 };
 
+// --- Scroll Progress Bar ---
 const ScrollProgress = () => {
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
@@ -156,29 +64,30 @@ const ScrollProgress = () => {
   );
 };
 
-// Updated to match your CSS file (space-background-fixed)
+// --- Background Effects ---
 const BackgroundEffects = () => (
-  <div className="space-background-fixed">
+  <div className="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
      <div className="stars"></div>
      <div className="stars2"></div>
   </div>
 );
 
-export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+// --- Main Layout Export ---
+// This is the Named Export that App.tsx is looking for
+export const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="relative min-h-screen flex flex-col">
       <BackgroundEffects />
       <ScrollProgress />
       
-      <Navbar />
+      {/* The Navbar is used here */}
+      <Navbar /> 
       
       <main className="flex-grow pt-20">
         {children}
       </main>
       
-      {/* Persistent Audio Player */}
       <AudioPlayer />
-      
       <Footer />
     </div>
   );

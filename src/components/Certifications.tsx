@@ -42,8 +42,13 @@ export const Certifications: React.FC<CertProps> = ({ limit }) => {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {displayedCerts.map((cert, index) => {
             const Icon = iconMap[cert.icon] || Globe;
+            // Detect if color is a hex code or a standard tailwind color name
             const isHex = cert.color.startsWith('#');
             
+            // Note: If you use tailwind colors like "blue", you must use style objects
+            // because `bg-${color}` won't work in production builds.
+            const accentColor = isHex ? cert.color : '#6366f1'; // Fallback to primary if not hex
+
             return (
               <motion.div
                 key={cert.id}
@@ -51,17 +56,24 @@ export const Certifications: React.FC<CertProps> = ({ limit }) => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                // UPDATED: Used hover-glow-border class for better readability
                 className="group relative backdrop-blur-md rounded-2xl p-8 border border-white/5 hover:border-white/10 hover-glow-border transition-all duration-300 transform hover:-translate-y-2 flex flex-col"
               >
                 <div className="flex justify-between items-start mb-4 relative z-10">
-                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${!isHex ? `bg-${cert.color}/20 text-${cert.color}` : ''}`}
-                       style={isHex ? { backgroundColor: `${cert.color}33`, color: cert.color } : {}}
+                  <div 
+                    className="w-12 h-12 rounded-xl flex items-center justify-center"
+                    style={{ 
+                      backgroundColor: `${accentColor}33`, // 20% opacity
+                      color: accentColor 
+                    }}
                   >
                     <Icon size={24} />
                   </div>
-                  <span className={`px-3 py-1 rounded-full text-xs font-semibold ${!isHex ? `bg-${cert.color}/10 text-${cert.color}` : ''}`}
-                        style={isHex ? { backgroundColor: `${cert.color}1a`, color: cert.color } : {}}
+                  <span 
+                    className="px-3 py-1 rounded-full text-xs font-semibold"
+                    style={{ 
+                      backgroundColor: `${accentColor}1a`, // 10% opacity
+                      color: accentColor 
+                    }}
                   >
                     {cert.date}
                   </span>
@@ -78,8 +90,10 @@ export const Certifications: React.FC<CertProps> = ({ limit }) => {
                     download
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`flex items-center justify-center gap-2 text-sm font-semibold text-white py-2 px-4 rounded-lg transition-colors w-full ${!isHex ? `bg-${cert.color} hover:bg-${cert.color}/80` : ''}`}
-                    style={isHex ? { backgroundColor: cert.color } : {}}
+                    className="flex items-center justify-center gap-2 text-sm font-semibold text-white py-2 px-4 rounded-lg transition-colors w-full"
+                    style={{ backgroundColor: accentColor }}
+                    onMouseEnter={(e) => e.currentTarget.style.opacity = '0.9'}
+                    onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
                   >
                     <Download size={16} /> Download
                   </a>

@@ -1,23 +1,43 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-const SkillBar = ({ name, level, color }: { name: string, level: number, color: string }) => (
-  <div className="mb-4">
-    <div className="flex justify-between mb-1">
-      <span className="font-semibold text-white text-sm">{name}</span>
-      <span className={`text-${color}-400 text-xs font-bold`}>{level}%</span>
+// Fixed: Use strict mappings instead of dynamic strings for Tailwind
+const colorVariants: Record<string, { text: string; gradient: string }> = {
+  blue: { 
+    text: 'text-blue-400', 
+    gradient: 'from-blue-500 to-cyan-500' 
+  },
+  purple: { 
+    text: 'text-purple-400', 
+    gradient: 'from-purple-500 to-pink-500' 
+  },
+  green: { 
+    text: 'text-emerald-400', 
+    gradient: 'from-emerald-400 to-green-500' 
+  }
+};
+
+const SkillBar = ({ name, level, color }: { name: string, level: number, color: string }) => {
+  const variant = colorVariants[color] || colorVariants.blue;
+
+  return (
+    <div className="mb-4">
+      <div className="flex justify-between mb-1">
+        <span className="font-semibold text-white text-sm">{name}</span>
+        <span className={`${variant.text} text-xs font-bold`}>{level}%</span>
+      </div>
+      <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
+        <motion.div 
+          initial={{ width: 0 }}
+          whileInView={{ width: `${level}%` }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          className={`h-full bg-gradient-to-r ${variant.gradient}`}
+        />
+      </div>
     </div>
-    <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
-      <motion.div 
-        initial={{ width: 0 }}
-        whileInView={{ width: `${level}%` }}
-        viewport={{ once: true }}
-        transition={{ duration: 1, ease: "easeOut" }}
-        className={`h-full bg-gradient-to-r ${color === 'blue' ? 'from-blue-500 to-cyan-500' : color === 'purple' ? 'from-purple-500 to-pink-500' : 'from-emerald-400 to-green-500'}`}
-      />
-    </div>
-  </div>
-);
+  );
+};
 
 export const About = () => {
   return (
@@ -66,6 +86,7 @@ export const About = () => {
               className="bg-card/50 backdrop-blur-md rounded-2xl p-8 border border-gray-700/50 shadow-xl"
             >
               <h3 className="text-2xl font-bold mb-6 text-cyan-400">Technical Skills</h3>
+              {/* Note: Colors must match keys in colorVariants above */}
               <SkillBar name="Flutter & Dart" level={95} color="blue" />
               <SkillBar name="Node.js & Backend" level={85} color="blue" />
               <SkillBar name="React Native" level={80} color="purple" />

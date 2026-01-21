@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Code } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  
+  // Check if we are currently on the Home page
   const isHome = location.pathname === '/';
 
   useEffect(() => {
@@ -23,18 +26,45 @@ const Navbar = () => {
     { name: 'Contact', href: '#contact' },
   ];
 
-  const getLinkTarget = (href: string) => {
-    if (href.startsWith('#') && !isHome) {
-      return `/${href}`;
+  // --- THE FIX: Smart Scroll Handler ---
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    // Only intercept links that start with '#' (sections)
+    if (href.startsWith('#')) {
+      e.preventDefault(); // STOP the router from changing the URL (Fixes the empty page)
+      
+      const targetId = href.replace('#', '');
+      const element = document.getElementById(targetId);
+
+      if (isHome) {
+        // If we are already Home, just scroll to the section
+        if (element) {
+          const navHeight = 80; // Offset for the fixed header
+          const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+          const offsetPosition = elementPosition - navHeight;
+      
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth"
+          });
+        }
+      } else {
+        // If we are on another page (like /projects), go Home first
+        navigate('/');
+        // Wait for Home to load, then scroll
+        setTimeout(() => {
+          const element = document.getElementById(targetId);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 100);
+      }
+      setIsOpen(false); // Close mobile menu
     }
-    return href;
   };
 
   return (
-    // Outer container handles positioning
     <nav className={`fixed top-0 left-0 right-0 z-50 flex justify-center transition-all duration-300 ${scrolled ? 'pt-4' : 'pt-6'}`}>
       
-      {/* Inner Container: The Floating Glass Pill */}
       <div className={`
         relative w-[95%] max-w-6xl mx-auto px-6 py-3 rounded-full transition-all duration-300
         ${scrolled 
@@ -61,8 +91,9 @@ const Navbar = () => {
             {navLinks.map((link) => (
               <a 
                 key={link.name} 
-                href={getLinkTarget(link.href)} 
-                className="px-4 py-2 rounded-full text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 transition-all duration-300"
+                href={link.href}
+                onClick={(e) => handleNavClick(e, link.href)} // <--- THIS IS CRITICAL
+                className="px-4 py-2 rounded-full text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 transition-all duration-300 cursor-pointer"
               >
                 {link.name}
               </a>
@@ -75,7 +106,7 @@ const Navbar = () => {
           </button>
         </div>
 
-        {/* Mobile Menu Dropdown (Inside the glass container context) */}
+        {/* Mobile Menu Dropdown */}
         <AnimatePresence>
           {isOpen && (
             <motion.div 
@@ -94,9 +125,9 @@ const Navbar = () => {
               {navLinks.map((link) => (
                 <a 
                   key={link.name} 
-                  href={getLinkTarget(link.href)}
-                  onClick={() => setIsOpen(false)}
-                  className="text-center py-3 rounded-xl bg-white/5 text-slate-300 hover:bg-white/10 hover:text-white"
+                  href={link.href}
+                  onClick={(e) => handleNavClick(e, link.href)} // <--- APPLIED HERE TOO
+                  className="text-center py-3 rounded-xl bg-white/5 text-slate-300 hover:bg-white/10 hover:text-white cursor-pointer"
                 >
                   {link.name}
                 </a>
