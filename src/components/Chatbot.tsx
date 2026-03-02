@@ -60,8 +60,9 @@ export const Chatbot = () => {
              animate={{ scale: 1 }}
              exit={{ scale: 0 }}
              onClick={() => setIsOpen(true)}
-             className="fixed bottom-8 right-8 z-40 w-14 h-14 bg-primary hover:bg-secondary text-white rounded-full flex items-center justify-center shadow-lg hover:shadow-primary/50 transition-all"
-             aria-label="Open Chatbot"
+             className="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-40 w-14 h-14 min-w-[48px] min-h-[48px] bg-primary hover:bg-secondary text-white rounded-full flex items-center justify-center shadow-lg hover:shadow-primary/50 transition-all active:scale-95 cursor-pointer"
+             style={{ touchAction: 'manipulation' }}
+             aria-label="Ouvrir le Chatbot"
            >
              <MessageSquare />
            </motion.button>
@@ -74,12 +75,12 @@ export const Chatbot = () => {
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="fixed bottom-24 right-4 md:right-8 z-50 w-[350px] max-w-[90vw] h-[500px] bg-dark border border-gray-700 rounded-2xl shadow-2xl flex flex-col overflow-hidden"
+            className="fixed bottom-20 right-2 md:bottom-24 md:right-8 z-50 w-[350px] max-w-[92vw] h-[450px] md:h-[500px] bg-dark border border-gray-700 rounded-2xl shadow-2xl flex flex-col overflow-hidden"
           >
             {/* Header */}
             <div className="bg-primary p-4 flex justify-between items-center text-white">
               <h3 className="font-bold flex items-center gap-2"><MessageSquare size={18}/> Omar's AI Assistant</h3>
-              <button onClick={() => setIsOpen(false)} className="hover:bg-white/20 p-1 rounded"><X size={18}/></button>
+              <button onClick={() => setIsOpen(false)} className="hover:bg-white/20 p-2 min-w-[44px] min-h-[44px] rounded flex items-center justify-center active:scale-95" style={{ touchAction: 'manipulation' }}><X size={18}/></button>
             </div>
 
             {/* Messages */}

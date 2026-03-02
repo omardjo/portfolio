@@ -1,59 +1,60 @@
 import { Project, Experience, Certificate } from './types';
 
+// FLUTTER FOCUS: Projects reordered - Flutter projects first
 export const PROJECTS: Project[] = [
   {
-    id: 'kidora',
-    title: 'Kidora Tutoring App',
-    description: 'Comprehensive tutoring app with learning games for ages 4-12. Features parental dashboard and real-time progress tracking.',
-    tags: ['React Native', 'Spring Boot'],
-    image: '/assets/images/kidora_cap.png',
-    videoUrl: '/assets/videos/NewVideoKiodraFixed.mp4', // Matches your original file name
-    demoUrl: '#'
+    id: 'stripe',
+    title: 'Stripe Integration App',
+    description: 'Application mobile de paiement sécurisé avec gateway Stripe, gestion fournisseurs/inventaire et chatbot IA. Zéro erreur de transaction.',
+    tags: ['Flutter', 'Nest.js', 'Stripe', 'Firebase'],
+    image: '/assets/images/stripe-screenshot.png',
+    videoUrl: '/assets/videos/StripeIntegration.mp4'
   },
   {
     id: 'career',
     title: 'Career Recommendation',
-    description: 'Web scraping integration from GitHub/LinkedIn with 95% accuracy to recommend career paths.',
-    tags: ['Flutter', 'Flask'],
+    description: 'Application Flutter avec web scraping GitHub/LinkedIn et recommandation de carrière IA avec 95% de précision.',
+    tags: ['Flutter', 'Flask', 'AI', 'Firebase'],
     image: '/assets/images/career-recommendation-screenshot.png',
     videoUrl: '/assets/videos/CareerRecommendation.mp4'
   },
   {
     id: 'mes',
     title: 'Production Tracking (MES)',
-    description: 'Manufacturing Execution System monitoring 50+ production lines with real-time analytics.',
-    tags: ['Dynamics BC', 'Flutter'],
+    description: 'Système MES de suivi de production en temps réel pour 50+ lignes avec analytics avancées.',
+    tags: ['Flutter Web', 'Dynamics BC', 'AL'],
     image: '/assets/images/mes-screenshot.png',
     videoUrl: '/assets/videos/MesPresentationLV.mp4'
   },
   {
-    id: 'stripe',
-    title: 'Stripe Integration App',
-    description: 'Secure payment gateway handling transactions with zero errors using Nest.js backend.',
-    tags: ['Flutter', 'Nest.js'],
-    image: '/assets/images/stripe-screenshot.png',
-    videoUrl: '/assets/videos/StripeIntegration.mp4'
+    id: 'kidora',
+    title: 'Kidora Tutoring App',
+    description: 'Application éducative gamifiée pour enfants 4-12 ans avec tableau de bord parental et suivi de progression en temps réel.',
+    tags: ['React Native', 'Spring Boot'],
+    image: '/assets/images/kidora_cap.png',
+    videoUrl: '/assets/videos/NewVideoKiodraFixed.mp4',
+    demoUrl: '#'
+  },
+  {
+    id: 'safetravel',
+    title: 'Safe Travel App',
+    description: 'Application de sécurité enrichie par IA servant 200+ utilisateurs avec fonctions d\'urgence.',
+    tags: ['Node.js', 'AI', 'Flutter'],
+    image: '/assets/images/safe-travel-screenshot.png',
+    repoUrl: 'https://github.com/safeTravel-IA/SafeTravelFrontEnd'
   },
   {
     id: 'learnverse',
     title: 'Learnverse Platform',
-    description: 'Educational platform supporting 50+ courses with enrollment tracking.',
+    description: 'Plateforme éducative web supportant 50+ cours avec suivi d\'inscription.',
     tags: ['Angular', 'Django'],
     image: '/assets/images/learnverse-screenshot.png',
     videoUrl: '/assets/videos/LearnVerseVideo.mp4'
   },
   {
-    id: 'safetravel',
-    title: 'Safe Travel App',
-    description: 'AI-enhanced safety application serving 200+ simulated users with emergency response features.',
-    tags: ['Node.js', 'AI'],
-    image: '/assets/images/safe-travel-screenshot.png',
-    repoUrl: 'https://github.com/safeTravel-IA/SafeTravelFrontEnd'
-  },
-  {
     id: 'solar',
     title: '3D Solar System',
-    description: '3D simulation with real orbital mechanics.',
+    description: 'Simulation 3D avec mécanique orbitale réaliste.',
     tags: ['Unity', 'C#'],
     image: '/assets/images/solar-system-screenshot.jpg',
     repoUrl: 'https://gitlab.com/omardjo/solar_system_project.git'

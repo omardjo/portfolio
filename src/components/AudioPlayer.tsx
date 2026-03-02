@@ -57,15 +57,17 @@ export const AudioPlayer = () => {
   };
 
   return (
-    <div className="fixed bottom-6 left-6 z-[50]">
-      {/* Ensure this path matches where your MP3 file is located */}
+    // FIX MOBILE: Audio player with proper touch target
+    <div className="fixed bottom-4 left-4 md:bottom-6 md:left-6 z-[50]">
       <audio ref={audioRef} loop preload="auto">
         <source src="/assets/audio/space.mp3" type="audio/mpeg" />
       </audio>
 
       <button
         onClick={toggleAudio}
-        className="w-14 h-14 rounded-full bg-gray-900/80 backdrop-blur-md border border-gray-600 text-white flex items-center justify-center shadow-[0_0_15px_rgba(0,0,0,0.5)] hover:shadow-[0_0_20px_rgba(99,102,241,0.6)] hover:border-primary transition-all duration-300 group"
+        className="w-12 h-12 min-w-[48px] min-h-[48px] rounded-full bg-gray-900/80 backdrop-blur-md border border-gray-600 text-white flex items-center justify-center shadow-[0_0_15px_rgba(0,0,0,0.5)] hover:shadow-[0_0_20px_rgba(99,102,241,0.6)] hover:border-primary transition-all duration-300 active:scale-95 cursor-pointer group"
+        style={{ touchAction: 'manipulation' }}
+        aria-label={isPlaying ? 'Mute audio' : 'Play audio'}
       >
         {isPlaying ? (
           <Volume2 className="w-6 h-6 text-primary group-hover:scale-110 transition-transform" />

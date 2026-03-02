@@ -36,11 +36,12 @@ const BackButton = () => (
 );
 
 // Page Components
+// FLUTTER FOCUS: Section order - Hero > About > Flutter Apps > Experience > Certifications > Contact
 const Home = () => (
   <>
     <Hero />
     <About />
-    <Projects featuredIds={['kidora', 'stripe', 'mes']} />
+    <Projects featuredIds={['stripe', 'career', 'mes', 'kidora']} />
     <Experience limit={3} />
     <Certifications limit={3} />
     <Contact />
@@ -58,7 +59,7 @@ const AllExperiencePage = () => (
   <div className="pt-28 pb-10">
     <BackButton />
     <div className="container mx-auto px-4 mb-10 text-center">
-      <h1 className="text-4xl font-bold text-white mb-4">Full Career History</h1>
+      <h1 className="text-4xl font-bold text-white mb-4">Parcours Professionnel Complet</h1>
     </div>
     <Experience />
   </div>
@@ -68,7 +69,7 @@ const AllCertificationsPage = () => (
   <div className="pt-28 pb-10">
     <BackButton />
     <div className="container mx-auto px-4 mb-10 text-center">
-      <h1 className="text-4xl font-bold text-white mb-4">All Certifications</h1>
+      <h1 className="text-4xl font-bold text-white mb-4">Toutes les Certifications</h1>
     </div>
     <Certifications />
   </div>

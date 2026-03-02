@@ -1,6 +1,7 @@
+// FLUTTER FOCUS: Projects section with Flutter branding + FIX MOBILE touch targets
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { PlayCircle, Github, ArrowRight } from 'lucide-react';
+import { PlayCircle, Github, ArrowRight, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { PROJECTS } from '../constants';
 import { VideoModal } from './VideoModal';
@@ -23,20 +24,21 @@ export const Projects: React.FC<ProjectsProps> = ({ featuredIds }) => {
   };
 
   return (
-    <section id="projects" className="py-20 relative">
+    <section id="projects" className="py-16 md:py-20 relative">
       <div className="container mx-auto px-4 max-w-6xl relative z-10">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gradient-animate">
-            {featuredIds ? 'Featured Projects' : 'All Projects'}
+        <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+          {/* FLUTTER FOCUS: Section title */}
+          <h2 className="text-3xl md:text-5xl font-bold mb-4 md:mb-6 text-gradient-animate">
+            {featuredIds ? 'Mes Apps Flutter' : 'Tous les Projets'}
           </h2>
           {!featuredIds && (
-            <p className="text-xl text-gray-400">
-              A comprehensive showcase of my work in mobile development, web applications, and innovative solutions.
+            <p className="text-lg text-gray-400">
+              Un showcase complet de mes travaux en développement mobile Flutter, applications web et solutions innovantes.
             </p>
           )}
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {displayedProjects.map((project, index) => (
             <motion.div
               key={project.id}
@@ -44,10 +46,9 @@ export const Projects: React.FC<ProjectsProps> = ({ featuredIds }) => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              // FIX: Removed 'bg-card/30'. The 'hover-glow-border' class now handles the background.
-              className="group relative backdrop-blur-md rounded-2xl overflow-hidden hover-glow-border hover:-translate-y-2 flex flex-col border border-white/5"
+              className="group relative backdrop-blur-md rounded-2xl overflow-hidden hover-glow-border hover:-translate-y-2 flex flex-col border border-white/5 transition-all duration-300"
             >
-              <div className="h-48 bg-gray-900 relative overflow-hidden flex items-center justify-center">
+              <div className="h-44 md:h-48 bg-gray-900 relative overflow-hidden flex items-center justify-center">
                 <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all duration-500 z-10" />
                 <img 
                   src={project.image} 
@@ -57,36 +58,50 @@ export const Projects: React.FC<ProjectsProps> = ({ featuredIds }) => {
                 />
               </div>
 
-              <div className="p-6 flex-grow flex flex-col relative z-10">
-                <div className="flex flex-wrap gap-2 mb-3">
+              <div className="p-5 md:p-6 flex-grow flex flex-col relative z-10">
+                <div className="flex flex-wrap gap-1.5 md:gap-2 mb-3">
                   {project.tags.map((tag, i) => (
-                    <span key={tag} className={`px-3 py-1 rounded-full text-xs font-semibold border ${i % 2 === 0 ? 'bg-primary/10 text-primary border-primary/20' : 'bg-secondary/10 text-secondary border-secondary/20'}`}>
+                    <span key={tag} className={`px-2.5 py-1 rounded-full text-xs font-semibold border ${i % 2 === 0 ? 'bg-primary/10 text-primary border-primary/20' : 'bg-secondary/10 text-secondary border-secondary/20'}`}>
                       {tag}
                     </span>
                   ))}
                 </div>
-                <h3 className="text-xl font-bold mb-3 text-white">{project.title}</h3>
+                <h3 className="text-lg md:text-xl font-bold mb-2 md:mb-3 text-white">{project.title}</h3>
                 <p className="text-gray-400 mb-4 text-sm flex-grow">
                   {project.description}
                 </p>
                 
-                <div className="mt-auto flex gap-4">
+                {/* FIX MOBILE: Buttons with proper touch targets */}
+                <div className="mt-auto flex gap-3 flex-wrap">
                   {project.videoUrl && (
                     <button 
                       onClick={() => openVideo(project.videoUrl!, project.title)}
-                      className="inline-flex items-center text-primary hover:text-white transition-colors text-sm font-semibold gap-1"
+                      className="inline-flex items-center min-h-[44px] px-3 py-2 text-primary hover:text-white hover:bg-primary/20 rounded-lg transition-all text-sm font-semibold gap-1.5 active:scale-95 cursor-pointer"
+                      style={{ touchAction: 'manipulation' }}
                     >
-                      Watch Demo <PlayCircle size={16} />
+                      Démo <PlayCircle size={16} />
                     </button>
+                  )}
+                  {project.demoUrl && project.demoUrl !== '#' && (
+                    <a 
+                      href={project.demoUrl} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center min-h-[44px] px-3 py-2 text-green-400 hover:text-white hover:bg-green-500/20 rounded-lg transition-all text-sm font-semibold gap-1.5 active:scale-95 cursor-pointer"
+                      style={{ touchAction: 'manipulation' }}
+                    >
+                      Play Store <ExternalLink size={14} />
+                    </a>
                   )}
                   {project.repoUrl && (
                     <a 
                       href={project.repoUrl} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="inline-flex items-center text-accent hover:text-white transition-colors text-sm font-semibold gap-1 ml-auto"
+                      className="inline-flex items-center min-h-[44px] px-3 py-2 text-accent hover:text-white hover:bg-accent/20 rounded-lg transition-all text-sm font-semibold gap-1.5 ml-auto active:scale-95 cursor-pointer"
+                      style={{ touchAction: 'manipulation' }}
                     >
-                      View Code <Github size={16} />
+                      GitHub <Github size={16} />
                     </a>
                   )}
                 </div>
@@ -96,9 +111,13 @@ export const Projects: React.FC<ProjectsProps> = ({ featuredIds }) => {
         </div>
 
         {featuredIds && (
-          <div className="text-center mt-12">
-            <Link to="/projects" className="inline-flex items-center gap-2 px-8 py-3 border border-primary/30 bg-primary/10 text-primary rounded-full font-semibold hover:bg-primary/20 hover:border-primary transition-all backdrop-blur-md">
-              View All Projects <ArrowRight size={20} />
+          <div className="text-center mt-10 md:mt-12">
+            <Link 
+              to="/projects" 
+              className="inline-flex items-center gap-2 px-8 py-3 min-h-[48px] border border-primary/30 bg-primary/10 text-primary rounded-full font-semibold hover:bg-primary/20 hover:border-primary transition-all backdrop-blur-md active:scale-95 cursor-pointer"
+              style={{ touchAction: 'manipulation' }}
+            >
+              Voir Tous les Projets <ArrowRight size={20} />
             </Link>
           </div>
         )}

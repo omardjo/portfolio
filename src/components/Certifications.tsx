@@ -1,3 +1,4 @@
+// FIX MOBILE: Certifications with proper touch targets
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Download, Smartphone, Layers, Briefcase, Box, Globe, Database, Layout, ArrowRight } from 'lucide-react';
@@ -22,24 +23,24 @@ export const Certifications: React.FC<CertProps> = ({ limit }) => {
   const displayedCerts = limit ? CERTIFICATES.slice(0, limit) : CERTIFICATES;
 
   return (
-    <section id="certifications" className="py-20 relative">
+    <section id="certifications" className="py-16 md:py-20 relative">
       {!limit && (
          <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full mix-blend-screen filter blur-3xl animate-float pointer-events-none" />
       )}
       
       <div className="container mx-auto px-4 max-w-6xl relative z-10">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
-            {limit ? 'Recent Certifications' : 'Professional Certifications'}
+        <div className="text-center mb-12 md:mb-16">
+          <h2 className="text-3xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
+            {limit ? 'Certifications Récentes' : 'Certifications Professionnelles'}
           </h2>
           {!limit && (
-            <p className="text-lg text-gray-400 max-w-2xl mx-auto">
-              A showcase of my continuous learning journey in mobile development, web technologies, and data engineering.
+            <p className="text-base md:text-lg text-gray-400 max-w-2xl mx-auto">
+              Un showcase de mon parcours d'apprentissage continu en développement mobile, technologies web et data engineering.
             </p>
           )}
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {displayedCerts.map((cert, index) => {
             const Icon = iconMap[cert.icon] || Globe;
             // Detect if color is a hex code or a standard tailwind color name
@@ -56,7 +57,7 @@ export const Certifications: React.FC<CertProps> = ({ limit }) => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="group relative backdrop-blur-md rounded-2xl p-8 border border-white/5 hover:border-white/10 hover-glow-border transition-all duration-300 transform hover:-translate-y-2 flex flex-col"
+                className="group relative backdrop-blur-md rounded-2xl p-6 md:p-8 border border-white/5 hover:border-white/10 hover-glow-border transition-all duration-300 transform hover:-translate-y-2 flex flex-col"
               >
                 <div className="flex justify-between items-start mb-4 relative z-10">
                   <div 
@@ -85,17 +86,18 @@ export const Certifications: React.FC<CertProps> = ({ limit }) => {
                 </p>
                 
                 <div className="mt-auto pt-4 border-t border-gray-700/50 relative z-10">
+                  {/* FIX MOBILE: Download button with proper touch target */}
                   <a 
                     href={cert.pdfUrl}
                     download
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 text-sm font-semibold text-white py-2 px-4 rounded-lg transition-colors w-full"
-                    style={{ backgroundColor: accentColor }}
+                    className="flex items-center justify-center gap-2 text-sm font-semibold text-white py-3 px-4 min-h-[48px] rounded-lg transition-all w-full active:scale-95 cursor-pointer"
+                    style={{ backgroundColor: accentColor, touchAction: 'manipulation' }}
                     onMouseEnter={(e) => e.currentTarget.style.opacity = '0.9'}
                     onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
                   >
-                    <Download size={16} /> Download
+                    <Download size={16} /> Télécharger
                   </a>
                 </div>
               </motion.div>
@@ -105,8 +107,12 @@ export const Certifications: React.FC<CertProps> = ({ limit }) => {
 
         {limit && (
           <div className="text-center mt-12">
-            <Link to="/certificates" className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-primary to-secondary rounded-full font-semibold text-white shadow-lg hover:shadow-primary/50 transition-all">
-              View All Certificates <ArrowRight size={20} />
+            <Link 
+              to="/certificates" 
+              className="inline-flex items-center gap-2 px-8 py-3 min-h-[48px] bg-gradient-to-r from-primary to-secondary rounded-full font-semibold text-white shadow-lg hover:shadow-primary/50 transition-all active:scale-95 cursor-pointer"
+              style={{ touchAction: 'manipulation' }}
+            >
+              Voir Toutes les Certifications <ArrowRight size={20} />
             </Link>
           </div>
         )}

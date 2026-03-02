@@ -6,12 +6,38 @@
   color-scheme: dark;
 }
 
+/* FIX MOBILE: Global mobile-first styles */
+* {
+  -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
 body {
   margin: 0;
   /* Deep Space Gradient */
   background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
   overflow-x: hidden;
   min-height: 100vh;
+  /* FIX MOBILE: Prevent horizontal overflow */
+  max-width: 100vw;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* FIX MOBILE: Ensure all interactive elements have proper touch behavior */
+a, button, [role="button"], input, select, textarea {
+  touch-action: manipulation;
+  cursor: pointer;
+}
+
+input, textarea, select {
+  font-size: 16px; /* FIX MOBILE: Prevents iOS zoom on focus */
 }
 
 /* --- SPACE BACKGROUND --- */
@@ -70,16 +96,15 @@ body {
 /* 2. Neon Glow Card Hover (Fixed Readability) */
 .hover-glow-border {
   position: relative;
-  background: transparent; /* We use ::after for the background now */
+  background: transparent;
   z-index: 1;
 }
 
-/* The Glow Effect (Behind everything) */
 .hover-glow-border::before {
   content: "";
   position: absolute;
-  inset: -2px; /* Makes glow slightly larger than card */
-  z-index: -2; /* Puts it behind the card background */
+  inset: -2px;
+  z-index: -2;
   background: linear-gradient(45deg, #6366f1, #06b6d4, #8b5cf6);
   filter: blur(12px);
   opacity: 0;
@@ -87,22 +112,36 @@ body {
   border-radius: inherit;
 }
 
-/* The Card Background (Between glow and content) */
 .hover-glow-border::after {
   content: "";
   position: absolute;
   inset: 0;
   z-index: -1;
-  background-color: rgba(30, 41, 59, 0.4); /* Default semi-transparent */
+  background-color: rgba(30, 41, 59, 0.4);
   border-radius: inherit;
   transition: background-color 0.3s ease-in-out;
 }
 
-/* HOVER STATES */
 .hover-glow-border:hover::before {
-  opacity: 1; /* Turn on the neon glow */
+  opacity: 1;
 }
 
 .hover-glow-border:hover::after {
-  background-color: rgba(15, 23, 42, 0.95); /* Turn background dark/opaque so text is readable */
+  background-color: rgba(15, 23, 42, 0.95);
+}
+
+/* FIX MOBILE NAV: Slide-down animation for mobile menu */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slideDown {
+  animation: slideDown 0.2s ease-out forwards;
 }
