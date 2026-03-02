@@ -1,6 +1,8 @@
-// FIX MOBILE NAV - Complete rewrite for 100% mobile compatibility
+// NAVBAR FIXED TOP - Premium design inspired by rafsan-theta
+// FIX MOBILE MENU BUTTONS - Complete rewrite for 100% clickable mobile nav
 import React, { useState, useEffect, useCallback } from 'react';
-import { Menu, X, Code, Download } from 'lucide-react';
+import { Menu, X, Download } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
 
 const Navbar = () => {
@@ -8,197 +10,193 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-  
   const isHome = location.pathname === '/';
 
+  // NAVBAR FIXED TOP: Track scroll for background opacity
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
+    const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // FIX MOBILE NAV: Lock body scroll when menu is open
+  // FIX MOBILE MENU: Lock body scroll when open
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
+    document.body.style.overflow = isOpen ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
   }, [isOpen]);
 
   const navLinks = [
     { name: 'About', href: '#about' },
-    { name: 'Flutter Apps', href: '#projects' },
+    { name: 'Projects', href: '#projects' },
     { name: 'Experience', href: '#experience' },
     { name: 'Certifications', href: '#certifications' },
     { name: 'Contact', href: '#contact' },
   ];
 
-  // FIX MOBILE NAV: Unified click/tap handler with preventDefault
-  const handleNavClick = useCallback((e: React.MouseEvent | React.TouchEvent, href: string) => {
-    e.preventDefault();
-    e.stopPropagation();
-    
-    // Close mobile menu immediately
+  // SMOOTH SCROLL GET IN TOUCH - single handler for all nav clicks
+  const handleNavClick = useCallback((href: string) => {
     setIsOpen(false);
 
-    if (href.startsWith('#')) {
-      const targetId = href.replace('#', '');
+    if (!href.startsWith('#')) return;
 
-      const scrollToElement = () => {
-        const element = document.getElementById(targetId);
-        if (element) {
-          const navHeight = 80;
-          const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
-          const offsetPosition = elementPosition - navHeight;
-          window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-        }
-      };
-
-      if (isHome) {
-        // Small delay to let menu close animation finish
-        setTimeout(scrollToElement, 100);
-      } else {
-        navigate('/');
-        setTimeout(scrollToElement, 300);
+    const targetId = href.replace('#', '');
+    const doScroll = () => {
+      const el = document.getElementById(targetId);
+      if (el) {
+        const offset = 80;
+        const top = el.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top, behavior: 'smooth' });
       }
+    };
+
+    if (isHome) {
+      // Small delay so mobile menu closes first
+      setTimeout(doScroll, 150);
+    } else {
+      navigate('/');
+      setTimeout(doScroll, 400);
     }
   }, [isHome, navigate]);
 
-  // FIX MOBILE NAV: Toggle with explicit state
-  const toggleMenu = useCallback((e: React.MouseEvent | React.TouchEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsOpen(prev => !prev);
-  }, []);
-
-  const closeMenu = useCallback(() => {
-    setIsOpen(false);
-  }, []);
-
   return (
     <>
-      {/* FIX MOBILE NAV: Fixed navbar with proper z-index */}
-      <nav 
-        className={`fixed top-0 left-0 right-0 z-[100] flex justify-center transition-all duration-300 ${scrolled ? 'pt-2 md:pt-4' : 'pt-3 md:pt-6'}`}
-        style={{ touchAction: 'manipulation' }}
+      {/* NAVBAR FIXED TOP - never moves on scroll */}
+      <nav
+        className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ${
+          scrolled
+            ? 'bg-[#0b1121]/80 backdrop-blur-xl border-b border-white/[0.06] shadow-lg shadow-black/20'
+            : 'bg-transparent'
+        }`}
       >
-        <div className={`
-          relative w-[95%] max-w-6xl mx-auto px-4 md:px-6 py-3 rounded-full transition-all duration-300
-          ${scrolled 
-            ? 'bg-gray-900/80 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.3)]' 
-            : 'bg-gray-900/40 backdrop-blur-md border border-white/5'}
-        `}>
-          <div className="flex justify-between items-center">
-            {/* FLUTTER FOCUS: Logo */}
-            <Link 
-              to="/" 
-              onClick={closeMenu}
-              className="flex items-center gap-2 font-bold text-lg md:text-xl text-white hover:text-primary transition-colors"
-              style={{ touchAction: 'manipulation' }}
+        <div className="max-w-6xl mx-auto px-5 md:px-8">
+          <div className="flex items-center justify-between h-16 md:h-[72px]">
+
+            {/* Logo */}
+            <Link
+              to="/"
+              onClick={() => setIsOpen(false)}
+              className="text-white font-bold text-lg tracking-tight hover:text-primary transition-colors select-none"
             >
-              <Code className="w-5 h-5 md:w-6 md:h-6 text-primary" />
-              <span>Omar Djebbi</span>
+              Omar<span className="text-primary">.</span>
             </Link>
 
-            {/* Desktop Nav */}
+            {/* Desktop links */}
             <div className="hidden md:flex items-center gap-1">
-              <Link 
-                to="/" 
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${isHome ? 'bg-primary/20 text-primary' : 'text-slate-300 hover:text-white hover:bg-white/5'}`}
-              >
-                Home
-              </Link>
-
               {navLinks.map((link) => (
-                <a 
-                  key={link.name} 
-                  href={link.href}
-                  onClick={(e) => handleNavClick(e, link.href)}
-                  className="px-4 py-2 rounded-full text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 transition-all duration-300 cursor-pointer"
+                <button
+                  key={link.name}
+                  type="button"
+                  onClick={() => handleNavClick(link.href)}
+                  className="px-4 py-2 text-[13px] font-medium text-gray-400 hover:text-white rounded-lg hover:bg-white/[0.04] transition-all duration-200 cursor-pointer"
                 >
                   {link.name}
-                </a>
+                </button>
               ))}
 
-              {/* Desktop CV Button */}
-              <a
-                href="/assets/documents/Resume.pdf"
-                download="Omar_Djebbi_CV.pdf"
-                className="ml-2 px-4 py-2 rounded-full text-sm font-semibold bg-primary text-white hover:bg-primary/80 transition-all duration-300 flex items-center gap-1.5"
+              {/* Desktop "Get in Touch" */}
+              <button
+                type="button"
+                onClick={() => handleNavClick('#contact')}
+                className="ml-3 px-5 py-2 text-[13px] font-semibold text-white bg-primary hover:bg-primary/90 rounded-lg transition-all duration-200 cursor-pointer active:scale-[0.97]"
               >
-                <Download size={14} /> CV
-              </a>
+                Get in Touch
+              </button>
             </div>
 
-            {/* FIX MOBILE NAV: Hamburger button - min 48px touch target */}
-            <button 
+            {/* FIX MOBILE MENU BUTTONS: Hamburger - clean, no double handlers */}
+            <button
               type="button"
-              className="md:hidden flex items-center justify-center w-12 h-12 min-w-[48px] min-h-[48px] rounded-full text-white bg-white/10 active:scale-95 active:bg-white/20 transition-all cursor-pointer"
-              onClick={toggleMenu}
-              onTouchEnd={toggleMenu}
-              style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}
-              aria-label={isOpen ? 'Close menu' : 'Open menu'}
-              aria-expanded={isOpen}
+              onClick={() => setIsOpen(prev => !prev)}
+              className="md:hidden relative w-10 h-10 flex items-center justify-center text-gray-300 hover:text-white transition-colors cursor-pointer"
+              aria-label="Toggle menu"
             >
-              {isOpen ? <X size={22} /> : <Menu size={22} />}
+              <AnimatePresence mode="wait">
+                {isOpen ? (
+                  <motion.div key="close" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.15 }}>
+                    <X size={22} />
+                  </motion.div>
+                ) : (
+                  <motion.div key="open" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.15 }}>
+                    <Menu size={22} />
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </button>
           </div>
         </div>
       </nav>
 
-      {/* FIX MOBILE NAV: Full-screen mobile menu overlay */}
-      {isOpen && (
-        <div 
-          className="fixed inset-0 z-[99] md:hidden"
-          style={{ touchAction: 'manipulation' }}
-        >
-          {/* Backdrop - tap to close */}
-          <div 
-            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-            onClick={closeMenu}
-            onTouchEnd={(e) => { e.preventDefault(); closeMenu(); }}
-          />
-          
-          {/* Menu panel */}
-          <div 
-            className="absolute top-20 left-4 right-4 bg-gray-900/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl p-4 flex flex-col gap-2 animate-slideDown"
+      {/* FIX MOBILE MENU BUTTONS (comme rafsan-theta) - Full overlay mobile menu */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            key="mobile-menu"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-[99] md:hidden"
           >
-            <Link 
-              to="/" 
-              onClick={closeMenu}
-              className="flex items-center justify-center min-h-[48px] py-3 rounded-xl bg-white/5 text-white hover:bg-primary/20 active:scale-95 transition-all font-medium cursor-pointer"
-              style={{ touchAction: 'manipulation' }}
-            >
-              Home
-            </Link>
-            
-            {navLinks.map((link) => (
-              <a 
-                key={link.name} 
-                href={link.href}
-                onClick={(e) => handleNavClick(e, link.href)}
-                onTouchEnd={(e) => handleNavClick(e, link.href)}
-                className="flex items-center justify-center min-h-[48px] py-3 rounded-xl bg-white/5 text-slate-300 hover:bg-white/10 hover:text-white active:scale-95 transition-all font-medium cursor-pointer"
-                style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}
-              >
-                {link.name}
-              </a>
-            ))}
+            {/* Backdrop */}
+            <div
+              className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+              onClick={() => setIsOpen(false)}
+            />
 
-            {/* FIX MOBILE NAV: CV download button in mobile menu */}
-            <a
-              href="/assets/documents/Resume.pdf"
-              download="Omar_Djebbi_CV.pdf"
-              className="flex items-center justify-center gap-2 min-h-[48px] py-3 rounded-xl bg-primary text-white font-semibold active:scale-95 transition-all cursor-pointer"
-              style={{ touchAction: 'manipulation' }}
+            {/* Menu panel - slides from top */}
+            <motion.div
+              initial={{ y: -20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -20, opacity: 0 }}
+              transition={{ duration: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
+              className="absolute top-16 inset-x-0 mx-4 bg-[#111827] border border-white/[0.08] rounded-2xl shadow-2xl shadow-black/40 overflow-hidden"
             >
-              <Download size={18} /> Télécharger CV
-            </a>
-          </div>
-        </div>
-      )}
+              <div className="p-3 flex flex-col gap-1">
+                {navLinks.map((link, i) => (
+                  <motion.button
+                    key={link.name}
+                    type="button"
+                    initial={{ opacity: 0, x: -12 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.04, duration: 0.2 }}
+                    onClick={() => handleNavClick(link.href)}
+                    className="w-full text-left px-4 py-3.5 text-[15px] font-medium text-gray-300 rounded-xl hover:bg-white/[0.06] hover:text-white active:bg-white/[0.1] active:scale-[0.98] transition-all duration-150 cursor-pointer"
+                  >
+                    {link.name}
+                  </motion.button>
+                ))}
+
+                {/* Divider */}
+                <div className="h-px bg-white/[0.06] mx-2 my-1" />
+
+                {/* SMOOTH SCROLL GET IN TOUCH - mobile */}
+                <motion.button
+                  type="button"
+                  initial={{ opacity: 0, x: -12 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: navLinks.length * 0.04, duration: 0.2 }}
+                  onClick={() => handleNavClick('#contact')}
+                  className="w-full text-center px-4 py-3.5 text-[15px] font-semibold text-white bg-primary hover:bg-primary/90 rounded-xl active:scale-[0.97] transition-all duration-150 cursor-pointer"
+                >
+                  Get in Touch
+                </motion.button>
+
+                {/* CV Download */}
+                <motion.a
+                  href="/assets/documents/Resume.pdf"
+                  download="Omar_Djebbi_CV.pdf"
+                  initial={{ opacity: 0, x: -12 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: (navLinks.length + 1) * 0.04, duration: 0.2 }}
+                  className="w-full text-center px-4 py-3.5 text-[15px] font-medium text-gray-300 border border-white/[0.08] rounded-xl hover:bg-white/[0.04] active:scale-[0.97] transition-all duration-150 cursor-pointer flex items-center justify-center gap-2"
+                >
+                  <Download size={16} /> Download CV
+                </motion.a>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 };

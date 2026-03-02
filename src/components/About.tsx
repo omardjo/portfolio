@@ -1,127 +1,150 @@
-// FLUTTER FOCUS: About section with Flutter-first skills
+// About section - Clean premium design
 import React from 'react';
 import { motion } from 'framer-motion';
 
-const colorVariants: Record<string, { text: string; gradient: string }> = {
-  blue: { text: 'text-blue-400', gradient: 'from-blue-500 to-cyan-500' },
-  purple: { text: 'text-purple-400', gradient: 'from-purple-500 to-pink-500' },
-  green: { text: 'text-emerald-400', gradient: 'from-emerald-400 to-green-500' },
-  orange: { text: 'text-orange-400', gradient: 'from-orange-400 to-amber-500' }
-};
+const SkillBar = ({ name, level, color }: { name: string; level: number; color: string }) => {
+  const colors: Record<string, string> = {
+    primary: 'bg-primary',
+    secondary: 'bg-secondary',
+    accent: 'bg-accent',
+    emerald: 'bg-emerald-500',
+    orange: 'bg-orange-500',
+  };
 
-const SkillBar = ({ name, level, color }: { name: string, level: number, color: string }) => {
-  const variant = colorVariants[color] || colorVariants.blue;
   return (
-    <div className="mb-4">
-      <div className="flex justify-between mb-1">
-        <span className="font-semibold text-white text-sm">{name}</span>
-        <span className={`${variant.text} text-xs font-bold`}>{level}%</span>
+    <div className="mb-5">
+      <div className="flex justify-between mb-2">
+        <span className="text-sm font-medium text-gray-300">{name}</span>
+        <span className="text-sm font-semibold text-gray-400">{level}%</span>
       </div>
-      <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
-        <motion.div 
+      <div className="h-1.5 bg-white/[0.06] rounded-full overflow-hidden">
+        <motion.div
           initial={{ width: 0 }}
           whileInView={{ width: `${level}%` }}
           viewport={{ once: true }}
-          transition={{ duration: 1, ease: "easeOut" }}
-          className={`h-full bg-gradient-to-r ${variant.gradient}`}
+          transition={{ duration: 1, ease: 'easeOut' }}
+          className={`h-full rounded-full ${colors[color] || colors.primary}`}
         />
       </div>
     </div>
   );
 };
 
-// FLUTTER FOCUS: Skill tags for quick visual
-const SkillTag = ({ name }: { name: string }) => (
-  <span className="px-3 py-1.5 bg-primary/10 text-primary border border-primary/20 rounded-full text-xs font-semibold">
-    {name}
-  </span>
-);
-
 export const About = () => {
+  const skills = [
+    { name: 'Flutter & Dart', level: 95, color: 'primary' },
+    { name: 'Firebase & Cloud', level: 88, color: 'orange' },
+    { name: 'State Management (Riverpod/Bloc)', level: 85, color: 'secondary' },
+    { name: 'Node.js & Backend', level: 80, color: 'accent' },
+    { name: 'React & Web', level: 75, color: 'emerald' },
+  ];
+
+  const techStack = ['Flutter', 'Dart', 'Firebase', 'Riverpod', 'Bloc', 'REST API', 'Node.js', 'Git'];
+
   return (
-    <section id="about" className="py-16 md:py-20 relative">
-      <div className="container mx-auto px-4 max-w-6xl">
-        <div className="text-center mb-12 md:mb-16">
-          <h2 className="text-2xl md:text-3xl font-bold mb-4 text-white flex items-center justify-center gap-3">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">À Propos</span>
-          </h2>
-          <div className="w-16 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full" />
+    <section id="about" className="py-20 md:py-28 relative">
+      <div className="container mx-auto px-5 md:px-8 max-w-6xl">
+        {/* Section header */}
+        <div className="mb-14 md:mb-16">
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-primary text-sm font-semibold tracking-widest uppercase mb-3"
+          >
+            About Me
+          </motion.p>
+          <motion.h2
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-3xl md:text-4xl font-bold text-white"
+          >
+            Know Me Better
+          </motion.h2>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-start">
-          {/* Profile Text */}
-          <motion.div 
+        <div className="grid md:grid-cols-2 gap-8 md:gap-12">
+          {/* Profile / bio */}
+          <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="bg-card/50 backdrop-blur-md rounded-2xl p-6 md:p-8 border border-gray-700/50 shadow-xl"
+            className="space-y-6"
           >
-            {/* FLUTTER FOCUS: Profile description */}
-            <h3 className="text-xl md:text-2xl font-bold mb-4 text-blue-400">Profil</h3>
-            <p className="text-gray-300 leading-relaxed mb-6">
-              Développeur mobile spécialisé <strong className="text-primary">Flutter & Dart</strong> avec 2+ ans d'expérience.
-              Je conçois, développe et livre des applications mobiles performantes et scalables
-              avec un focus sur la fiabilité, l'UX et la qualité du code.
-            </p>
-            
-            {/* FLUTTER FOCUS: Key tech stack */}
-            <div className="flex flex-wrap gap-2 mb-6">
-              {['Flutter', 'Dart', 'Firebase', 'Riverpod', 'Bloc', 'REST API', 'Node.js', 'Git'].map(skill => (
-                <SkillTag key={skill} name={skill} />
-              ))}
+            <div className="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6 md:p-8">
+              <h3 className="text-lg font-bold text-white mb-4">Profil</h3>
+              <p className="text-gray-400 leading-relaxed text-[15px] mb-5">
+                Développeur mobile spécialisé <span className="text-primary font-medium">Flutter & Dart</span> avec 2+ ans d'expérience.
+                Je conçois, développe et livre des applications mobiles performantes et scalables
+                avec un focus sur la fiabilité, l'UX et la qualité du code.
+              </p>
+              {/* Tech tags */}
+              <div className="flex flex-wrap gap-2">
+                {techStack.map(t => (
+                  <span
+                    key={t}
+                    className="px-3 py-1.5 text-xs font-medium text-primary bg-primary/[0.08] border border-primary/[0.12] rounded-full"
+                  >
+                    {t}
+                  </span>
+                ))}
+              </div>
             </div>
 
-            <div className="w-full h-px bg-gray-700 mb-6" />
-            <h3 className="text-xl md:text-2xl font-bold mb-4 text-purple-400">Formation</h3>
-            <div>
-              <h4 className="font-bold text-lg text-white">Ingénierie Informatique</h4>
-              <p className="text-accent mb-2">ESPRIT, Ariana, Tunis</p>
-              <p className="text-gray-400 text-sm mb-2">Sep 2020 - Jul 2025</p>
-              <p className="text-gray-300 text-sm">
-                 Maîtrise des concepts fondamentaux d'algorithmes et structures de données,
-                 essentiels pour la résolution efficace de problèmes et le développement logiciel.
-              </p>
+            {/* Education */}
+            <div className="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6 md:p-8">
+              <h3 className="text-lg font-bold text-white mb-4">Formation</h3>
+              <div>
+                <h4 className="font-semibold text-white">Ingénierie Informatique</h4>
+                <p className="text-primary text-sm mt-1">ESPRIT, Ariana, Tunis</p>
+                <p className="text-gray-500 text-sm mt-1">Sep 2020 – Jul 2025</p>
+                <p className="text-gray-400 text-sm mt-3 leading-relaxed">
+                  Maîtrise des concepts fondamentaux d'algorithmes et structures de données,
+                  essentiels pour la résolution efficace de problèmes et le développement logiciel.
+                </p>
+              </div>
             </div>
           </motion.div>
 
           {/* Skills & Languages */}
-          <div className="space-y-6 md:space-y-8">
-            <motion.div 
+          <div className="space-y-6">
+            <motion.div
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="bg-card/50 backdrop-blur-md rounded-2xl p-6 md:p-8 border border-gray-700/50 shadow-xl"
+              className="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6 md:p-8"
             >
-              {/* FLUTTER FOCUS: Skills with Flutter first */}
-              <h3 className="text-xl md:text-2xl font-bold mb-6 text-cyan-400">Compétences Techniques</h3>
-              <SkillBar name="Flutter & Dart" level={95} color="blue" />
-              <SkillBar name="Firebase & Cloud" level={88} color="orange" />
-              <SkillBar name="State Management (Riverpod/Bloc)" level={85} color="purple" />
-              <SkillBar name="Node.js & Backend" level={80} color="blue" />
-              <SkillBar name="React & Web" level={75} color="green" />
+              <h3 className="text-lg font-bold text-white mb-6">Technical Skills</h3>
+              {skills.map(s => (
+                <SkillBar key={s.name} {...s} />
+              ))}
             </motion.div>
 
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="bg-card/50 backdrop-blur-md rounded-2xl p-6 md:p-8 border border-gray-700/50 shadow-xl"
+              className="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6 md:p-8"
             >
-              <h3 className="text-xl md:text-2xl font-bold mb-6 text-indigo-400">Langues</h3>
-              <div className="grid grid-cols-3 gap-3 md:gap-4">
-                 {[
-                   { lang: 'Arabe', level: 'Maternelle', flag: 'https://flagcdn.com/w80/tn.png' },
-                   { lang: 'Anglais', level: 'Professionnel', flag: 'https://flagcdn.com/w80/gb.png' },
-                   { lang: 'Français', level: 'Professionnel', flag: 'https://flagcdn.com/w80/fr.png' },
-                 ].map((l) => (
-                   <div key={l.lang} className="bg-gray-900/80 p-3 md:p-4 rounded-xl text-center border border-gray-700 hover:border-primary transition-colors">
-                      <div className="w-10 h-7 md:w-12 md:h-8 mx-auto mb-2 overflow-hidden rounded shadow-sm">
-                        <img src={l.flag} alt={`Drapeau ${l.lang}`} className="w-full h-full object-cover" loading="lazy" />
-                      </div>
-                      <div className="font-bold text-white text-xs md:text-sm">{l.lang}</div>
-                      <div className="text-xs text-gray-400 mt-1">{l.level}</div>
-                   </div>
-                 ))}
+              <h3 className="text-lg font-bold text-white mb-5">Langues</h3>
+              <div className="grid grid-cols-3 gap-3">
+                {[
+                  { lang: 'Arabe', level: 'Maternelle', flag: 'https://flagcdn.com/w80/tn.png' },
+                  { lang: 'Anglais', level: 'Professionnel', flag: 'https://flagcdn.com/w80/gb.png' },
+                  { lang: 'Français', level: 'Professionnel', flag: 'https://flagcdn.com/w80/fr.png' },
+                ].map(l => (
+                  <div
+                    key={l.lang}
+                    className="bg-white/[0.03] border border-white/[0.06] p-4 rounded-xl text-center hover:border-primary/30 transition-colors"
+                  >
+                    <div className="w-10 h-7 mx-auto mb-2 overflow-hidden rounded shadow-sm">
+                      <img src={l.flag} alt={l.lang} className="w-full h-full object-cover" loading="lazy" />
+                    </div>
+                    <div className="text-white text-sm font-medium">{l.lang}</div>
+                    <div className="text-gray-500 text-xs mt-1">{l.level}</div>
+                  </div>
+                ))}
               </div>
             </motion.div>
           </div>

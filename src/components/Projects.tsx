@@ -1,4 +1,4 @@
-// FLUTTER FOCUS: Projects section with Flutter branding + FIX MOBILE touch targets
+// Projects section - Numbered cards inspired by rafsan-theta
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { PlayCircle, Github, ArrowRight, ExternalLink } from 'lucide-react';
@@ -24,62 +24,84 @@ export const Projects: React.FC<ProjectsProps> = ({ featuredIds }) => {
   };
 
   return (
-    <section id="projects" className="py-16 md:py-20 relative">
-      <div className="container mx-auto px-4 max-w-6xl relative z-10">
-        <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
-          {/* FLUTTER FOCUS: Section title */}
-          <h2 className="text-3xl md:text-5xl font-bold mb-4 md:mb-6 text-gradient-animate">
-            {featuredIds ? 'Mes Apps Flutter' : 'Tous les Projets'}
-          </h2>
-          {!featuredIds && (
-            <p className="text-lg text-gray-400">
-              Un showcase complet de mes travaux en développement mobile Flutter, applications web et solutions innovantes.
-            </p>
-          )}
+    <section id="projects" className="py-20 md:py-28 relative">
+      <div className="container mx-auto px-5 md:px-8 max-w-6xl relative z-10">
+        {/* Section header */}
+        <div className="mb-14 md:mb-16">
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-primary text-sm font-semibold tracking-widest uppercase mb-3"
+          >
+            Portfolio
+          </motion.p>
+          <motion.h2
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-3xl md:text-4xl font-bold text-white"
+          >
+            {featuredIds ? 'Featured Projects' : 'All Projects'}
+          </motion.h2>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        {/* Project cards */}
+        <div className="space-y-8 md:space-y-10">
           {displayedProjects.map((project, index) => (
             <motion.div
               key={project.id}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="group relative backdrop-blur-md rounded-2xl overflow-hidden hover-glow-border hover:-translate-y-2 flex flex-col border border-white/5 transition-all duration-300"
+              viewport={{ once: true, margin: '-50px' }}
+              transition={{ delay: index * 0.08, duration: 0.5 }}
+              className="group grid md:grid-cols-[1fr_1.2fr] gap-6 md:gap-8 bg-white/[0.02] border border-white/[0.06] rounded-2xl p-5 md:p-7 hover:bg-white/[0.04] hover:border-white/[0.1] transition-all duration-300"
             >
-              <div className="h-44 md:h-48 bg-gray-900 relative overflow-hidden flex items-center justify-center">
-                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all duration-500 z-10" />
+              {/* Image */}
+              <div className="relative h-52 md:h-64 rounded-xl overflow-hidden bg-gray-900">
                 <img 
                   src={project.image} 
-                  alt={project.title} 
-                  className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-all duration-500 transform group-hover:scale-110"
+                  alt={project.title}
+                  className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-[1.03] transition-all duration-500"
                   loading="lazy"
                 />
+                {/* Number overlay */}
+                <div className="absolute top-4 left-4 w-10 h-10 bg-primary/90 backdrop-blur-sm rounded-lg flex items-center justify-center">
+                  <span className="text-white font-bold text-sm">
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
+                </div>
               </div>
 
-              <div className="p-5 md:p-6 flex-grow flex flex-col relative z-10">
-                <div className="flex flex-wrap gap-1.5 md:gap-2 mb-3">
-                  {project.tags.map((tag, i) => (
-                    <span key={tag} className={`px-2.5 py-1 rounded-full text-xs font-semibold border ${i % 2 === 0 ? 'bg-primary/10 text-primary border-primary/20' : 'bg-secondary/10 text-secondary border-secondary/20'}`}>
-                      {tag}
-                    </span>
-                  ))}
+              {/* Content */}
+              <div className="flex flex-col justify-between py-1">
+                <div>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {project.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="px-3 py-1 text-xs font-medium text-primary/90 bg-primary/[0.08] border border-primary/[0.12] rounded-full"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <h3 className="text-xl md:text-2xl font-bold text-white mb-3 group-hover:text-primary transition-colors duration-300">
+                    {project.title}
+                  </h3>
+                  <p className="text-gray-400 text-[15px] leading-relaxed mb-5">
+                    {project.description}
+                  </p>
                 </div>
-                <h3 className="text-lg md:text-xl font-bold mb-2 md:mb-3 text-white">{project.title}</h3>
-                <p className="text-gray-400 mb-4 text-sm flex-grow">
-                  {project.description}
-                </p>
-                
-                {/* FIX MOBILE: Buttons with proper touch targets */}
-                <div className="mt-auto flex gap-3 flex-wrap">
+
+                {/* Action buttons */}
+                <div className="flex items-center gap-3 flex-wrap">
                   {project.videoUrl && (
                     <button 
                       onClick={() => openVideo(project.videoUrl!, project.title)}
-                      className="inline-flex items-center min-h-[44px] px-3 py-2 text-primary hover:text-white hover:bg-primary/20 rounded-lg transition-all text-sm font-semibold gap-1.5 active:scale-95 cursor-pointer"
-                      style={{ touchAction: 'manipulation' }}
+                      className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-white bg-primary/20 hover:bg-primary/30 border border-primary/20 rounded-lg transition-all cursor-pointer active:scale-[0.97]"
                     >
-                      Démo <PlayCircle size={16} />
+                      <PlayCircle size={16} /> Demo
                     </button>
                   )}
                   {project.demoUrl && project.demoUrl !== '#' && (
@@ -87,10 +109,9 @@ export const Projects: React.FC<ProjectsProps> = ({ featuredIds }) => {
                       href={project.demoUrl} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="inline-flex items-center min-h-[44px] px-3 py-2 text-green-400 hover:text-white hover:bg-green-500/20 rounded-lg transition-all text-sm font-semibold gap-1.5 active:scale-95 cursor-pointer"
-                      style={{ touchAction: 'manipulation' }}
+                      className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-emerald-400 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/15 rounded-lg transition-all cursor-pointer active:scale-[0.97]"
                     >
-                      Play Store <ExternalLink size={14} />
+                      <ExternalLink size={14} /> Play Store
                     </a>
                   )}
                   {project.repoUrl && (
@@ -98,10 +119,9 @@ export const Projects: React.FC<ProjectsProps> = ({ featuredIds }) => {
                       href={project.repoUrl} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="inline-flex items-center min-h-[44px] px-3 py-2 text-accent hover:text-white hover:bg-accent/20 rounded-lg transition-all text-sm font-semibold gap-1.5 ml-auto active:scale-95 cursor-pointer"
-                      style={{ touchAction: 'manipulation' }}
+                      className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-gray-400 hover:text-white bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.06] rounded-lg transition-all cursor-pointer active:scale-[0.97]"
                     >
-                      GitHub <Github size={16} />
+                      <Github size={16} /> Source Code
                     </a>
                   )}
                 </div>
@@ -111,15 +131,19 @@ export const Projects: React.FC<ProjectsProps> = ({ featuredIds }) => {
         </div>
 
         {featuredIds && (
-          <div className="text-center mt-10 md:mt-12">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-center mt-12 md:mt-14"
+          >
             <Link 
               to="/projects" 
-              className="inline-flex items-center gap-2 px-8 py-3 min-h-[48px] border border-primary/30 bg-primary/10 text-primary rounded-full font-semibold hover:bg-primary/20 hover:border-primary transition-all backdrop-blur-md active:scale-95 cursor-pointer"
-              style={{ touchAction: 'manipulation' }}
+              className="inline-flex items-center gap-2 px-7 py-3 text-[15px] font-semibold text-primary border border-primary/20 bg-primary/[0.06] hover:bg-primary/[0.12] rounded-xl transition-all active:scale-[0.97] cursor-pointer"
             >
-              Voir Tous les Projets <ArrowRight size={20} />
+              View All Projects <ArrowRight size={18} />
             </Link>
-          </div>
+          </motion.div>
         )}
       </div>
 

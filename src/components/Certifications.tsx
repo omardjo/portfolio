@@ -1,4 +1,4 @@
-// FIX MOBILE: Certifications with proper touch targets
+// Certifications - clean premium design
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Download, Smartphone, Layers, Briefcase, Box, Globe, Database, Layout, ArrowRight } from 'lucide-react';
@@ -23,32 +23,32 @@ export const Certifications: React.FC<CertProps> = ({ limit }) => {
   const displayedCerts = limit ? CERTIFICATES.slice(0, limit) : CERTIFICATES;
 
   return (
-    <section id="certifications" className="py-16 md:py-20 relative">
-      {!limit && (
-         <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full mix-blend-screen filter blur-3xl animate-float pointer-events-none" />
-      )}
-      
-      <div className="container mx-auto px-4 max-w-6xl relative z-10">
-        <div className="text-center mb-12 md:mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
-            {limit ? 'Certifications Récentes' : 'Certifications Professionnelles'}
-          </h2>
-          {!limit && (
-            <p className="text-base md:text-lg text-gray-400 max-w-2xl mx-auto">
-              Un showcase de mon parcours d'apprentissage continu en développement mobile, technologies web et data engineering.
-            </p>
-          )}
+    <section id="certifications" className="py-20 md:py-28 relative">
+      <div className="container mx-auto px-5 md:px-8 max-w-6xl relative z-10">
+        {/* Section header */}
+        <div className="mb-14 md:mb-16">
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-primary text-sm font-semibold tracking-widest uppercase mb-3"
+          >
+            Credentials
+          </motion.p>
+          <motion.h2
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-3xl md:text-4xl font-bold text-white"
+          >
+            {limit ? 'Certifications' : 'All Certifications'}
+          </motion.h2>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
           {displayedCerts.map((cert, index) => {
             const Icon = iconMap[cert.icon] || Globe;
-            // Detect if color is a hex code or a standard tailwind color name
-            const isHex = cert.color.startsWith('#');
-            
-            // Note: If you use tailwind colors like "blue", you must use style objects
-            // because `bg-${color}` won't work in production builds.
-            const accentColor = isHex ? cert.color : '#6366f1'; // Fallback to primary if not hex
+            const accentColor = cert.color.startsWith('#') ? cert.color : '#6366f1';
 
             return (
               <motion.div
@@ -56,65 +56,56 @@ export const Certifications: React.FC<CertProps> = ({ limit }) => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="group relative backdrop-blur-md rounded-2xl p-6 md:p-8 border border-white/5 hover:border-white/10 hover-glow-border transition-all duration-300 transform hover:-translate-y-2 flex flex-col"
+                transition={{ delay: index * 0.06 }}
+                className="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6 hover:bg-white/[0.04] hover:border-white/[0.1] transition-all duration-300 flex flex-col"
               >
-                <div className="flex justify-between items-start mb-4 relative z-10">
-                  <div 
-                    className="w-12 h-12 rounded-xl flex items-center justify-center"
-                    style={{ 
-                      backgroundColor: `${accentColor}33`, // 20% opacity
-                      color: accentColor 
-                    }}
+                <div className="flex justify-between items-start mb-4">
+                  <div
+                    className="w-10 h-10 rounded-lg flex items-center justify-center"
+                    style={{ backgroundColor: `${accentColor}15`, color: accentColor }}
                   >
-                    <Icon size={24} />
+                    <Icon size={20} />
                   </div>
-                  <span 
-                    className="px-3 py-1 rounded-full text-xs font-semibold"
-                    style={{ 
-                      backgroundColor: `${accentColor}1a`, // 10% opacity
-                      color: accentColor 
-                    }}
+                  <span
+                    className="px-2.5 py-1 rounded-full text-xs font-medium"
+                    style={{ backgroundColor: `${accentColor}10`, color: accentColor }}
                   >
                     {cert.date}
                   </span>
                 </div>
-                
-                <h3 className="text-xl font-bold mb-2 text-white relative z-10">{cert.title}</h3>
-                <p className="text-gray-400 text-sm mb-4 flex-grow relative z-10">
-                  {cert.description}
-                </p>
-                
-                <div className="mt-auto pt-4 border-t border-gray-700/50 relative z-10">
-                  {/* FIX MOBILE: Download button with proper touch target */}
-                  <a 
-                    href={cert.pdfUrl}
-                    download
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 text-sm font-semibold text-white py-3 px-4 min-h-[48px] rounded-lg transition-all w-full active:scale-95 cursor-pointer"
-                    style={{ backgroundColor: accentColor, touchAction: 'manipulation' }}
-                    onMouseEnter={(e) => e.currentTarget.style.opacity = '0.9'}
-                    onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
-                  >
-                    <Download size={16} /> Télécharger
-                  </a>
-                </div>
+
+                <h3 className="text-base font-bold text-white mb-2">{cert.title}</h3>
+                <p className="text-gray-500 text-sm mb-5 flex-grow leading-relaxed">{cert.description}</p>
+
+                <a
+                  href={cert.pdfUrl}
+                  download
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 text-sm font-medium text-white py-2.5 px-4 rounded-lg transition-all w-full active:scale-[0.97] cursor-pointer hover:opacity-90"
+                  style={{ backgroundColor: accentColor }}
+                >
+                  <Download size={14} /> Download
+                </a>
               </motion.div>
             );
           })}
         </div>
 
         {limit && (
-          <div className="text-center mt-12">
-            <Link 
-              to="/certificates" 
-              className="inline-flex items-center gap-2 px-8 py-3 min-h-[48px] bg-gradient-to-r from-primary to-secondary rounded-full font-semibold text-white shadow-lg hover:shadow-primary/50 transition-all active:scale-95 cursor-pointer"
-              style={{ touchAction: 'manipulation' }}
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-center mt-12 md:mt-14"
+          >
+            <Link
+              to="/certificates"
+              className="inline-flex items-center gap-2 px-7 py-3 text-[15px] font-semibold text-primary border border-primary/20 bg-primary/[0.06] hover:bg-primary/[0.12] rounded-xl transition-all active:scale-[0.97] cursor-pointer"
             >
-              Voir Toutes les Certifications <ArrowRight size={20} />
+              View All Certifications <ArrowRight size={18} />
             </Link>
-          </div>
+          </motion.div>
         )}
       </div>
     </section>

@@ -1,100 +1,134 @@
-// FLUTTER FOCUS: Hero section with Flutter branding
+// Hero section - Premium clean design inspired by rafsan-theta
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Code, Download, ChevronRight, Mail, Smartphone } from 'lucide-react';
+import { Download, ArrowDown, MapPin } from 'lucide-react';
 
 export const Hero = () => {
-  // FLUTTER FOCUS: Updated typing text
-  const typingText = "Mobile Developer spécialisé Flutter & Firebase | 2+ ans d'expérience | Tunis";
+  const scrollTo = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      const top = el.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  };
 
   return (
-    <section className="min-h-[90vh] flex items-center justify-center relative overflow-hidden py-10 md:py-12">
-      {/* Background Blobs */}
-      <div className="absolute top-20 left-10 w-72 h-72 bg-primary/20 rounded-full mix-blend-screen filter blur-3xl animate-float" />
-      <div className="absolute bottom-20 right-10 w-72 h-72 bg-secondary/20 rounded-full mix-blend-screen filter blur-3xl animate-float" style={{ animationDelay: '2s' }} />
+    <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
+      {/* Subtle gradient blobs */}
+      <div className="absolute top-1/4 -left-32 w-[400px] h-[400px] bg-primary/[0.07] rounded-full blur-[120px]" />
+      <div className="absolute bottom-1/4 -right-32 w-[400px] h-[400px] bg-secondary/[0.07] rounded-full blur-[120px]" />
 
-      <div className="container mx-auto px-4 relative z-10 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          {/* Profile Image with Glow */}
-          <div className="relative w-28 h-28 md:w-32 md:h-32 mx-auto mb-6 group">
-            <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-full animate-pulse-glow opacity-75 blur-md group-hover:opacity-100 transition duration-500" />
-            <img
-              src="/assets/images/myPhoto.jpg"
-              alt="Omar Djebbi - Développeur Flutter"
-              className="relative w-full h-full object-cover rounded-full border-4 border-gray-800 shadow-2xl z-10"
-              loading="eager"
-            />
-          </div>
+      <div className="container mx-auto px-5 md:px-8 max-w-5xl relative z-10">
+        <div className="flex flex-col items-center text-center">
 
-          {/* FLUTTER FOCUS: Badge */}
-          <div className="inline-flex items-center gap-2 p-3 bg-gradient-to-r from-primary/10 to-secondary/10 border border-primary/20 rounded-2xl mb-4 shadow-lg backdrop-blur-sm">
-            <Smartphone className="w-5 h-5 text-primary" />
-            <span className="text-sm font-semibold text-primary">Développeur Mobile Flutter</span>
-          </div>
+          {/* Profile image */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
+            className="relative mb-8"
+          >
+            <div className="w-28 h-28 md:w-36 md:h-36 rounded-full overflow-hidden border-[3px] border-primary/30 shadow-xl shadow-primary/10">
+              <img
+                src="/assets/images/myPhoto.jpg"
+                alt="Omar Djebbi"
+                className="w-full h-full object-cover"
+                loading="eager"
+              />
+            </div>
+            {/* Online status dot */}
+            <div className="absolute bottom-1 right-1 w-5 h-5 bg-emerald-500 rounded-full border-[3px] border-[#0b1121]" />
+          </motion.div>
 
-          {/* FLUTTER FOCUS: Updated title */}
-          <h1 className="text-3xl md:text-6xl font-bold mb-4 text-gradient-animate pb-2">
-            Omar Djebbi | Développeur Mobile Flutter
-          </h1>
+          {/* Availability badge */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.15 }}
+            className="flex items-center gap-2 px-4 py-2 mb-6 bg-emerald-500/10 border border-emerald-500/20 rounded-full"
+          >
+            <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
+            <span className="text-emerald-400 text-sm font-medium">Disponible immédiatement</span>
+          </motion.div>
 
-          {/* FLUTTER FOCUS: Typewriter subtitle */}
-          <div className="min-h-[2rem] md:h-8 mb-4 flex justify-center items-center">
-            <motion.div
-              initial={{ width: 0 }}
-              animate={{ width: "auto" }}
-              transition={{ duration: 3.5, ease: "linear" }}
-              className="overflow-hidden whitespace-nowrap border-r-4 border-primary pr-2"
+          {/* Main heading */}
+          <motion.h1
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.5 }}
+            className="text-4xl sm:text-5xl md:text-7xl font-bold mb-5 tracking-tight"
+          >
+            <span className="text-white">BUILDING BEAUTIFUL</span>
+            <br />
+            <span className="text-gradient-animate">MOBILE APPS</span>
+          </motion.h1>
+
+          {/* Subtitle */}
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.35, duration: 0.5 }}
+            className="text-gray-400 text-base md:text-lg max-w-xl mx-auto mb-3 leading-relaxed"
+          >
+            Développeur mobile spécialisé <span className="text-primary font-medium">Flutter & Firebase</span> avec 2+ ans d'expérience en applications cross-platform performantes.
+          </motion.p>
+
+          {/* Location */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.45 }}
+            className="flex items-center gap-1.5 text-gray-500 text-sm mb-8"
+          >
+            <MapPin size={14} />
+            <span>Tunis – Monplaisir, Tunisie</span>
+          </motion.div>
+
+          {/* CTA Buttons */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.4 }}
+            className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 mb-12"
+          >
+            <button
+              type="button"
+              onClick={() => scrollTo('contact')}
+              className="px-7 py-3 bg-primary hover:bg-primary/90 text-white font-semibold rounded-xl transition-all duration-200 active:scale-[0.97] cursor-pointer shadow-lg shadow-primary/20 text-[15px]"
             >
-              <p className="text-base md:text-xl text-gray-300 font-light">
-                {typingText}
-              </p>
-            </motion.div>
-          </div>
-
-          {/* FLUTTER FOCUS: React disclaimer */}
-          <p className="text-sm text-gray-500 mb-4 italic">
-            Ce portfolio est fait avec React, mais je suis avant tout un expert Flutter (toutes mes apps mobiles sont en Dart/Flutter) 🔥
-          </p>
-
-          {/* FLUTTER FOCUS: Description */}
-          <p className="text-base md:text-lg text-gray-400 max-w-2xl mx-auto mb-8 leading-relaxed">
-            Conception et développement d'applications mobiles performantes et scalables avec Flutter & Firebase.
-            Spécialisé en développement cross-platform et architectures robustes (Riverpod, Bloc, Clean Architecture).
-          </p>
-
-          {/* FIX MOBILE: Buttons with proper touch targets */}
-          <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-4">
-            <a 
-              href="#projects" 
-              className="relative overflow-hidden px-6 py-3 min-h-[48px] bg-gradient-to-r from-primary to-secondary rounded-full font-semibold text-white shadow-lg hover:shadow-primary/50 transition-all duration-300 transform hover:-translate-y-1 active:scale-95 flex items-center justify-center gap-2 group cursor-pointer"
-              style={{ touchAction: 'manipulation' }}
+              Get in Touch
+            </button>
+            <button
+              type="button"
+              onClick={() => scrollTo('projects')}
+              className="px-7 py-3 bg-white/[0.06] hover:bg-white/[0.1] text-white font-medium rounded-xl border border-white/[0.08] transition-all duration-200 active:scale-[0.97] cursor-pointer text-[15px]"
             >
-              <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out" />
-              <span>Mes Apps Flutter</span> <ChevronRight size={18} />
-            </a>
-
-            <a
-              href="#contact"
-              className="px-6 py-3 min-h-[48px] bg-card border border-gray-700 text-white rounded-full font-semibold hover:border-primary hover:text-primary transition-all duration-300 transform hover:-translate-y-1 active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
-              style={{ touchAction: 'manipulation' }}
-            >
-              <Mail size={18} /> Me Contacter
-            </a>
-
+              View Projects
+            </button>
             <a
               href="/assets/documents/Resume.pdf"
               download="Omar_Djebbi_CV.pdf"
-              className="px-6 py-3 min-h-[48px] bg-gray-800 border border-gray-600 text-gray-300 rounded-full font-semibold hover:bg-gray-700 hover:text-white transition-all duration-300 transform hover:-translate-y-1 active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
-              style={{ touchAction: 'manipulation' }}
+              className="px-7 py-3 text-gray-400 hover:text-white font-medium rounded-xl transition-all duration-200 active:scale-[0.97] cursor-pointer flex items-center gap-2 text-[15px]"
             >
-              <Download size={18} /> Télécharger CV
+              <Download size={16} /> Download CV
             </a>
-          </div>
-        </motion.div>
+          </motion.div>
+
+          {/* Scroll indicator */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1 }}
+            className="absolute bottom-8 left-1/2 -translate-x-1/2"
+          >
+            <motion.div
+              animate={{ y: [0, 8, 0] }}
+              transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
+            >
+              <ArrowDown size={20} className="text-gray-600" />
+            </motion.div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
