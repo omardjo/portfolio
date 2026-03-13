@@ -41,7 +41,8 @@ const Home = () => (
   <>
     <Hero />
     <About />
-    <Projects featuredIds={['stripe', 'career', 'mes', 'kidora']} />
+    {/* AJOUT PROJET TICK8ING en premier */}
+    <Projects featuredIds={['tick8ing', 'stripe', 'career', 'mes']} />
     <Experience limit={3} />
     <Certifications limit={3} />
     <Contact />

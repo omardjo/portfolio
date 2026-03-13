@@ -2,11 +2,16 @@ export interface Project {
   id: string;
   title: string;
   description: string;
+  fullDescription?: string;
   tags: string[];
   image: string;
+  images?: string[];
   videoUrl?: string;
   repoUrl?: string;
   demoUrl?: string;
+  period?: string;
+  type?: string;
+  mockupType?: 'phone' | 'pc'; // phone frame or laptop/browser frame
 }
 
 export interface Experience {

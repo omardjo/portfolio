@@ -1,14 +1,28 @@
 import { Project, Experience, Certificate } from './types';
 
 // FLUTTER FOCUS: Projects reordered - Flutter projects first
+// AJOUT PROJET TICK8ING - Freelance prioritaire en tête
 export const PROJECTS: Project[] = [
+  {
+    id: 'tick8ing',
+    title: 'Tick8ing – Gestion de Planning',
+    description: 'Application Flutter de gestion de planning en freelance : intégration de nouveaux modules et connexion backend PHP via API REST.',
+    fullDescription: 'Développement et amélioration d\'une application Flutter de gestion de planning : intégration de nouveaux modules et connexion avec un backend PHP via API REST. Collaboration via Kchat et GitLab (tickets & versioning).',
+    tags: ['Flutter', 'Dart', 'PHP', 'API REST', 'GitLab'],
+    image: '/assets/images/tick8ing-1.jpg',
+    images: ['/assets/images/tick8ing-1.jpg', '/assets/images/tick8ing-2.jpg', '/assets/images/tick8ing-3.jpg', '/assets/images/tick8ing-4.jpg'],
+    period: 'Février 2026 (1 mois)',
+    type: 'Freelance On-site (Tunisie)',
+    mockupType: 'phone'
+  },
   {
     id: 'stripe',
     title: 'Stripe Integration App',
     description: 'Application mobile de paiement sécurisé avec gateway Stripe, gestion fournisseurs/inventaire et chatbot IA. Zéro erreur de transaction.',
     tags: ['Flutter', 'Nest.js', 'Stripe', 'Firebase'],
     image: '/assets/images/stripe-screenshot.png',
-    videoUrl: '/assets/videos/StripeIntegration.mp4'
+    videoUrl: '/assets/videos/StripeIntegration.mp4',
+    mockupType: 'pc'
   },
   {
     id: 'career',
@@ -16,7 +30,8 @@ export const PROJECTS: Project[] = [
     description: 'Application Flutter avec web scraping GitHub/LinkedIn et recommandation de carrière IA avec 95% de précision.',
     tags: ['Flutter', 'Flask', 'AI', 'Firebase'],
     image: '/assets/images/career-recommendation-screenshot.png',
-    videoUrl: '/assets/videos/CareerRecommendation.mp4'
+    videoUrl: '/assets/videos/CareerRecommendation.mp4',
+    mockupType: 'pc'
   },
   {
     id: 'mes',
@@ -24,7 +39,8 @@ export const PROJECTS: Project[] = [
     description: 'Système MES de suivi de production en temps réel pour 50+ lignes avec analytics avancées.',
     tags: ['Flutter Web', 'Dynamics BC', 'AL'],
     image: '/assets/images/mes-screenshot.png',
-    videoUrl: '/assets/videos/MesPresentationLV.mp4'
+    videoUrl: '/assets/videos/MesPresentationLV.mp4',
+    mockupType: 'pc'
   },
   {
     id: 'kidora',
@@ -33,7 +49,8 @@ export const PROJECTS: Project[] = [
     tags: ['React Native', 'Spring Boot'],
     image: '/assets/images/kidora_cap.png',
     videoUrl: '/assets/videos/NewVideoKiodraFixed.mp4',
-    demoUrl: '#'
+    demoUrl: '#',
+    mockupType: 'pc'
   },
   {
     id: 'safetravel',
@@ -41,7 +58,8 @@ export const PROJECTS: Project[] = [
     description: 'Application de sécurité enrichie par IA servant 200+ utilisateurs avec fonctions d\'urgence.',
     tags: ['Node.js', 'AI', 'Flutter'],
     image: '/assets/images/safe-travel-screenshot.png',
-    repoUrl: 'https://github.com/safeTravel-IA/SafeTravelFrontEnd'
+    repoUrl: 'https://github.com/safeTravel-IA/SafeTravelFrontEnd',
+    mockupType: 'pc'
   },
   {
     id: 'learnverse',
@@ -49,7 +67,8 @@ export const PROJECTS: Project[] = [
     description: 'Plateforme éducative web supportant 50+ cours avec suivi d\'inscription.',
     tags: ['Angular', 'Django'],
     image: '/assets/images/learnverse-screenshot.png',
-    videoUrl: '/assets/videos/LearnVerseVideo.mp4'
+    videoUrl: '/assets/videos/LearnVerseVideo.mp4',
+    mockupType: 'pc'
   },
   {
     id: 'solar',
@@ -57,11 +76,24 @@ export const PROJECTS: Project[] = [
     description: 'Simulation 3D avec mécanique orbitale réaliste.',
     tags: ['Unity', 'C#'],
     image: '/assets/images/solar-system-screenshot.jpg',
-    repoUrl: 'https://gitlab.com/omardjo/solar_system_project.git'
+    repoUrl: 'https://gitlab.com/omardjo/solar_system_project.git',
+    mockupType: 'phone'
   }
 ];
 
 export const EXPERIENCES: Experience[] = [
+  {
+    id: 'tick8ing_freelance',
+    role: 'Freelance Flutter Developer',
+    company: 'Tick8ing, On-site – Tunisie',
+    period: 'Feb 2026 (1 mois)',
+    details: [
+      'Développement et amélioration d\'une application Flutter de gestion de planning.',
+      'Intégration de nouveaux modules et connexion avec un backend PHP via API REST.',
+      'Collaboration via Kchat et GitLab (tickets & versioning).'
+    ],
+    color: 'primary'
+  },
   {
     id: 'solo',
     role: 'Solo Developer',

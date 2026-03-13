@@ -126,7 +126,7 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {/* FIX MOBILE MENU BUTTONS (comme rafsan-theta) - Full overlay mobile menu */}
+      {/* MENU MOBILE REFAIT (comme rafsan-theta) - Full-screen overlay + slide élégant */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -134,61 +134,64 @@ const Navbar = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: 0.25 }}
             className="fixed inset-0 z-[99] md:hidden"
           >
-            {/* Backdrop */}
-            <div
-              className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+            {/* Backdrop - full screen blur */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 bg-[#0b1121]/80 backdrop-blur-xl"
               onClick={() => setIsOpen(false)}
             />
 
-            {/* Menu panel - slides from top */}
+            {/* Menu panel - slides from top, bigger and more refined */}
             <motion.div
-              initial={{ y: -20, opacity: 0 }}
+              initial={{ y: -30, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              exit={{ y: -20, opacity: 0 }}
-              transition={{ duration: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
-              className="absolute top-16 inset-x-0 mx-4 bg-[#111827] border border-white/[0.08] rounded-2xl shadow-2xl shadow-black/40 overflow-hidden"
+              exit={{ y: -30, opacity: 0 }}
+              transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+              className="absolute top-[72px] inset-x-0 mx-3 bg-[#111827]/95 border border-white/[0.08] rounded-2xl shadow-2xl shadow-black/60 overflow-hidden backdrop-blur-2xl"
             >
-              <div className="p-3 flex flex-col gap-1">
+              <div className="p-4 flex flex-col gap-1.5">
                 {navLinks.map((link, i) => (
                   <motion.button
                     key={link.name}
                     type="button"
-                    initial={{ opacity: 0, x: -12 }}
+                    initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.04, duration: 0.2 }}
+                    transition={{ delay: i * 0.05, duration: 0.25 }}
                     onClick={() => handleNavClick(link.href)}
-                    className="w-full text-left px-4 py-3.5 text-[15px] font-medium text-gray-300 rounded-xl hover:bg-white/[0.06] hover:text-white active:bg-white/[0.1] active:scale-[0.98] transition-all duration-150 cursor-pointer"
+                    className="w-full text-left px-5 py-4 text-[16px] font-medium text-gray-200 rounded-xl hover:bg-white/[0.06] hover:text-white active:bg-white/[0.1] active:scale-[0.98] transition-all duration-150 cursor-pointer"
                   >
                     {link.name}
                   </motion.button>
                 ))}
 
                 {/* Divider */}
-                <div className="h-px bg-white/[0.06] mx-2 my-1" />
+                <div className="h-px bg-gradient-to-r from-transparent via-white/[0.08] to-transparent mx-3 my-2" />
 
-                {/* SMOOTH SCROLL GET IN TOUCH - mobile */}
+                {/* SMOOTH SCROLL GET IN TOUCH - mobile CTA */}
                 <motion.button
                   type="button"
-                  initial={{ opacity: 0, x: -12 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: navLinks.length * 0.04, duration: 0.2 }}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: navLinks.length * 0.05 + 0.05, duration: 0.25 }}
                   onClick={() => handleNavClick('#contact')}
-                  className="w-full text-center px-4 py-3.5 text-[15px] font-semibold text-white bg-primary hover:bg-primary/90 rounded-xl active:scale-[0.97] transition-all duration-150 cursor-pointer"
+                  className="w-full text-center px-5 py-4 text-[16px] font-semibold text-white bg-primary hover:bg-primary/90 rounded-xl active:scale-[0.97] transition-all duration-150 cursor-pointer shadow-lg shadow-primary/20"
                 >
                   Get in Touch
                 </motion.button>
 
                 {/* CV Download */}
                 <motion.a
-                  href="/assets/documents/Resume.pdf"
+                  href="/assets/documents/Omar_Djebbi_CV.pdf"
                   download="Omar_Djebbi_CV.pdf"
-                  initial={{ opacity: 0, x: -12 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: (navLinks.length + 1) * 0.04, duration: 0.2 }}
-                  className="w-full text-center px-4 py-3.5 text-[15px] font-medium text-gray-300 border border-white/[0.08] rounded-xl hover:bg-white/[0.04] active:scale-[0.97] transition-all duration-150 cursor-pointer flex items-center justify-center gap-2"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: (navLinks.length + 1) * 0.05 + 0.05, duration: 0.25 }}
+                  className="w-full text-center px-5 py-4 text-[16px] font-medium text-gray-300 border border-white/[0.08] rounded-xl hover:bg-white/[0.04] active:scale-[0.97] transition-all duration-150 cursor-pointer flex items-center justify-center gap-2"
                 >
                   <Download size={16} /> Download CV
                 </motion.a>

@@ -13,7 +13,8 @@ export const Hero = () => {
   };
 
   return (
-    <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
+    // FIX PHOTO HERO - meilleur spacing + ring + ombre professionnelle
+    <section className="min-h-screen flex items-center justify-center relative overflow-hidden pt-24 md:pt-20">
       {/* Subtle gradient blobs */}
       <div className="absolute top-1/4 -left-32 w-[400px] h-[400px] bg-primary/[0.07] rounded-full blur-[120px]" />
       <div className="absolute bottom-1/4 -right-32 w-[400px] h-[400px] bg-secondary/[0.07] rounded-full blur-[120px]" />
@@ -21,14 +22,16 @@ export const Hero = () => {
       <div className="container mx-auto px-5 md:px-8 max-w-5xl relative z-10">
         <div className="flex flex-col items-center text-center">
 
-          {/* Profile image */}
+          {/* FIX PHOTO HERO - repositionnée avec ring élégant, ombre douce, look pro */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}
-            className="relative mb-8"
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="relative mb-10"
           >
-            <div className="w-28 h-28 md:w-36 md:h-36 rounded-full overflow-hidden border-[3px] border-primary/30 shadow-xl shadow-primary/10">
+            {/* Glow effect behind photo */}
+            <div className="absolute inset-0 w-32 h-32 md:w-40 md:h-40 rounded-full bg-primary/20 blur-2xl scale-110 -z-10" />
+            <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden ring-[3px] ring-primary/25 ring-offset-[5px] ring-offset-[#0b1121] shadow-2xl shadow-primary/15">
               <img
                 src="/assets/images/myPhoto.jpg"
                 alt="Omar Djebbi"
@@ -37,7 +40,7 @@ export const Hero = () => {
               />
             </div>
             {/* Online status dot */}
-            <div className="absolute bottom-1 right-1 w-5 h-5 bg-emerald-500 rounded-full border-[3px] border-[#0b1121]" />
+            <div className="absolute bottom-2 right-2 w-5 h-5 bg-emerald-500 rounded-full border-[3px] border-[#0b1121] shadow-lg shadow-emerald-500/30" />
           </motion.div>
 
           {/* Availability badge */}
@@ -106,7 +109,7 @@ export const Hero = () => {
               View Projects
             </button>
             <a
-              href="/assets/documents/Resume.pdf"
+              href="/assets/documents/Omar_Djebbi_CV.pdf"
               download="Omar_Djebbi_CV.pdf"
               className="px-7 py-3 text-gray-400 hover:text-white font-medium rounded-xl transition-all duration-200 active:scale-[0.97] cursor-pointer flex items-center gap-2 text-[15px]"
             >

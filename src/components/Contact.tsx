@@ -112,7 +112,7 @@ export const Contact = () => {
 
             {/* CV Download */}
             <a
-              href="/assets/documents/Resume.pdf"
+              href="/assets/documents/Omar_Djebbi_CV.pdf"
               download="Omar_Djebbi_CV.pdf"
               className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-primary hover:bg-primary/90 text-white font-semibold rounded-xl transition-all active:scale-[0.97] cursor-pointer text-[15px]"
             >

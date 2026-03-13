@@ -34,7 +34,7 @@ export const About = () => {
   const skills = [
     { name: 'Flutter & Dart', level: 95, color: 'primary' },
     { name: 'Firebase & Cloud', level: 88, color: 'orange' },
-    { name: 'State Management (Riverpod/Bloc)', level: 85, color: 'secondary' },
+    { name: 'State Management (Provider)', level: 85, color: 'secondary' },
     { name: 'Node.js & Backend', level: 80, color: 'accent' },
     { name: 'React & Web', level: 75, color: 'emerald' },
   ];
