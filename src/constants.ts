@@ -1,8 +1,18 @@
 import { Project, Experience, Certificate } from './types';
 
-// FLUTTER FOCUS: Projects reordered - Flutter projects first
-// AJOUT PROJET TICK8ING - Freelance prioritaire en tête
+// Featured projects first, then remaining projects in portfolio order
 export const PROJECTS: Project[] = [
+  {
+    id: 'riwaq',
+    title: 'Riwaq – Application de Blog',
+    description: 'Application de blog moderne avec Android Jetpack Compose et FastAPI : authentification, articles, catégories, tags, suivi de lecture, profils, notifications FCM et backend AWS.',
+    fullDescription: 'Développement d’une application de blog moderne avec Android Jetpack Compose et FastAPI : authentification, gestion des articles, catégories, tags, suivi de lecture, profils utilisateurs, notifications avec FCM, connexion à PostgreSQL sur AWS RDS, et tests d’API avec Postman. Déploiement backend sur une instance Amazon EC2 et amélioration continue de l’UI/UX pour une publication future sur Google Play Store.',
+    tags: ['Android Jetpack Compose', 'FastAPI', 'Postman', 'Amazon EC2', 'AWS RDS', 'PostgreSQL', 'FCM', 'REST API'],
+    image: '/assets/images/image1.jpeg',
+    images: ['/assets/images/image1.jpeg', '/assets/images/image2.jpeg', '/assets/images/image3.jpeg', '/assets/images/image4.jpeg', '/assets/images/image5.jpeg'],
+    type: 'Mobile App',
+    mockupType: 'phone'
+  },
   {
     id: 'tick8ing',
     title: 'Tick8ing – Gestion de Planning',
@@ -14,6 +24,39 @@ export const PROJECTS: Project[] = [
     period: 'Février 2026 (1 mois)',
     type: 'Freelance On-site (Tunisie)',
     mockupType: 'phone'
+  },
+  {
+    id: 'kidora',
+    title: 'Kidora Tutoring App',
+    description: 'Application éducative gamifiée pour enfants 4-12 ans avec tableau de bord parental et suivi de progression en temps réel.',
+    tags: ['React Native', 'Spring Boot'],
+    image: '/assets/images/kidora1.jpeg',
+    images: [
+      '/assets/images/kidora1.jpeg',
+      '/assets/images/kidora2.jpeg',
+      '/assets/images/kidora3.jpeg',
+      '/assets/images/kidora4.jpeg',
+      '/assets/images/kidora5.jpeg',
+      '/assets/images/kidora6.jpeg',
+      '/assets/images/kidora7.jpeg',
+      '/assets/images/kidora8.jpeg',
+      '/assets/images/kidora9.jpeg',
+      '/assets/images/kidora10.jpeg',
+      '/assets/images/kidora11.jpeg',
+    ],
+    landscapeImages: ['/assets/images/kidora10.jpeg', '/assets/images/kidora11.jpeg'],
+    videoUrl: '/assets/videos/NewVideoKiodraFixed.mp4',
+    demoUrl: '#',
+    mockupType: 'phone'
+  },
+  {
+    id: 'mes',
+    title: 'Production Tracking (MES)',
+    description: 'Système MES de suivi de production en temps réel pour 50+ lignes avec analytics avancées.',
+    tags: ['Flutter Web', 'Dynamics BC', 'AL'],
+    image: '/assets/images/mes-screenshot.png',
+    videoUrl: '/assets/videos/MesPresentationLV.mp4',
+    mockupType: 'pc'
   },
   {
     id: 'stripe',
@@ -31,25 +74,6 @@ export const PROJECTS: Project[] = [
     tags: ['Flutter', 'Flask', 'AI', 'Firebase'],
     image: '/assets/images/career-recommendation-screenshot.png',
     videoUrl: '/assets/videos/CareerRecommendation.mp4',
-    mockupType: 'pc'
-  },
-  {
-    id: 'mes',
-    title: 'Production Tracking (MES)',
-    description: 'Système MES de suivi de production en temps réel pour 50+ lignes avec analytics avancées.',
-    tags: ['Flutter Web', 'Dynamics BC', 'AL'],
-    image: '/assets/images/mes-screenshot.png',
-    videoUrl: '/assets/videos/MesPresentationLV.mp4',
-    mockupType: 'pc'
-  },
-  {
-    id: 'kidora',
-    title: 'Kidora Tutoring App',
-    description: 'Application éducative gamifiée pour enfants 4-12 ans avec tableau de bord parental et suivi de progression en temps réel.',
-    tags: ['React Native', 'Spring Boot'],
-    image: '/assets/images/kidora_cap.png',
-    videoUrl: '/assets/videos/NewVideoKiodraFixed.mp4',
-    demoUrl: '#',
     mockupType: 'pc'
   },
   {

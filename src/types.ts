@@ -6,6 +6,7 @@ export interface Project {
   tags: string[];
   image: string;
   images?: string[];
+  landscapeImages?: string[];
   videoUrl?: string;
   repoUrl?: string;
   demoUrl?: string;

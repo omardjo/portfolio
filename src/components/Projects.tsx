@@ -28,6 +28,20 @@ const PhoneFrame = ({ src, alt, eager }: { src: string; alt: string; eager?: boo
   </div>
 );
 
+const LandscapePhoneFrame = ({ src, alt, eager }: { src: string; alt: string; eager?: boolean }) => (
+  <div className="relative bg-gradient-to-r from-gray-800/40 to-gray-900/60 rounded-[20px] border border-white/[0.08] shadow-xl shadow-black/30 p-2 md:p-2.5 aspect-[19/9] w-full max-w-[420px] mx-auto">
+    <div className="absolute left-[6px] top-1/2 -translate-y-1/2 h-16 w-[4px] bg-white/[0.06] rounded-full z-10" />
+    <div className="w-full h-full rounded-[14px] overflow-hidden bg-black/40">
+      <img
+        src={src}
+        alt={alt}
+        className="w-full h-full object-contain"
+        loading={eager ? 'eager' : 'lazy'}
+      />
+    </div>
+  </div>
+);
+
 // PC / Laptop browser mockup frame for web & desktop apps
 const PCFrame = ({ src, alt, eager }: { src: string; alt: string; eager?: boolean }) => (
   <div className="relative w-full max-w-[520px] mx-auto">
@@ -65,8 +79,9 @@ const PCFrame = ({ src, alt, eager }: { src: string; alt: string; eager?: boolea
 );
 
 // Generic frame renderer — picks Phone or PC based on mockupType
-const MockupFrame = ({ src, alt, eager, mockupType }: { src: string; alt: string; eager?: boolean; mockupType?: 'phone' | 'pc' }) => {
+const MockupFrame = ({ src, alt, eager, mockupType, orientation = 'portrait' }: { src: string; alt: string; eager?: boolean; mockupType?: 'phone' | 'pc'; orientation?: 'portrait' | 'landscape' }) => {
   if (mockupType === 'pc') return <PCFrame src={src} alt={alt} eager={eager} />;
+  if (orientation === 'landscape') return <LandscapePhoneFrame src={src} alt={alt} eager={eager} />;
   return <PhoneFrame src={src} alt={alt} eager={eager} />;
 };
 
@@ -152,31 +167,48 @@ const ImageCarousel = ({ images, alt, mockupType }: { images: string[]; alt: str
 };
 
 // FIX SCREENSHOTS FULL DISPLAY - Grid of frames for multi-image projects
-const ScreenshotGrid = ({ images, alt, mockupType }: { images: string[]; alt: string; mockupType?: 'phone' | 'pc' }) => (
-  <div className={mockupType === 'pc'
-    ? 'grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6'
-    : 'grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4'
-  }>
-    {images.map((img, i) => (
-      <motion.div
-        key={i}
-        initial={{ opacity: 0, y: 15 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ delay: i * 0.08, duration: 0.4 }}
-      >
-        <MockupFrame src={img} alt={`${alt} ${i + 1}`} eager={i === 0} mockupType={mockupType} />
-      </motion.div>
-    ))}
-  </div>
-);
+const ScreenshotGrid = ({ images, alt, mockupType, landscapeImages = [] }: { images: string[]; alt: string; mockupType?: 'phone' | 'pc'; landscapeImages?: string[] }) => {
+  const phoneColumns = images.length > 8 ? 'lg:grid-cols-6' : images.length >= 5 ? 'lg:grid-cols-5' : 'lg:grid-cols-4';
+
+  return (
+    <div className={mockupType === 'pc'
+      ? 'grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6'
+      : `grid grid-cols-2 sm:grid-cols-3 ${phoneColumns} gap-3 md:gap-4 rounded-2xl border border-white/[0.06] bg-[#05070d]/50 p-3 md:p-4 shadow-inner shadow-black/30`
+    }>
+      {images.map((img, i) => {
+        const isLandscape = landscapeImages.includes(img);
+
+        return (
+        <motion.div
+          key={i}
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: i * 0.08, duration: 0.4 }}
+          className={isLandscape && mockupType !== 'pc' ? 'col-span-2' : undefined}
+        >
+          <MockupFrame
+            src={img}
+            alt={`${alt} ${i + 1}`}
+            eager={i === 0}
+            mockupType={mockupType}
+            orientation={isLandscape ? 'landscape' : 'portrait'}
+          />
+        </motion.div>
+        );
+      })}
+    </div>
+  );
+};
 
 export const Projects: React.FC<ProjectsProps> = ({ featuredIds }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [activeVideo, setActiveVideo] = useState({ url: '', title: '' });
 
   const displayedProjects = featuredIds 
-    ? PROJECTS.filter(p => featuredIds.includes(p.id))
+    ? featuredIds
+        .map(id => PROJECTS.find(p => p.id === id))
+        .filter((project): project is typeof PROJECTS[number] => Boolean(project))
     : PROJECTS;
 
   const openVideo = (url: string, title: string) => {
@@ -232,7 +264,12 @@ export const Projects: React.FC<ProjectsProps> = ({ featuredIds }) => {
               {/* FIX SCREENSHOTS FULL DISPLAY - Adaptive mockup frame per project */}
               {hasMultiImages ? (
                 <div className="mb-6 mt-8">
-                  <ScreenshotGrid images={project.images!} alt={project.title} mockupType={frameType} />
+                  <ScreenshotGrid
+                    images={project.images!}
+                    alt={project.title}
+                    mockupType={frameType}
+                    landscapeImages={project.landscapeImages}
+                  />
                 </div>
               ) : (
                 <div className="mb-6 mt-8 flex justify-center">
