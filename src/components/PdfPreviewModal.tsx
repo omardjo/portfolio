@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { X, Download, ExternalLink } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { X, Download, ExternalLink, Loader2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface PdfPreviewModalProps {
@@ -17,6 +17,9 @@ export const PdfPreviewModal: React.FC<PdfPreviewModalProps> = ({
   title,
   downloadName,
 }) => {
+  const [blobUrl, setBlobUrl] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -28,8 +31,47 @@ export const PdfPreviewModal: React.FC<PdfPreviewModalProps> = ({
     };
   }, [isOpen]);
 
-  // Dynamic cache-buster so old cached versions are never served in the iframe
-  const cacheBustedUrl = pdfUrl.includes('?') ? `${pdfUrl}&cb=${Date.now()}` : `${pdfUrl}?cb=${Date.now()}`;
+  // Fetch binary blob with no-store to prevent browser PDF plugins from serving stale disk cache
+  useEffect(() => {
+    let active = true;
+    let createdUrl: string | null = null;
+
+    if (isOpen && pdfUrl) {
+      setLoading(true);
+      setBlobUrl(null);
+
+      const timestampedUrl = pdfUrl.includes('?')
+        ? `${pdfUrl}&t=${Date.now()}`
+        : `${pdfUrl}?t=${Date.now()}`;
+
+      fetch(timestampedUrl, { cache: 'no-store' })
+        .then((res) => {
+          if (!res.ok) throw new Error('Failed to load PDF blob');
+          return res.blob();
+        })
+        .then((blob) => {
+          if (!active) return;
+          createdUrl = URL.createObjectURL(blob);
+          setBlobUrl(createdUrl);
+          setLoading(false);
+        })
+        .catch(() => {
+          if (!active) return;
+          // Fallback to direct cache-busted URL if fetch fails
+          setBlobUrl(timestampedUrl);
+          setLoading(false);
+        });
+    }
+
+    return () => {
+      active = false;
+      if (createdUrl) {
+        URL.revokeObjectURL(createdUrl);
+      }
+    };
+  }, [isOpen, pdfUrl]);
+
+  const directDownloadUrl = pdfUrl;
 
   return (
     <AnimatePresence>
@@ -61,18 +103,18 @@ export const PdfPreviewModal: React.FC<PdfPreviewModalProps> = ({
 
               <div className="flex items-center gap-2">
                 <a
-                  href={cacheBustedUrl}
+                  href={directDownloadUrl}
                   download={downloadName}
-                  className="inline-flex items-center gap-2 px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-primary hover:bg-primary/90 rounded-xl transition-all shadow-md shadow-primary/20 active:scale-95"
+                  className="inline-flex items-center gap-2 px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-primary hover:bg-primary/90 rounded-xl transition-all shadow-md shadow-primary/20 active:scale-95 cursor-pointer"
                 >
                   <Download size={15} />
                   <span>Download</span>
                 </a>
                 <a
-                  href={cacheBustedUrl}
+                  href={directDownloadUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center w-9 h-9 text-gray-400 hover:text-white hover:bg-white/10 rounded-xl transition-colors"
+                  className="inline-flex items-center justify-center w-9 h-9 text-gray-400 hover:text-white hover:bg-white/10 rounded-xl transition-colors cursor-pointer"
                   title="Open in new tab"
                 >
                   <ExternalLink size={18} />
@@ -80,7 +122,7 @@ export const PdfPreviewModal: React.FC<PdfPreviewModalProps> = ({
                 <button
                   type="button"
                   onClick={onClose}
-                  className="inline-flex items-center justify-center w-9 h-9 text-gray-400 hover:text-white hover:bg-white/10 rounded-xl transition-colors"
+                  className="inline-flex items-center justify-center w-9 h-9 text-gray-400 hover:text-white hover:bg-white/10 rounded-xl transition-colors cursor-pointer"
                   aria-label="Close modal"
                 >
                   <X size={20} />
@@ -90,25 +132,33 @@ export const PdfPreviewModal: React.FC<PdfPreviewModalProps> = ({
 
             {/* Modal Content - PDF Viewer */}
             <div className="relative flex-1 w-full bg-[#1e293b]/40 overflow-hidden flex flex-col items-center justify-center">
-              <iframe
-                src={`${cacheBustedUrl}#toolbar=1&view=FitH`}
-                title={title}
-                className="w-full h-full border-0"
-              >
-                <div className="flex flex-col items-center justify-center p-8 text-center space-y-4">
-                  <p className="text-gray-300">
-                    Your browser does not support inline PDF viewing.
-                  </p>
-                  <a
-                    href={cacheBustedUrl}
-                    download={downloadName}
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white font-semibold rounded-xl"
-                  >
-                    <Download size={18} />
-                    Download {title}
-                  </a>
+              {loading ? (
+                <div className="flex flex-col items-center justify-center gap-3 text-gray-300">
+                  <Loader2 className="w-8 h-8 animate-spin text-primary" />
+                  <span className="text-sm font-medium">Loading fresh document preview...</span>
                 </div>
-              </iframe>
+              ) : blobUrl ? (
+                <iframe
+                  key={blobUrl}
+                  src={`${blobUrl}#toolbar=1&view=FitH`}
+                  title={title}
+                  className="w-full h-full border-0"
+                >
+                  <div className="flex flex-col items-center justify-center p-8 text-center space-y-4">
+                    <p className="text-gray-300">
+                      Your browser does not support inline PDF viewing.
+                    </p>
+                    <a
+                      href={directDownloadUrl}
+                      download={downloadName}
+                      className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white font-semibold rounded-xl"
+                    >
+                      <Download size={18} />
+                      Download {title}
+                    </a>
+                  </div>
+                </iframe>
+              ) : null}
             </div>
           </motion.div>
         </motion.div>

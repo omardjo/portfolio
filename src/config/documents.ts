@@ -1,13 +1,26 @@
-// Single source of truth for portfolio downloadable & previewable documents
+// Centralized single source of truth for portfolio documents
+export const DOCUMENTS = {
+  cv: '/assets/documents/CV/CV_Omar_Djebbi_2026_Final.pdf',
+  resume: '/assets/documents/Resume/Resume_Omar_Djebbi_2026_Final.pdf',
+} as const;
+
+export const CV_PATH = DOCUMENTS.cv;
+export const RESUME_PATH = DOCUMENTS.resume;
+
+export const CV_FILENAME = 'CV_Omar_Djebbi_2026_Final.pdf';
+export const RESUME_FILENAME = 'Resume_Omar_Djebbi_2026_Final.pdf';
+
 export const DOCUMENT_CONFIG = {
   cv: {
-    filename: 'CV_Omar_Djebbi_2026_Final.pdf',
-    url: '/assets/documents/CV_Omar_Djebbi_2026_Final.pdf?v=20260714_final',
+    path: DOCUMENTS.cv,
+    filename: CV_FILENAME,
+    url: DOCUMENTS.cv,
     title: 'Omar Djebbi — Curriculum Vitae (CV 2026)',
   },
   resume: {
-    filename: 'Resume_Omar_Djebbi_2026_Final.pdf',
-    url: '/assets/documents/Resume_Omar_Djebbi_2026_Final.pdf?v=20260714_final',
+    path: DOCUMENTS.resume,
+    filename: RESUME_FILENAME,
+    url: DOCUMENTS.resume,
     title: 'Omar Djebbi — Professional Resume',
   },
 } as const;
