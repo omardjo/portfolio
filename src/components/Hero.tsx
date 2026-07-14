@@ -2,6 +2,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Download, ArrowDown, MapPin } from 'lucide-react';
+import { DocumentActions } from './DocumentActions';
 
 export const Hero = () => {
   const scrollTo = (id: string) => {
@@ -48,10 +49,10 @@ export const Hero = () => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.15 }}
-            className="flex items-center gap-2 px-4 py-2 mb-6 bg-emerald-500/10 border border-emerald-500/20 rounded-full"
+            className="flex items-center gap-2 px-4 py-1.5 mb-6 bg-emerald-500/10 hover:bg-emerald-500/15 border border-emerald-500/20 hover:border-emerald-500/35 rounded-full transition-all duration-200 cursor-default shadow-sm shadow-emerald-500/5"
           >
             <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
-            <span className="text-emerald-400 text-sm font-medium">Disponible immédiatement</span>
+            <span className="text-emerald-400 text-xs sm:text-sm font-medium tracking-wide">Disponible immédiatement</span>
           </motion.div>
 
           {/* Main heading */}
@@ -92,29 +93,25 @@ export const Hero = () => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.4 }}
-            className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 mb-12"
+            className="flex flex-col items-center gap-5 mb-14 w-full"
           >
-            <button
-              type="button"
-              onClick={() => scrollTo('contact')}
-              className="px-7 py-3 bg-primary hover:bg-primary/90 text-white font-semibold rounded-xl transition-all duration-200 active:scale-[0.97] cursor-pointer shadow-lg shadow-primary/20 text-[15px]"
-            >
-              Get in Touch
-            </button>
-            <button
-              type="button"
-              onClick={() => scrollTo('projects')}
-              className="px-7 py-3 bg-white/[0.06] hover:bg-white/[0.1] text-white font-medium rounded-xl border border-white/[0.08] transition-all duration-200 active:scale-[0.97] cursor-pointer text-[15px]"
-            >
-              View Projects
-            </button>
-            <a
-              href="/assets/documents/Omar_Djebbi_CV.pdf"
-              download="Omar_Djebbi_CV.pdf"
-              className="px-7 py-3 text-gray-400 hover:text-white font-medium rounded-xl transition-all duration-200 active:scale-[0.97] cursor-pointer flex items-center gap-2 text-[15px]"
-            >
-              <Download size={16} /> Download CV
-            </a>
+            <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
+              <button
+                type="button"
+                onClick={() => scrollTo('contact')}
+                className="px-7 py-3.5 bg-primary hover:bg-primary/90 text-white font-semibold rounded-xl transition-all duration-200 active:scale-[0.97] cursor-pointer btn-primary-glow text-[15px]"
+              >
+                Get in Touch
+              </button>
+              <button
+                type="button"
+                onClick={() => scrollTo('projects')}
+                className="px-7 py-3.5 bg-white/[0.05] hover:bg-white/[0.1] text-white font-medium rounded-xl border border-white/[0.1] transition-all duration-200 active:scale-[0.97] cursor-pointer text-[15px] hover:border-white/20"
+              >
+                View Projects
+              </button>
+            </div>
+            <DocumentActions variant="hero" />
           </motion.div>
 
           {/* Scroll indicator */}

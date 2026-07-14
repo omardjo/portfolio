@@ -1,5 +1,4 @@
 // Projects section - Numbered cards inspired by rafsan-theta
-// AJOUT PROJET TICK8ING - avec carousel d'images
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { PlayCircle, Github, ArrowRight, ExternalLink, ChevronLeft, ChevronRight, Calendar, MapPin } from 'lucide-react';
@@ -252,7 +251,7 @@ export const Projects: React.FC<ProjectsProps> = ({ featuredIds }) => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-50px' }}
               transition={{ delay: index * 0.08, duration: 0.5 }}
-              className="group relative bg-white/[0.02] border border-white/[0.06] rounded-2xl p-5 md:p-7 hover:bg-white/[0.04] hover:border-white/[0.1] transition-all duration-300"
+              className="group relative glass-card rounded-2xl p-5 md:p-7"
             >
               {/* Number overlay */}
               <div className="absolute top-5 left-5 w-10 h-10 bg-primary/90 backdrop-blur-sm rounded-lg flex items-center justify-center z-10">
@@ -261,7 +260,7 @@ export const Projects: React.FC<ProjectsProps> = ({ featuredIds }) => {
                 </span>
               </div>
 
-              {/* FIX SCREENSHOTS FULL DISPLAY - Adaptive mockup frame per project */}
+              {/* Adaptive mockup frame per project */}
               {hasMultiImages ? (
                 <div className="mb-6 mt-8">
                   <ScreenshotGrid
@@ -280,7 +279,6 @@ export const Projects: React.FC<ProjectsProps> = ({ featuredIds }) => {
               {/* Content */}
               <div className="flex flex-col justify-between py-1">
                 <div>
-                  {/* AJOUT PROJET TICK8ING - Badge freelance + period */}
                   {(project.period || project.type) && (
                     <div className="flex flex-wrap items-center gap-2 mb-3">
                       {project.type && (
@@ -301,7 +299,7 @@ export const Projects: React.FC<ProjectsProps> = ({ featuredIds }) => {
                     {project.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="px-3 py-1 text-xs font-medium text-primary/90 bg-primary/[0.08] border border-primary/[0.12] rounded-full"
+                        className="px-3.5 py-1 text-xs font-semibold text-primary/90 glass-pill rounded-full cursor-default"
                       >
                         {tag}
                       </span>

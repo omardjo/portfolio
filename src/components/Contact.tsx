@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Send, Loader2, Download } from 'lucide-react';
 import { motion } from 'framer-motion';
 import emailjs from '@emailjs/browser';
+import { DocumentActions } from './DocumentActions';
 
 export const Contact = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '', captcha: '' });
@@ -77,16 +78,16 @@ export const Contact = () => {
             viewport={{ once: true }}
             className="space-y-6"
           >
-            <div className="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6 md:p-8">
+            <div className="glass-card rounded-2xl p-6 md:p-8">
               <h3 className="text-lg font-bold text-white mb-6">Contact Info</h3>
               <div className="space-y-5">
-                <a href="mailto:omar.djebbi@tijari.biz" className="flex items-center gap-4 group">
+                <a href="mailto:omar.djebbi@mavision.site" className="flex items-center gap-4 group">
                   <div className="w-11 h-11 bg-primary/[0.1] rounded-xl flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                     <Mail className="w-5 h-5 text-primary" />
                   </div>
                   <div>
                     <p className="text-gray-500 text-xs">Email</p>
-                    <p className="text-gray-300 font-medium text-sm group-hover:text-primary transition-colors">omar.djebbi@tijari.biz</p>
+                    <p className="text-gray-300 font-medium text-sm group-hover:text-primary transition-colors">omar.djebbi@mavision.site</p>
                   </div>
                 </a>
                 <a href="tel:+21653115231" className="flex items-center gap-4 group">
@@ -110,14 +111,8 @@ export const Contact = () => {
               </div>
             </div>
 
-            {/* CV Download */}
-            <a
-              href="/assets/documents/Omar_Djebbi_CV.pdf"
-              download="Omar_Djebbi_CV.pdf"
-              className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-primary hover:bg-primary/90 text-white font-semibold rounded-xl transition-all active:scale-[0.97] cursor-pointer text-[15px]"
-            >
-              <Download size={18} /> Download CV
-            </a>
+            {/* Document Actions */}
+            <DocumentActions variant="contact" />
           </motion.div>
 
           {/* Contact form */}
@@ -125,7 +120,7 @@ export const Contact = () => {
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6 md:p-8"
+            className="glass-card rounded-2xl p-6 md:p-8"
           >
             <h3 className="text-lg font-bold text-white mb-6">Send a Message</h3>
             <form onSubmit={handleSubmit} className="space-y-5">
@@ -137,7 +132,7 @@ export const Contact = () => {
                   required
                   value={formData.name}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 bg-white/[0.03] border border-white/[0.08] rounded-xl text-white text-[15px] focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/30 transition-all placeholder:text-gray-600"
+                  className="w-full px-4 py-3 bg-white/[0.03] hover:bg-white/[0.05] border border-white/[0.08] hover:border-white/20 rounded-xl text-white text-[15px] focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-gray-600"
                   placeholder="Your name"
                 />
               </div>
@@ -149,7 +144,7 @@ export const Contact = () => {
                   required
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 bg-white/[0.03] border border-white/[0.08] rounded-xl text-white text-[15px] focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/30 transition-all placeholder:text-gray-600"
+                  className="w-full px-4 py-3 bg-white/[0.03] hover:bg-white/[0.05] border border-white/[0.08] hover:border-white/20 rounded-xl text-white text-[15px] focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-gray-600"
                   placeholder="your@email.com"
                 />
               </div>
@@ -161,7 +156,7 @@ export const Contact = () => {
                   required
                   value={formData.message}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 bg-white/[0.03] border border-white/[0.08] rounded-xl text-white text-[15px] focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/30 transition-all placeholder:text-gray-600 resize-none"
+                  className="w-full px-4 py-3 bg-white/[0.03] hover:bg-white/[0.05] border border-white/[0.08] hover:border-white/20 rounded-xl text-white text-[15px] focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-gray-600 resize-none"
                   placeholder="How can I help?"
                 />
               </div>
@@ -173,14 +168,14 @@ export const Contact = () => {
                   required
                   value={formData.captcha}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 bg-white/[0.03] border border-white/[0.08] rounded-xl text-white text-[15px] focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/30 transition-all placeholder:text-gray-600"
+                  className="w-full px-4 py-3 bg-white/[0.03] hover:bg-white/[0.05] border border-white/[0.08] hover:border-white/20 rounded-xl text-white text-[15px] focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-gray-600"
                   placeholder="Enter the number"
                 />
               </div>
               <button
                 type="submit"
                 disabled={status === 'sending'}
-                className="w-full px-6 py-3.5 bg-primary hover:bg-primary/90 text-white font-semibold rounded-xl transition-all active:scale-[0.97] flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer text-[15px]"
+                className="w-full px-6 py-3.5 bg-primary hover:bg-primary/90 text-white font-semibold rounded-xl transition-all active:scale-[0.97] flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer btn-primary-glow text-[15px]"
               >
                 {status === 'sending' ? (
                   <><Loader2 className="animate-spin" size={18} /> Sending...</>

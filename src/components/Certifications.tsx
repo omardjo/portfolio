@@ -57,7 +57,7 @@ export const Certifications: React.FC<CertProps> = ({ limit }) => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.06 }}
-                className="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6 hover:bg-white/[0.04] hover:border-white/[0.1] transition-all duration-300 flex flex-col"
+                className="glass-card rounded-2xl p-6 flex flex-col"
               >
                 <div className="flex justify-between items-start mb-4">
                   <div

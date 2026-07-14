@@ -72,7 +72,7 @@ export const About = () => {
             viewport={{ once: true }}
             className="space-y-6"
           >
-            <div className="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6 md:p-8">
+            <div className="glass-card rounded-2xl p-6 md:p-8">
               <h3 className="text-lg font-bold text-white mb-4">Profil</h3>
               <p className="text-gray-400 leading-relaxed text-[15px] mb-5">
                 Développeur mobile spécialisé <span className="text-primary font-medium">Flutter & Dart</span> avec 2+ ans d'expérience.
@@ -84,7 +84,7 @@ export const About = () => {
                 {techStack.map(t => (
                   <span
                     key={t}
-                    className="px-3 py-1.5 text-xs font-medium text-primary bg-primary/[0.08] border border-primary/[0.12] rounded-full"
+                    className="px-3.5 py-1.5 text-xs font-semibold text-primary glass-pill rounded-full cursor-default"
                   >
                     {t}
                   </span>
@@ -93,7 +93,7 @@ export const About = () => {
             </div>
 
             {/* Education */}
-            <div className="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6 md:p-8">
+            <div className="glass-card rounded-2xl p-6 md:p-8">
               <h3 className="text-lg font-bold text-white mb-4">Formation</h3>
               <div>
                 <h4 className="font-semibold text-white">Ingénierie Informatique</h4>
@@ -113,7 +113,7 @@ export const About = () => {
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6 md:p-8"
+              className="glass-card rounded-2xl p-6 md:p-8"
             >
               <h3 className="text-lg font-bold text-white mb-6">Technical Skills</h3>
               {skills.map(s => (
@@ -125,7 +125,7 @@ export const About = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6 md:p-8"
+              className="glass-card rounded-2xl p-6 md:p-8"
             >
               <h3 className="text-lg font-bold text-white mb-5">Langues</h3>
               <div className="grid grid-cols-3 gap-3">

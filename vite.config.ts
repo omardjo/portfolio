@@ -5,7 +5,7 @@ import react from '@vitejs/plugin-react';
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, '.', '');
     return {
-      // 1. Base must be '/' for your custom domain
+      // 1. Base must be '/' for custom domain portfolio.mavision.site
       base: '/', 
       server: {
         port: 3000,

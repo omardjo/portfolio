@@ -4,6 +4,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Menu, X, Download } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
+import { DocumentActions } from './DocumentActions';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -97,7 +98,7 @@ const Navbar = () => {
               <button
                 type="button"
                 onClick={() => handleNavClick('#contact')}
-                className="ml-3 px-5 py-2 text-[13px] font-semibold text-white bg-primary hover:bg-primary/90 rounded-lg transition-all duration-200 cursor-pointer active:scale-[0.97]"
+                className="ml-3 px-5 py-2 text-[13px] font-semibold text-white bg-primary hover:bg-primary/90 rounded-lg transition-all duration-200 cursor-pointer active:scale-[0.97] btn-primary-glow"
               >
                 Get in Touch
               </button>
@@ -184,17 +185,8 @@ const Navbar = () => {
                   Get in Touch
                 </motion.button>
 
-                {/* CV Download */}
-                <motion.a
-                  href="/assets/documents/Omar_Djebbi_CV.pdf"
-                  download="Omar_Djebbi_CV.pdf"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: (navLinks.length + 1) * 0.05 + 0.05, duration: 0.25 }}
-                  className="w-full text-center px-5 py-4 text-[16px] font-medium text-gray-300 border border-white/[0.08] rounded-xl hover:bg-white/[0.04] active:scale-[0.97] transition-all duration-150 cursor-pointer flex items-center justify-center gap-2"
-                >
-                  <Download size={16} /> Download CV
-                </motion.a>
+                {/* Document Actions */}
+                <DocumentActions variant="navbar-mobile" />
               </div>
             </motion.div>
           </motion.div>

@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import './index.css'; 
 
 import { HashRouter as Router, Routes, Route, useLocation, Link } from 'react-router-dom';
-import { HelmetProvider } from 'react-helmet-async';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { ArrowLeft } from 'lucide-react';
 
 // Import Components
@@ -41,7 +41,7 @@ const Home = () => (
   <>
     <Hero />
     <About />
-    <Projects featuredIds={['riwaq', 'tick8ing', 'kidora', 'mes', 'stripe']} />
+    <Projects featuredIds={['riwaq', 'kidora', 'mes', 'stripe', 'career']} />
     <Experience limit={3} />
     <Certifications limit={3} />
     <Contact />
@@ -79,6 +79,21 @@ const AllCertificationsPage = () => (
 const App = () => {
   return (
     <HelmetProvider>
+      <Helmet>
+        <title>Omar Djebbi | Flutter Mobile Developer</title>
+        <meta name="description" content="Omar Djebbi – Flutter Mobile Developer based in Tunis. Building beautiful cross-platform apps with Dart, Firebase & clean architecture." />
+        <link rel="canonical" href="https://portfolio.mavision.site/" />
+        <meta property="og:url" content="https://portfolio.mavision.site/" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Omar Djebbi | Flutter Mobile Developer" />
+        <meta property="og:description" content="Omar Djebbi – Flutter Mobile Developer based in Tunis. Building beautiful cross-platform apps with Dart, Firebase & clean architecture." />
+        <meta property="og:image" content="https://portfolio.mavision.site/assets/images/myPhoto.jpg" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content="https://portfolio.mavision.site/" />
+        <meta name="twitter:title" content="Omar Djebbi | Flutter Mobile Developer" />
+        <meta name="twitter:description" content="Omar Djebbi – Flutter Mobile Developer based in Tunis. Building beautiful cross-platform apps with Dart, Firebase & clean architecture." />
+        <meta name="twitter:image" content="https://portfolio.mavision.site/assets/images/myPhoto.jpg" />
+      </Helmet>
       <Router>
         <ScrollToTop />
         <Layout>

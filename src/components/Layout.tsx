@@ -23,7 +23,7 @@ const Footer = () => (
             { Icon: Linkedin, href: 'https://linkedin.com/in/djebbi-omar', label: 'LinkedIn' },
             { Icon: Github, href: 'https://github.com/omardjo', label: 'GitHub' },
             { Icon: Twitter, href: 'https://x.com/OmarDjebbi5', label: 'Twitter' },
-            { Icon: Mail, href: 'mailto:omar.djebbi@tijari.biz', label: 'Email' },
+            { Icon: Mail, href: 'mailto:omar.djebbi@mavision.site', label: 'Email' },
           ].map(({ Icon, href, label }) => (
             <a
               key={label}

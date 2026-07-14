@@ -14,18 +14,6 @@ export const PROJECTS: Project[] = [
     mockupType: 'phone'
   },
   {
-    id: 'tick8ing',
-    title: 'Tick8ing – Gestion de Planning',
-    description: 'Application Flutter de gestion de planning en freelance : intégration de nouveaux modules et connexion backend PHP via API REST.',
-    fullDescription: 'Développement et amélioration d\'une application Flutter de gestion de planning : intégration de nouveaux modules et connexion avec un backend PHP via API REST. Collaboration via Kchat et GitLab (tickets & versioning).',
-    tags: ['Flutter', 'Dart', 'PHP', 'API REST', 'GitLab'],
-    image: '/assets/images/tick8ing-1.jpg',
-    images: ['/assets/images/tick8ing-1.jpg', '/assets/images/tick8ing-2.jpg', '/assets/images/tick8ing-3.jpg', '/assets/images/tick8ing-4.jpg'],
-    period: 'Février 2026 (1 mois)',
-    type: 'Freelance On-site (Tunisie)',
-    mockupType: 'phone'
-  },
-  {
     id: 'kidora',
     title: 'Kidora Tutoring App',
     description: 'Application éducative gamifiée pour enfants 4-12 ans avec tableau de bord parental et suivi de progression en temps réel.',
@@ -107,15 +95,11 @@ export const PROJECTS: Project[] = [
 
 export const EXPERIENCES: Experience[] = [
   {
-    id: 'tick8ing_freelance',
-    role: 'Freelance Flutter Developer',
-    company: 'Tick8ing, On-site – Tunisie',
-    period: 'Feb 2026 (1 mois)',
-    details: [
-      'Développement et amélioration d\'une application Flutter de gestion de planning.',
-      'Intégration de nouveaux modules et connexion avec un backend PHP via API REST.',
-      'Collaboration via Kchat et GitLab (tickets & versioning).'
-    ],
+    id: 'tick8ing_contract',
+    role: 'Flutter Developer',
+    company: 'Tick8ing',
+    period: 'Contract',
+    details: [],
     color: 'primary'
   },
   {

@@ -49,20 +49,22 @@ export const Experience: React.FC<ExperienceProps> = ({ limit }) => {
                 {/* Timeline dot */}
                 <div className="absolute -left-[29px] md:-left-[37px] w-3.5 h-3.5 md:w-4 md:h-4 rounded-full border-[3px] border-primary bg-[#0b1121] group-hover:border-white transition-colors z-10" />
 
-                <div className="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-5 md:p-7 hover:bg-white/[0.04] hover:border-white/[0.1] transition-all duration-300">
-                  <span className="inline-block px-3 py-1 bg-primary/[0.08] text-primary border border-primary/[0.12] rounded-full text-xs font-medium mb-3">
+                <div className="glass-card rounded-2xl p-5 md:p-7">
+                  <span className="inline-block px-3.5 py-1 glass-pill text-primary rounded-full text-xs font-semibold mb-3">
                     {exp.period}
                   </span>
                   <h3 className="text-lg md:text-xl font-bold text-white mb-1">{exp.role}</h3>
-                  <p className="text-gray-500 font-medium mb-4 text-sm">{exp.company}</p>
-                  <ul className="space-y-2.5">
-                    {exp.details.map((detail, idx) => (
-                      <li key={idx} className="flex items-start gap-2.5 text-sm text-gray-400">
-                        <CheckCircle size={14} className="flex-shrink-0 mt-0.5 text-primary/60" />
-                        {detail}
-                      </li>
-                    ))}
-                  </ul>
+                  <p className={`text-gray-500 font-medium text-sm ${exp.details.length ? 'mb-4' : ''}`}>{exp.company}</p>
+                  {exp.details.length > 0 && (
+                    <ul className="space-y-2.5">
+                      {exp.details.map((detail, idx) => (
+                        <li key={idx} className="flex items-start gap-2.5 text-sm text-gray-400">
+                          <CheckCircle size={14} className="flex-shrink-0 mt-0.5 text-primary/60" />
+                          {detail}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
               </motion.div>
             ))}
