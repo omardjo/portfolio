@@ -1,0 +1,26 @@
+{
+  "name": "Omar Djebbi | Flutter Mobile Developer",
+  "short_name": "Omar Djebbi",
+  "description": "Omar Djebbi – Flutter Mobile Developer based in Tunis. Building beautiful cross-platform apps with Dart, Firebase & clean architecture.",
+  "start_url": "https://portfolio.mavision.site/",
+  "display": "standalone",
+  "background_color": "#090a0f",
+  "theme_color": "#090a0f",
+  "icons": [
+    {
+      "src": "/assets/images/favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/images/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/images/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ]
+}
