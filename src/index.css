@@ -39,26 +39,117 @@ input, textarea, select {
   font-size: 16px; /* Prevents iOS zoom */
 }
 
-/* Star background */
-.stars {
+/* Deep Multi-Layer Cosmic Starfield */
+.stars-distant {
   width: 1px;
   height: 1px;
   background: transparent;
-  box-shadow: 10vw 15vh rgba(255,255,255,0.4), 30vw 45vh rgba(255,255,255,0.3), 50vw 25vh rgba(255,255,255,0.5), 70vw 85vh rgba(255,255,255,0.3), 90vw 5vh rgba(255,255,255,0.4), 15vw 65vh rgba(255,255,255,0.3), 35vw 35vh rgba(255,255,255,0.5), 55vw 95vh rgba(255,255,255,0.3), 75vw 55vh rgba(255,255,255,0.4), 95vw 15vh rgba(255,255,255,0.3), 5vw 5vh rgba(255,255,255,0.5), 25vw 75vh rgba(255,255,255,0.3), 45vw 45vh rgba(255,255,255,0.4), 65vw 65vh rgba(255,255,255,0.3), 85vw 85vh rgba(255,255,255,0.5);
-  animation: animStar 80s linear infinite;
+  box-shadow:
+    3vw 7vh rgba(255, 255, 255, 0.45), 8vw 19vh rgba(255, 255, 255, 0.25), 12vw 63vh rgba(255, 255, 255, 0.35),
+    17vw 34vh rgba(255, 255, 255, 0.5), 21vw 82vh rgba(255, 255, 255, 0.3), 26vw 11vh rgba(255, 255, 255, 0.4),
+    31vw 48vh rgba(255, 255, 255, 0.2), 34vw 92vh rgba(255, 255, 255, 0.45), 39vw 28vh rgba(255, 255, 255, 0.35),
+    43vw 73vh rgba(255, 255, 255, 0.5), 48vw 15vh rgba(255, 255, 255, 0.25), 52vw 57vh rgba(255, 255, 255, 0.4),
+    57vw 88vh rgba(255, 255, 255, 0.3), 61vw 38vh rgba(255, 255, 255, 0.45), 66vw 6vh rgba(255, 255, 255, 0.35),
+    71vw 68vh rgba(255, 255, 255, 0.5), 74vw 24vh rgba(255, 255, 255, 0.25), 79vw 84vh rgba(255, 255, 255, 0.4),
+    83vw 44vh rgba(255, 255, 255, 0.3), 88vw 14vh rgba(255, 255, 255, 0.45), 92vw 77vh rgba(255, 255, 255, 0.35),
+    96vw 53vh rgba(255, 255, 255, 0.5), 5vw 94vh rgba(255, 255, 255, 0.25), 14vw 41vh rgba(255, 255, 255, 0.4),
+    24vw 67vh rgba(255, 255, 255, 0.3), 33vw 16vh rgba(255, 255, 255, 0.45), 44vw 87vh rgba(255, 255, 255, 0.35),
+    53vw 31vh rgba(255, 255, 255, 0.5), 63vw 79vh rgba(255, 255, 255, 0.25), 73vw 12vh rgba(255, 255, 255, 0.4),
+    84vw 61vh rgba(255, 255, 255, 0.3), 94vw 29vh rgba(255, 255, 255, 0.45), 9vw 58vh rgba(255, 255, 255, 0.35),
+    19vw 89vh rgba(255, 255, 255, 0.5), 29vw 22vh rgba(255, 255, 255, 0.25), 38vw 71vh rgba(255, 255, 255, 0.4),
+    47vw 4vh rgba(255, 255, 255, 0.3), 58vw 49vh rgba(255, 255, 255, 0.45), 68vw 91vh rgba(255, 255, 255, 0.35),
+    78vw 37vh rgba(255, 255, 255, 0.5), 87vw 81vh rgba(255, 255, 255, 0.25), 97vw 18vh rgba(255, 255, 255, 0.4),
+    6vw 27vh rgba(255, 255, 255, 0.3), 16vw 76vh rgba(255, 255, 255, 0.45), 27vw 52vh rgba(255, 255, 255, 0.35),
+    37vw 96vh rgba(255, 255, 255, 0.5), 46vw 33vh rgba(255, 255, 255, 0.25), 56vw 64vh rgba(255, 255, 255, 0.4),
+    67vw 19vh rgba(255, 255, 255, 0.3), 76vw 86vh rgba(255, 255, 255, 0.45), 86vw 42vh rgba(255, 255, 255, 0.35),
+    95vw 67vh rgba(255, 255, 255, 0.5);
+  animation: animStarSlow 160s linear infinite;
 }
 
-.stars2 {
-  width: 2px;
-  height: 2px;
+.stars, .stars-mid {
+  width: 1.5px;
+  height: 1.5px;
   background: transparent;
-  box-shadow: 20vw 30vh rgba(255,255,255,0.25), 40vw 60vh rgba(255,255,255,0.2), 60vw 20vh rgba(255,255,255,0.3), 80vw 90vh rgba(255,255,255,0.2), 10vw 80vh rgba(255,255,255,0.25), 50vw 10vh rgba(255,255,255,0.2);
-  animation: animStar 120s linear infinite;
+  box-shadow:
+    4vw 14vh rgba(255, 255, 255, 0.65), 11vw 47vh rgba(199, 210, 254, 0.55), 19vw 81vh rgba(255, 255, 255, 0.7),
+    27vw 23vh rgba(255, 255, 255, 0.5), 35vw 64vh rgba(224, 231, 255, 0.65), 42vw 9vh rgba(255, 255, 255, 0.6),
+    51vw 86vh rgba(255, 255, 255, 0.75), 59vw 39vh rgba(199, 210, 254, 0.5), 67vw 72vh rgba(255, 255, 255, 0.65),
+    74vw 17vh rgba(255, 255, 255, 0.55), 82vw 54vh rgba(224, 231, 255, 0.7), 91vw 93vh rgba(255, 255, 255, 0.6),
+    7vw 78vh rgba(255, 255, 255, 0.65), 15vw 32vh rgba(199, 210, 254, 0.55), 23vw 95vh rgba(255, 255, 255, 0.7),
+    32vw 51vh rgba(255, 255, 255, 0.5), 41vw 18vh rgba(224, 231, 255, 0.65), 49vw 69vh rgba(255, 255, 255, 0.6),
+    58vw 26vh rgba(255, 255, 255, 0.75), 66vw 83vh rgba(199, 210, 254, 0.5), 75vw 45vh rgba(255, 255, 255, 0.65),
+    84vw 11vh rgba(255, 255, 255, 0.55), 93vw 62vh rgba(224, 231, 255, 0.7), 13vw 88vh rgba(255, 255, 255, 0.6),
+    22vw 37vh rgba(255, 255, 255, 0.65), 31vw 74vh rgba(199, 210, 254, 0.55), 45vw 29vh rgba(255, 255, 255, 0.7),
+    56vw 91vh rgba(255, 255, 255, 0.5), 64vw 15vh rgba(224, 231, 255, 0.65), 78vw 67vh rgba(255, 255, 255, 0.6),
+    87vw 34vh rgba(255, 255, 255, 0.75), 96vw 82vh rgba(199, 210, 254, 0.55);
+  animation: animStarMid 105s linear infinite, twinkleMid 6s ease-in-out infinite;
 }
 
-@keyframes animStar {
+.stars2, .stars-near {
+  width: 2.5px;
+  height: 2.5px;
+  border-radius: 50%;
+  background: transparent;
+  box-shadow:
+    9vw 22vh rgba(255, 255, 255, 0.9), 18vw 68vh rgba(165, 180, 252, 0.85), 29vw 12vh rgba(255, 255, 255, 0.8),
+    42vw 79vh rgba(103, 232, 249, 0.75), 55vw 36vh rgba(255, 255, 255, 0.9), 68vw 91vh rgba(165, 180, 252, 0.85),
+    81vw 48vh rgba(255, 255, 255, 0.8), 93vw 19vh rgba(103, 232, 249, 0.75), 14vw 84vh rgba(255, 255, 255, 0.9),
+    26vw 43vh rgba(165, 180, 252, 0.85), 38vw 96vh rgba(255, 255, 255, 0.8), 51vw 21vh rgba(103, 232, 249, 0.75),
+    64vw 58vh rgba(255, 255, 255, 0.9), 77vw 14vh rgba(165, 180, 252, 0.85), 89vw 73vh rgba(255, 255, 255, 0.8);
+  animation: animStarNear 70s linear infinite, twinkleNear 4s ease-in-out infinite;
+}
+
+/* Shooting Star */
+.shooting-star {
+  position: absolute;
+  top: 15%;
+  right: 15%;
+  width: 110px;
+  height: 1.5px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.95), rgba(99, 102, 241, 0.6), transparent);
+  border-radius: 999px;
+  transform: rotate(-35deg) translateX(300px);
+  opacity: 0;
+  animation: shootingStarAnim 22s ease-in-out infinite;
+}
+
+@keyframes animStarSlow {
   from { transform: translateY(0px); }
   to { transform: translateY(-2000px); }
+}
+
+@keyframes animStarMid {
+  from { transform: translateY(0px); }
+  to { transform: translateY(-2000px); }
+}
+
+@keyframes animStarNear {
+  from { transform: translateY(0px); }
+  to { transform: translateY(-2000px); }
+}
+
+@keyframes twinkleMid {
+  0%, 100% { opacity: 0.85; }
+  50% { opacity: 0.45; }
+}
+
+@keyframes twinkleNear {
+  0%, 100% { opacity: 1; filter: drop-shadow(0 0 4px rgba(165, 180, 252, 0.6)); }
+  50% { opacity: 0.6; filter: drop-shadow(0 0 1px rgba(165, 180, 252, 0.2)); }
+}
+
+@keyframes shootingStarAnim {
+  0%, 92% {
+    opacity: 0;
+    transform: rotate(-35deg) translateX(400px);
+  }
+  95% {
+    opacity: 1;
+  }
+  98%, 100% {
+    opacity: 0;
+    transform: rotate(-35deg) translateX(-900px);
+  }
 }
 
 /* Shimmering gradient text */
