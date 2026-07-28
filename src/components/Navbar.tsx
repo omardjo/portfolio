@@ -65,7 +65,7 @@ const Navbar = () => {
       <nav
         className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ${
           scrolled
-            ? 'bg-[#0b1121]/80 backdrop-blur-xl border-b border-white/[0.06] shadow-lg shadow-black/20'
+            ? 'bg-[#070a13]/85 backdrop-blur-xl border-b border-white/[0.08] shadow-lg shadow-black/30 glass-border-glow'
             : 'bg-transparent'
         }`}
       >
@@ -76,9 +76,9 @@ const Navbar = () => {
             <Link
               to="/"
               onClick={() => setIsOpen(false)}
-              className="text-white font-bold text-lg tracking-tight hover:text-primary transition-colors select-none"
+              className="text-white font-bold text-lg tracking-tight hover:text-primary transition-colors select-none group"
             >
-              Omar<span className="text-primary">.</span>
+              Omar<span className="text-primary group-hover:text-cyan-400 transition-colors">.</span>
             </Link>
 
             {/* Desktop links */}
@@ -88,9 +88,10 @@ const Navbar = () => {
                   key={link.name}
                   type="button"
                   onClick={() => handleNavClick(link.href)}
-                  className="px-4 py-2 text-[13px] font-medium text-gray-400 hover:text-white rounded-lg hover:bg-white/[0.04] transition-all duration-200 cursor-pointer"
+                  className="px-4 py-2 text-[13px] font-medium text-gray-400 hover:text-white rounded-lg hover:bg-white/[0.06] transition-all duration-200 cursor-pointer relative group"
                 >
-                  {link.name}
+                  <span>{link.name}</span>
+                  <span className="absolute bottom-1 left-4 right-4 h-[2px] bg-gradient-to-r from-primary to-cyan-400 scale-x-0 group-hover:scale-x-100 transition-transform duration-250 origin-left rounded-full" />
                 </button>
               ))}
 
@@ -98,7 +99,7 @@ const Navbar = () => {
               <button
                 type="button"
                 onClick={() => handleNavClick('#contact')}
-                className="ml-3 px-5 py-2 text-[13px] font-semibold text-white bg-primary hover:bg-primary/90 rounded-lg transition-all duration-200 cursor-pointer active:scale-[0.97] btn-primary-glow"
+                className="ml-3 px-5 py-2 text-[13px] font-semibold text-white bg-primary hover:bg-primary/90 rounded-lg transition-all duration-200 cursor-pointer active:scale-[0.97] magnetic-btn-glow"
               >
                 Get in Touch
               </button>

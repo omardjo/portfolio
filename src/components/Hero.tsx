@@ -3,6 +3,8 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Download, ArrowDown, MapPin } from 'lucide-react';
 import { DocumentActions } from './DocumentActions';
+import { HolographicAvatar } from './HolographicAvatar';
+import { MagneticButton } from './MagneticButton';
 
 export const Hero = () => {
   const scrollTo = (id: string) => {
@@ -23,25 +25,17 @@ export const Hero = () => {
       <div className="container mx-auto px-5 md:px-8 max-w-5xl relative z-10">
         <div className="flex flex-col items-center text-center">
 
-          {/* FIX PHOTO HERO - repositionnée avec ring élégant, ombre douce, look pro */}
+          {/* HOLOGRAPHIC HERO PROFILE AVATAR */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="relative mb-10"
+            className="relative mb-6"
           >
-            {/* Glow effect behind photo */}
-            <div className="absolute inset-0 w-32 h-32 md:w-40 md:h-40 rounded-full bg-primary/20 blur-2xl scale-110 -z-10" />
-            <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden ring-[3px] ring-primary/25 ring-offset-[5px] ring-offset-[#0b1121] shadow-2xl shadow-primary/15">
-              <img
-                src="/assets/images/myPhoto.jpg"
-                alt="Omar Djebbi"
-                className="w-full h-full object-cover"
-                loading="eager"
-              />
-            </div>
-            {/* Online status dot */}
-            <div className="absolute bottom-2 right-2 w-5 h-5 bg-emerald-500 rounded-full border-[3px] border-[#0b1121] shadow-lg shadow-emerald-500/30" />
+            <HolographicAvatar
+              imageSrc="/assets/images/myPhoto.jpg"
+              altText="Omar Djebbi"
+            />
           </motion.div>
 
           {/* Availability badge */}
@@ -96,20 +90,20 @@ export const Hero = () => {
             className="flex flex-col items-center gap-5 mb-14 w-full"
           >
             <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
-              <button
+              <MagneticButton
                 type="button"
                 onClick={() => scrollTo('contact')}
-                className="px-7 py-3.5 bg-primary hover:bg-primary/90 text-white font-semibold rounded-xl transition-all duration-200 active:scale-[0.97] cursor-pointer btn-primary-glow text-[15px]"
+                className="px-7 py-3.5 bg-primary hover:bg-primary/90 text-white font-semibold rounded-xl transition-all duration-200 active:scale-[0.97] cursor-pointer magnetic-btn-glow text-[15px]"
               >
                 Get in Touch
-              </button>
-              <button
+              </MagneticButton>
+              <MagneticButton
                 type="button"
                 onClick={() => scrollTo('projects')}
                 className="px-7 py-3.5 bg-white/[0.05] hover:bg-white/[0.1] text-white font-medium rounded-xl border border-white/[0.1] transition-all duration-200 active:scale-[0.97] cursor-pointer text-[15px] hover:border-white/20"
               >
                 View Projects
-              </button>
+              </MagneticButton>
             </div>
             <DocumentActions variant="hero" />
           </motion.div>
