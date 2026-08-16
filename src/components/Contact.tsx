@@ -1,18 +1,17 @@
-// Contact section - clean premium design
 import React, { useState } from 'react';
-import { Mail, Phone, MapPin, Send, Loader2, Download } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Loader2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import emailjs from '@emailjs/browser';
 import { DocumentActions } from './DocumentActions';
 
-export const Contact = () => {
+export const Contact: React.FC = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '', captcha: '' });
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
 
-  const PUBLIC_KEY = "ArSp_jvOyAPn-eywl";
-  const SERVICE_ID = "service_eagsj3e";
-  const TEMPLATE_ADMIN_ID = "template_admin";
-  const TEMPLATE_AUTOREPLY_ID = "template_autoreply";
+  const PUBLIC_KEY = 'ArSp_jvOyAPn-eywl';
+  const SERVICE_ID = 'service_eagsj3e';
+  const TEMPLATE_ADMIN_ID = 'template_admin';
+  const TEMPLATE_AUTOREPLY_ID = 'template_autoreply';
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -21,7 +20,7 @@ export const Contact = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (parseInt(formData.captcha) !== 5) {
-      alert("Protection anti-spam: Réponse incorrecte. Veuillez entrer 5.");
+      alert('Protection anti-spam: Réponse incorrecte. Veuillez entrer 5.');
       return;
     }
     setStatus('sending');
@@ -29,8 +28,8 @@ export const Contact = () => {
       name: formData.name,
       email: formData.email,
       message: formData.message,
-      title: "Portfolio Inquiry",
-      date: new Date().toLocaleDateString()
+      title: 'Portfolio Inquiry',
+      date: new Date().toLocaleDateString(),
     };
 
     try {
@@ -64,7 +63,7 @@ export const Contact = () => {
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-3xl md:text-4xl font-bold text-white"
+            className="text-3xl md:text-4xl font-bold text-white tracking-tight"
           >
             Get in Touch
           </motion.h2>
@@ -76,36 +75,41 @@ export const Contact = () => {
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.4 }}
             className="space-y-6"
           >
-            <div className="glass-card rounded-2xl p-6 md:p-8">
-              <h3 className="text-lg font-bold text-white mb-6">Contact Info</h3>
+            <div className="glass-card prism-glass-card rounded-2xl p-6 md:p-8">
+              <h3 className="text-lg font-bold text-white mb-6 tracking-wide">Contact Info</h3>
               <div className="space-y-5">
                 <a href="mailto:omar.djebbi@mavision.site" className="flex items-center gap-4 group">
-                  <div className="w-11 h-11 bg-primary/[0.1] rounded-xl flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                  <div className="w-11 h-11 bg-primary/[0.12] rounded-xl flex items-center justify-center group-hover:bg-primary/25 transition-colors">
                     <Mail className="w-5 h-5 text-primary" />
                   </div>
                   <div>
-                    <p className="text-gray-500 text-xs">Email</p>
-                    <p className="text-gray-300 font-medium text-sm group-hover:text-primary transition-colors">omar.djebbi@mavision.site</p>
+                    <p className="text-gray-400 text-xs">Email</p>
+                    <p className="text-gray-200 font-medium text-sm group-hover:text-primary transition-colors">
+                      omar.djebbi@mavision.site
+                    </p>
                   </div>
                 </a>
                 <a href="tel:+21653115231" className="flex items-center gap-4 group">
-                  <div className="w-11 h-11 bg-secondary/[0.1] rounded-xl flex items-center justify-center group-hover:bg-secondary/20 transition-colors">
+                  <div className="w-11 h-11 bg-secondary/[0.12] rounded-xl flex items-center justify-center group-hover:bg-secondary/25 transition-colors">
                     <Phone className="w-5 h-5 text-secondary" />
                   </div>
                   <div>
-                    <p className="text-gray-500 text-xs">Phone</p>
-                    <p className="text-gray-300 font-medium text-sm group-hover:text-secondary transition-colors">+216 53 115 231</p>
+                    <p className="text-gray-400 text-xs">Phone</p>
+                    <p className="text-gray-200 font-medium text-sm group-hover:text-secondary transition-colors">
+                      +216 53 115 231
+                    </p>
                   </div>
                 </a>
                 <div className="flex items-center gap-4">
-                  <div className="w-11 h-11 bg-accent/[0.1] rounded-xl flex items-center justify-center">
+                  <div className="w-11 h-11 bg-accent/[0.12] rounded-xl flex items-center justify-center">
                     <MapPin className="w-5 h-5 text-accent" />
                   </div>
                   <div>
-                    <p className="text-gray-500 text-xs">Location</p>
-                    <p className="text-gray-300 font-medium text-sm">Tunis – Monplaisir, Tunisie</p>
+                    <p className="text-gray-400 text-xs">Location</p>
+                    <p className="text-gray-200 font-medium text-sm">Tunis – Monplaisir, Tunisie</p>
                   </div>
                 </div>
               </div>
@@ -120,12 +124,15 @@ export const Contact = () => {
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="glass-card rounded-2xl p-6 md:p-8"
+            transition={{ duration: 0.4 }}
+            className="glass-card prism-glass-card rounded-2xl p-6 md:p-8"
           >
-            <h3 className="text-lg font-bold text-white mb-6">Send a Message</h3>
+            <h3 className="text-lg font-bold text-white mb-6 tracking-wide">Send a Message</h3>
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
-                <label htmlFor="name" className="block text-sm text-gray-500 mb-2">Name</label>
+                <label htmlFor="name" className="block text-sm font-medium text-gray-400 mb-2">
+                  Name
+                </label>
                 <input
                   type="text"
                   id="name"
@@ -137,7 +144,9 @@ export const Contact = () => {
                 />
               </div>
               <div>
-                <label htmlFor="email" className="block text-sm text-gray-500 mb-2">Email</label>
+                <label htmlFor="email" className="block text-sm font-medium text-gray-400 mb-2">
+                  Email
+                </label>
                 <input
                   type="email"
                   id="email"
@@ -149,7 +158,9 @@ export const Contact = () => {
                 />
               </div>
               <div>
-                <label htmlFor="message" className="block text-sm text-gray-500 mb-2">Message</label>
+                <label htmlFor="message" className="block text-sm font-medium text-gray-400 mb-2">
+                  Message
+                </label>
                 <textarea
                   id="message"
                   rows={4}
@@ -161,7 +172,9 @@ export const Contact = () => {
                 />
               </div>
               <div>
-                <label htmlFor="captcha" className="block text-sm text-gray-500 mb-2">Anti-spam: 2 + 3 = ?</label>
+                <label htmlFor="captcha" className="block text-sm font-medium text-gray-400 mb-2">
+                  Anti-spam: 2 + 3 = ?
+                </label>
                 <input
                   type="number"
                   id="captcha"
@@ -175,16 +188,20 @@ export const Contact = () => {
               <button
                 type="submit"
                 disabled={status === 'sending'}
-                className="w-full px-6 py-3.5 bg-primary hover:bg-primary/90 text-white font-semibold rounded-xl transition-all active:scale-[0.97] flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer btn-primary-glow text-[15px]"
+                className="w-full px-6 py-3.5 bg-gradient-to-r from-[#6366f1] via-[#7C5CFF] to-[#36E3FF] hover:opacity-95 text-white font-semibold rounded-xl transition-all active:scale-[0.97] flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer text-[15px] shadow-lg shadow-[#7C5CFF]/30"
               >
                 {status === 'sending' ? (
-                  <><Loader2 className="animate-spin" size={18} /> Sending...</>
+                  <>
+                    <Loader2 className="animate-spin" size={18} /> Sending...
+                  </>
                 ) : status === 'success' ? (
                   'Message Sent!'
                 ) : status === 'error' ? (
                   'Failed to Send'
                 ) : (
-                  <>Send Message <Send size={16} /></>
+                  <>
+                    Send Message <Send size={16} />
+                  </>
                 )}
               </button>
             </form>

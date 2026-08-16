@@ -1,29 +1,27 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Volume2, VolumeX } from 'lucide-react';
 
-export const AudioPlayer = () => {
+export const AudioPlayer: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
-    // 1. Recover State (Mute preference & Time position)
+    // 1. Recover State
     const savedMuted = localStorage.getItem('audioMuted') === 'true';
     const savedTime = parseFloat(localStorage.getItem('audioTime') || '0');
-    
+
     if (audioRef.current) {
       audioRef.current.currentTime = savedTime;
-      // Set volume low so it isn't annoying
       audioRef.current.volume = 0.2;
     }
 
-    // 2. Auto-play attempt (if not muted)
+    // 2. Auto-play attempt if not muted
     if (!savedMuted && audioRef.current) {
       const playPromise = audioRef.current.play();
       if (playPromise !== undefined) {
         playPromise
           .then(() => setIsPlaying(true))
-          .catch((error) => {
-            console.log("Auto-play prevented:", error);
+          .catch(() => {
             setIsPlaying(false);
           });
       }
@@ -57,22 +55,22 @@ export const AudioPlayer = () => {
   };
 
   return (
-    // FIX MOBILE: Audio player with proper touch target
     <div className="fixed bottom-4 left-4 md:bottom-6 md:left-6 z-[50]">
       <audio ref={audioRef} loop preload="auto">
         <source src="/assets/audio/space.mp3" type="audio/mpeg" />
       </audio>
 
       <button
+        type="button"
         onClick={toggleAudio}
-        className="w-12 h-12 min-w-[48px] min-h-[48px] rounded-full bg-gray-900/80 backdrop-blur-md border border-gray-600 text-white flex items-center justify-center shadow-[0_0_15px_rgba(0,0,0,0.5)] hover:shadow-[0_0_20px_rgba(99,102,241,0.6)] hover:border-primary transition-all duration-300 active:scale-95 cursor-pointer group"
+        className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full bg-[#0b1121]/90 backdrop-blur-md border border-white/[0.14] text-white flex items-center justify-center shadow-lg shadow-black/50 hover:shadow-[0_0_20px_rgba(99,102,241,0.5)] hover:border-primary/60 transition-all duration-300 active:scale-95 cursor-pointer group"
         style={{ touchAction: 'manipulation' }}
-        aria-label={isPlaying ? 'Mute audio' : 'Play audio'}
+        aria-label={isPlaying ? 'Mute space ambient sound' : 'Play space ambient sound'}
       >
         {isPlaying ? (
-          <Volume2 className="w-6 h-6 text-primary group-hover:scale-110 transition-transform" />
+          <Volume2 className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
         ) : (
-          <VolumeX className="w-6 h-6 text-gray-400 group-hover:scale-110 transition-transform" />
+          <VolumeX className="w-5 h-5 text-gray-400 group-hover:scale-110 transition-transform" />
         )}
       </button>
     </div>

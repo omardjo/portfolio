@@ -1,4 +1,3 @@
-// Certifications - clean premium design
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Download, Smartphone, Layers, Briefcase, Box, Globe, Database, Layout, ArrowRight } from 'lucide-react';
@@ -9,14 +8,14 @@ interface CertProps {
   limit?: number;
 }
 
-const iconMap: any = {
+const iconMap: Record<string, React.ElementType> = {
   smartphone: Smartphone,
   layers: Layers,
   briefcase: Briefcase,
   box: Box,
   globe: Globe,
   database: Database,
-  layout: Layout
+  layout: Layout,
 };
 
 export const Certifications: React.FC<CertProps> = ({ limit }) => {
@@ -39,7 +38,7 @@ export const Certifications: React.FC<CertProps> = ({ limit }) => {
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-3xl md:text-4xl font-bold text-white"
+            className="text-3xl md:text-4xl font-bold text-white tracking-tight"
           >
             {limit ? 'Certifications' : 'All Certifications'}
           </motion.h2>
@@ -48,44 +47,55 @@ export const Certifications: React.FC<CertProps> = ({ limit }) => {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
           {displayedCerts.map((cert, index) => {
             const Icon = iconMap[cert.icon] || Globe;
-            const accentColor = cert.color.startsWith('#') ? cert.color : '#6366f1';
+            const accentColor =
+              cert.color === 'primary'
+                ? '#6366f1'
+                : cert.color === 'secondary'
+                ? '#8b5cf6'
+                : cert.color === 'accent'
+                ? '#06b6d4'
+                : cert.color.startsWith('#')
+                ? cert.color
+                : '#6366f1';
 
             return (
               <motion.div
                 key={cert.id}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.06 }}
-                className="glass-card rounded-2xl p-6 flex flex-col"
+                viewport={{ once: true, margin: '-30px' }}
+                transition={{ delay: index * 0.05, duration: 0.35 }}
+                className="glass-card rounded-2xl p-6 flex flex-col justify-between"
               >
-                <div className="flex justify-between items-start mb-4">
-                  <div
-                    className="w-10 h-10 rounded-lg flex items-center justify-center"
-                    style={{ backgroundColor: `${accentColor}15`, color: accentColor }}
-                  >
-                    <Icon size={20} />
+                <div>
+                  <div className="flex justify-between items-start mb-4">
+                    <div
+                      className="w-10 h-10 rounded-xl flex items-center justify-center shadow-inner"
+                      style={{ backgroundColor: `${accentColor}15`, color: accentColor }}
+                    >
+                      <Icon size={20} />
+                    </div>
+                    <span
+                      className="px-2.5 py-1 rounded-full text-xs font-semibold"
+                      style={{ backgroundColor: `${accentColor}12`, color: accentColor }}
+                    >
+                      {cert.date}
+                    </span>
                   </div>
-                  <span
-                    className="px-2.5 py-1 rounded-full text-xs font-medium"
-                    style={{ backgroundColor: `${accentColor}10`, color: accentColor }}
-                  >
-                    {cert.date}
-                  </span>
-                </div>
 
-                <h3 className="text-base font-bold text-white mb-2">{cert.title}</h3>
-                <p className="text-gray-500 text-sm mb-5 flex-grow leading-relaxed">{cert.description}</p>
+                  <h3 className="text-base font-bold text-white mb-2 leading-snug">{cert.title}</h3>
+                  <p className="text-slate-200 text-sm mb-5 leading-relaxed font-normal">{cert.description}</p>
+                </div>
 
                 <a
                   href={cert.pdfUrl}
                   download
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 text-sm font-medium text-white py-2.5 px-4 rounded-lg transition-all w-full active:scale-[0.97] cursor-pointer hover:opacity-90"
+                  className="flex items-center justify-center gap-2 text-sm font-semibold text-white py-2.5 px-4 rounded-xl transition-all w-full active:scale-[0.97] cursor-pointer hover:opacity-95 shadow-md"
                   style={{ backgroundColor: accentColor }}
                 >
-                  <Download size={14} /> Download
+                  <Download size={14} /> Download Certificate
                 </a>
               </motion.div>
             );
@@ -101,9 +111,9 @@ export const Certifications: React.FC<CertProps> = ({ limit }) => {
           >
             <Link
               to="/certificates"
-              className="inline-flex items-center gap-2 px-7 py-3 text-[15px] font-semibold text-primary border border-primary/20 bg-primary/[0.06] hover:bg-primary/[0.12] rounded-xl transition-all active:scale-[0.97] cursor-pointer"
+              className="inline-flex items-center gap-2.5 px-8 py-3.5 text-[15px] font-bold btn-secondary-glass rounded-xl active:scale-[0.97] cursor-pointer"
             >
-              View All Certifications <ArrowRight size={18} />
+              View All Certifications <ArrowRight size={18} className="text-[#36E3FF]" />
             </Link>
           </motion.div>
         )}

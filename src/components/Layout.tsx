@@ -3,22 +3,26 @@ import { Github, Linkedin, Twitter, Mail } from 'lucide-react';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import Navbar from './Navbar';
 import { AudioPlayer } from './AudioPlayer';
+import { SpaceBackground } from './SpaceBackground';
 
-// Clean footer inspired by rafsan-theta
-const Footer = () => (
-  <footer className="border-t border-white/[0.06] py-10 relative z-10">
+// Refined footer
+const Footer: React.FC = () => (
+  <footer className="relative z-10 py-12 bg-[#070a13]/85 backdrop-blur-xl border-t border-white/[0.1] shadow-[0_-15px_35px_rgba(0,0,0,0.5)]">
+    <div className="section-divider-glow w-full absolute top-0 left-0 right-0" />
     <div className="container mx-auto px-5 md:px-8 max-w-6xl">
       <div className="flex flex-col md:flex-row items-center justify-between gap-6">
         {/* Left - brand */}
         <div className="text-center md:text-left">
-          <p className="text-white font-semibold text-lg">
-            Omar<span className="text-primary">.</span>
+          <p className="text-[#F5F7FA] font-bold text-xl tracking-tight">
+            Omar<span className="text-[#36E3FF]">.</span>
           </p>
-          <p className="text-gray-500 text-sm mt-1">Flutter Mobile Developer</p>
+          <p className="text-[#D7DCE5] text-sm font-medium mt-1 tracking-wide">
+            Flutter Mobile Developer
+          </p>
         </div>
 
         {/* Center - social icons */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3.5">
           {[
             { Icon: Linkedin, href: 'https://linkedin.com/in/djebbi-omar', label: 'LinkedIn' },
             { Icon: Github, href: 'https://github.com/omardjo', label: 'GitHub' },
@@ -31,7 +35,7 @@ const Footer = () => (
               target={href.startsWith('mailto') ? undefined : '_blank'}
               rel="noopener noreferrer"
               aria-label={label}
-              className="w-10 h-10 flex items-center justify-center rounded-lg bg-white/[0.04] hover:bg-primary/20 hover:text-primary text-gray-500 transition-all duration-200 cursor-pointer"
+              className="w-10 h-10 md:w-11 md:h-11 flex items-center justify-center rounded-xl bg-white/[0.05] border border-white/[0.12] text-[#A8B3C7] hover:text-[#36E3FF] hover:bg-[#7C5CFF]/20 hover:border-[#36E3FF]/50 transition-all duration-300 active:scale-95 shadow-md hover:shadow-[0_0_20px_rgba(54,227,255,0.35)] hover:-translate-y-0.5 cursor-pointer"
             >
               <Icon size={18} />
             </a>
@@ -39,7 +43,7 @@ const Footer = () => (
         </div>
 
         {/* Right - copyright */}
-        <p className="text-gray-600 text-sm">
+        <p className="text-[#A8B3C7] text-sm font-medium">
           © {new Date().getFullYear()} Omar Djebbi
         </p>
       </div>
@@ -48,30 +52,22 @@ const Footer = () => (
 );
 
 // Scroll Progress Bar
-const ScrollProgress = () => {
+const ScrollProgress: React.FC = () => {
   const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
+  const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 30, restDelta: 0.001 });
 
   return (
     <motion.div
-      className="fixed top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-primary via-secondary to-accent origin-left z-[1001]"
+      className="fixed top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-primary via-secondary to-accent origin-left z-[1001] pointer-events-none"
       style={{ scaleX }}
     />
   );
 };
 
-// Background Stars
-const BackgroundEffects = () => (
-  <div className="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
-    <div className="stars" />
-    <div className="stars2" />
-  </div>
-);
-
 // Main Layout
-export const Layout = ({ children }: { children: React.ReactNode }) => (
+export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   <div className="relative min-h-screen flex flex-col">
-    <BackgroundEffects />
+    <SpaceBackground />
     <ScrollProgress />
     <Navbar />
     <main className="flex-grow pt-0">{children}</main>
