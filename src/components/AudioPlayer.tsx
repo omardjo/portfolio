@@ -56,21 +56,22 @@ export const AudioPlayer: React.FC = () => {
 
   return (
     <div className="fixed bottom-4 left-4 md:bottom-6 md:left-6 z-[50]">
-      <audio ref={audioRef} loop preload="auto">
+      <audio ref={audioRef} loop preload="none">
         <source src="/assets/audio/space.mp3" type="audio/mpeg" />
       </audio>
 
       <button
         type="button"
         onClick={toggleAudio}
-        className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full bg-[#0b1121]/90 backdrop-blur-md border border-white/[0.14] text-white flex items-center justify-center shadow-lg shadow-black/50 hover:shadow-[0_0_20px_rgba(99,102,241,0.5)] hover:border-primary/60 transition-all duration-300 active:scale-95 cursor-pointer group"
+        className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full bg-[#0b1121]/90 backdrop-blur-md border border-white/[0.14] text-white flex items-center justify-center shadow-lg shadow-black/50 hover:shadow-[0_0_20px_rgba(99,102,241,0.5)] hover:border-primary/60 transition-all duration-200 active:scale-95 cursor-pointer group focus-visible:ring-2 focus-visible:ring-primary"
         style={{ touchAction: 'manipulation' }}
         aria-label={isPlaying ? 'Mute space ambient sound' : 'Play space ambient sound'}
+        title={isPlaying ? 'Couper le son' : 'Activer l’ambiance spatiale'}
       >
         {isPlaying ? (
-          <Volume2 className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
+          <Volume2 className="w-5 h-5 text-primary group-hover:scale-110 transition-transform duration-200" />
         ) : (
-          <VolumeX className="w-5 h-5 text-gray-400 group-hover:scale-110 transition-transform" />
+          <VolumeX className="w-5 h-5 text-gray-400 group-hover:scale-110 transition-transform duration-200" />
         )}
       </button>
     </div>

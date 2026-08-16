@@ -64,7 +64,7 @@ export const Certifications: React.FC<CertProps> = ({ limit }) => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-30px' }}
-                transition={{ delay: index * 0.05, duration: 0.35 }}
+                transition={{ delay: index * 0.04, duration: 0.3 }}
                 className="glass-card rounded-2xl p-6 flex flex-col justify-between"
               >
                 <div>
@@ -92,7 +92,7 @@ export const Certifications: React.FC<CertProps> = ({ limit }) => {
                   download
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 text-sm font-semibold text-white py-2.5 px-4 rounded-xl transition-all w-full active:scale-[0.97] cursor-pointer hover:opacity-95 shadow-md"
+                  className="flex items-center justify-center gap-2 text-sm font-semibold text-white py-2.5 px-4 rounded-xl transition-all w-full active:scale-[0.97] cursor-pointer hover:opacity-95 shadow-md focus-visible:ring-2 focus-visible:ring-primary"
                   style={{ backgroundColor: accentColor }}
                 >
                   <Download size={14} /> Download Certificate
@@ -111,7 +111,7 @@ export const Certifications: React.FC<CertProps> = ({ limit }) => {
           >
             <Link
               to="/certificates"
-              className="inline-flex items-center gap-2.5 px-8 py-3.5 text-[15px] font-bold btn-secondary-glass rounded-xl active:scale-[0.97] cursor-pointer"
+              className="inline-flex items-center gap-2.5 px-8 py-3.5 text-[15px] font-bold btn-secondary-glass rounded-xl active:scale-[0.97] cursor-pointer focus-visible:ring-2 focus-visible:ring-primary"
             >
               View All Certifications <ArrowRight size={18} className="text-[#36E3FF]" />
             </Link>

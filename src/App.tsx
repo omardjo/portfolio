@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-// 1. IMPORT THE CSS FILE HERE TO FIX THE "DAMAGED STYLE" ISSUE
 import './index.css'; 
 
 import { HashRouter as Router, Routes, Route, useLocation, Link } from 'react-router-dom';
@@ -19,24 +18,26 @@ import { Chatbot } from './components/Chatbot';
 // ScrollToTop Helper
 const ScrollToTop = () => {
   const { pathname } = useLocation();
-  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
   return null;
 };
 
 // BackButton Component
 const BackButton = () => (
-  <div className="container mx-auto px-4 mb-6">
+  <div className="container mx-auto px-5 md:px-8 mb-6">
     <Link 
       to="/" 
-      className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-gray-800/50 border border-gray-700 text-slate-300 hover:text-white hover:bg-primary hover:border-primary transition-all shadow-lg backdrop-blur-sm group"
+      className="inline-flex items-center justify-center w-11 h-11 rounded-xl bg-white/[0.05] border border-white/[0.12] text-slate-300 hover:text-white hover:bg-primary/20 hover:border-primary/40 transition-all shadow-md backdrop-blur-md group focus-visible:ring-2 focus-visible:ring-primary"
+      aria-label="Retour à l'accueil"
     >
-      <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
+      <ArrowLeft className="w-5 h-5 group-hover:-translate-x-0.5 transition-transform" />
     </Link>
   </div>
 );
 
 // Page Components
-// FLUTTER FOCUS: Section order - Hero > About > Flutter Apps > Experience > Certifications > Contact
 const Home = () => (
   <>
     <Hero />
@@ -49,34 +50,36 @@ const Home = () => (
 );
 
 const AllProjectsPage = () => (
-  <div className="pt-28 pb-10">
+  <div className="pt-28 pb-14 min-h-[80vh]">
     <BackButton />
     <Projects />
   </div>
 );
 
 const AllExperiencePage = () => (
-  <div className="pt-28 pb-10">
+  <div className="pt-28 pb-14 min-h-[80vh]">
     <BackButton />
-    <div className="container mx-auto px-4 mb-10 text-center">
-      <h1 className="text-4xl font-bold text-white mb-4">Parcours Professionnel Complet</h1>
+    <div className="container mx-auto px-5 md:px-8 mb-10 text-center">
+      <h1 className="text-3xl md:text-5xl font-extrabold text-white mb-3 tracking-tight">Parcours Professionnel Complet</h1>
+      <p className="text-gray-400 text-sm md:text-base max-w-lg mx-auto">Détail chronologique de toutes mes expériences professionnelles et projets freelance.</p>
     </div>
     <Experience />
   </div>
 );
 
 const AllCertificationsPage = () => (
-  <div className="pt-28 pb-10">
+  <div className="pt-28 pb-14 min-h-[80vh]">
     <BackButton />
-    <div className="container mx-auto px-4 mb-10 text-center">
-      <h1 className="text-4xl font-bold text-white mb-4">Toutes les Certifications</h1>
+    <div className="container mx-auto px-5 md:px-8 mb-10 text-center">
+      <h1 className="text-3xl md:text-5xl font-extrabold text-white mb-3 tracking-tight">Toutes les Certifications</h1>
+      <p className="text-gray-400 text-sm md:text-base max-w-lg mx-auto">Certifications professionnelles validées dans le développement mobile, backend et cloud.</p>
     </div>
     <Certifications />
   </div>
 );
 
 // --- MAIN APP ---
-const App = () => {
+const App: React.FC = () => {
   return (
     <HelmetProvider>
       <Helmet>

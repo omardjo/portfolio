@@ -75,13 +75,16 @@ export const Contact: React.FC = () => {
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.4 }}
+            transition={{ duration: 0.35 }}
             className="space-y-6"
           >
             <div className="glass-card prism-glass-card rounded-2xl p-6 md:p-8">
               <h3 className="text-lg font-bold text-white mb-6 tracking-wide">Contact Info</h3>
               <div className="space-y-5">
-                <a href="mailto:omar.djebbi@mavision.site" className="flex items-center gap-4 group">
+                <a
+                  href="mailto:omar.djebbi@mavision.site"
+                  className="flex items-center gap-4 group p-2 rounded-xl transition-all hover:bg-white/[0.03] focus-visible:ring-2 focus-visible:ring-primary"
+                >
                   <div className="w-11 h-11 bg-primary/[0.12] rounded-xl flex items-center justify-center group-hover:bg-primary/25 transition-colors">
                     <Mail className="w-5 h-5 text-primary" />
                   </div>
@@ -92,7 +95,10 @@ export const Contact: React.FC = () => {
                     </p>
                   </div>
                 </a>
-                <a href="tel:+21653115231" className="flex items-center gap-4 group">
+                <a
+                  href="tel:+21653115231"
+                  className="flex items-center gap-4 group p-2 rounded-xl transition-all hover:bg-white/[0.03] focus-visible:ring-2 focus-visible:ring-secondary"
+                >
                   <div className="w-11 h-11 bg-secondary/[0.12] rounded-xl flex items-center justify-center group-hover:bg-secondary/25 transition-colors">
                     <Phone className="w-5 h-5 text-secondary" />
                   </div>
@@ -103,7 +109,7 @@ export const Contact: React.FC = () => {
                     </p>
                   </div>
                 </a>
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-4 p-2">
                   <div className="w-11 h-11 bg-accent/[0.12] rounded-xl flex items-center justify-center">
                     <MapPin className="w-5 h-5 text-accent" />
                   </div>
@@ -124,7 +130,7 @@ export const Contact: React.FC = () => {
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.4 }}
+            transition={{ duration: 0.35 }}
             className="glass-card prism-glass-card rounded-2xl p-6 md:p-8"
           >
             <h3 className="text-lg font-bold text-white mb-6 tracking-wide">Send a Message</h3>
@@ -139,7 +145,7 @@ export const Contact: React.FC = () => {
                   required
                   value={formData.name}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 bg-white/[0.03] hover:bg-white/[0.05] border border-white/[0.08] hover:border-white/20 rounded-xl text-white text-[15px] focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-gray-600"
+                  className="w-full px-4 py-3 bg-white/[0.03] hover:bg-white/[0.05] border border-white/[0.08] hover:border-white/20 rounded-xl text-white text-[15px] focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 focus:bg-white/[0.05] transition-all placeholder:text-gray-600"
                   placeholder="Your name"
                 />
               </div>
@@ -153,7 +159,7 @@ export const Contact: React.FC = () => {
                   required
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 bg-white/[0.03] hover:bg-white/[0.05] border border-white/[0.08] hover:border-white/20 rounded-xl text-white text-[15px] focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-gray-600"
+                  className="w-full px-4 py-3 bg-white/[0.03] hover:bg-white/[0.05] border border-white/[0.08] hover:border-white/20 rounded-xl text-white text-[15px] focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 focus:bg-white/[0.05] transition-all placeholder:text-gray-600"
                   placeholder="your@email.com"
                 />
               </div>
@@ -167,7 +173,7 @@ export const Contact: React.FC = () => {
                   required
                   value={formData.message}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 bg-white/[0.03] hover:bg-white/[0.05] border border-white/[0.08] hover:border-white/20 rounded-xl text-white text-[15px] focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-gray-600 resize-none"
+                  className="w-full px-4 py-3 bg-white/[0.03] hover:bg-white/[0.05] border border-white/[0.08] hover:border-white/20 rounded-xl text-white text-[15px] focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 focus:bg-white/[0.05] transition-all placeholder:text-gray-600 resize-none"
                   placeholder="How can I help?"
                 />
               </div>
@@ -181,14 +187,14 @@ export const Contact: React.FC = () => {
                   required
                   value={formData.captcha}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 bg-white/[0.03] hover:bg-white/[0.05] border border-white/[0.08] hover:border-white/20 rounded-xl text-white text-[15px] focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-gray-600"
+                  className="w-full px-4 py-3 bg-white/[0.03] hover:bg-white/[0.05] border border-white/[0.08] hover:border-white/20 rounded-xl text-white text-[15px] focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 focus:bg-white/[0.05] transition-all placeholder:text-gray-600"
                   placeholder="Enter the number"
                 />
               </div>
               <button
                 type="submit"
                 disabled={status === 'sending'}
-                className="w-full px-6 py-3.5 bg-gradient-to-r from-[#6366f1] via-[#7C5CFF] to-[#36E3FF] hover:opacity-95 text-white font-semibold rounded-xl transition-all active:scale-[0.97] flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer text-[15px] shadow-lg shadow-[#7C5CFF]/30"
+                className="w-full px-6 py-3.5 bg-gradient-to-r from-[#6366f1] via-[#7C5CFF] to-[#36E3FF] hover:opacity-95 text-white font-semibold rounded-xl transition-all active:scale-[0.97] flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer text-[15px] shadow-lg shadow-[#7C5CFF]/30 focus-visible:ring-2 focus-visible:ring-primary"
               >
                 {status === 'sending' ? (
                   <>

@@ -10,6 +10,7 @@ export const Chatbot: React.FC = () => {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -18,6 +19,16 @@ export const Chatbot: React.FC = () => {
   useEffect(() => {
     if (isOpen) {
       scrollToBottom();
+      inputRef.current?.focus();
+
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') {
+          setIsOpen(false);
+        }
+      };
+
+      window.addEventListener('keydown', handleKeyDown);
+      return () => window.removeEventListener('keydown', handleKeyDown);
     }
   }, [messages, isLoading, isOpen]);
 
@@ -67,7 +78,7 @@ export const Chatbot: React.FC = () => {
             exit={{ scale: 0, opacity: 0 }}
             transition={{ duration: 0.2 }}
             onClick={() => setIsOpen(true)}
-            className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-40 w-12 h-12 md:w-14 md:h-14 min-w-[44px] min-h-[44px] bg-gradient-to-r from-[#6366f1] via-[#7C5CFF] to-[#36E3FF] text-white rounded-full flex items-center justify-center shadow-lg shadow-[#7C5CFF]/35 hover:shadow-[0_0_25px_rgba(54,227,255,0.45)] transition-all duration-300 active:scale-95 cursor-pointer"
+            className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-40 w-12 h-12 md:w-14 md:h-14 min-w-[44px] min-h-[44px] bg-gradient-to-r from-[#6366f1] via-[#7C5CFF] to-[#36E3FF] text-white rounded-full flex items-center justify-center shadow-lg shadow-[#7C5CFF]/35 hover:shadow-[0_0_25px_rgba(54,227,255,0.45)] transition-all duration-300 active:scale-95 cursor-pointer focus-visible:ring-2 focus-visible:ring-primary"
             style={{ touchAction: 'manipulation' }}
             aria-label="Ouvrir le Chatbot"
           >
@@ -79,11 +90,14 @@ export const Chatbot: React.FC = () => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            initial={{ opacity: 0, y: 15, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.95 }}
+            exit={{ opacity: 0, y: 15, scale: 0.96 }}
             transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
             className="fixed bottom-18 right-2 sm:right-4 md:bottom-20 md:right-6 z-50 w-[360px] max-w-[92vw] h-[460px] md:h-[500px] bg-[#0b1121]/95 border border-white/[0.14] rounded-2xl shadow-2xl flex flex-col overflow-hidden backdrop-blur-2xl"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Omar's AI Assistant"
           >
             {/* Header */}
             <div className="bg-gradient-to-r from-[#6366f1] via-[#7C5CFF] to-[#36E3FF] px-4 py-3.5 flex justify-between items-center text-white shadow-md">
@@ -93,7 +107,7 @@ export const Chatbot: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setIsOpen(false)}
-                className="hover:bg-white/20 p-1.5 rounded-lg flex items-center justify-center active:scale-95 transition-colors cursor-pointer"
+                className="hover:bg-white/20 p-1.5 rounded-lg flex items-center justify-center active:scale-95 transition-colors cursor-pointer focus-visible:ring-2 focus-visible:ring-white"
                 style={{ touchAction: 'manipulation' }}
                 aria-label="Close chat"
               >
@@ -132,6 +146,7 @@ export const Chatbot: React.FC = () => {
             {/* Input */}
             <div className="p-3 bg-[#070a13] border-t border-white/[0.08] flex gap-2">
               <input
+                ref={inputRef}
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
@@ -144,7 +159,7 @@ export const Chatbot: React.FC = () => {
                 type="button"
                 onClick={handleSend}
                 disabled={isLoading}
-                className="p-2.5 bg-gradient-to-r from-[#6366f1] to-[#36E3FF] rounded-xl text-white hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed active:scale-95 cursor-pointer shadow-md"
+                className="p-2.5 bg-gradient-to-r from-[#6366f1] to-[#36E3FF] rounded-xl text-white hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed active:scale-95 cursor-pointer shadow-md focus-visible:ring-2 focus-visible:ring-primary"
                 aria-label="Send message"
               >
                 <Send size={16} />

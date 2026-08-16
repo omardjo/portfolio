@@ -20,16 +20,25 @@ export const PdfPreviewModal: React.FC<PdfPreviewModalProps> = ({
   const [blobUrl, setBlobUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
+  // Body scroll lock & Escape key listener
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
+    if (!isOpen) return;
+
+    document.body.style.overflow = 'hidden';
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
     return () => {
       document.body.style.overflow = '';
+      window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [isOpen]);
+  }, [isOpen, onClose]);
 
   // Fetch fresh PDF blob with cache: 'no-store'
   useEffect(() => {
@@ -82,11 +91,14 @@ export const PdfPreviewModal: React.FC<PdfPreviewModalProps> = ({
           transition={{ duration: 0.2 }}
           className="fixed inset-0 z-[1100] flex items-center justify-center bg-black/85 backdrop-blur-md p-3 sm:p-6"
           onClick={onClose}
+          role="dialog"
+          aria-modal="true"
+          aria-label={title}
         >
           <motion.div
-            initial={{ scale: 0.95, opacity: 0, y: 15 }}
+            initial={{ scale: 0.96, opacity: 0, y: 12 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
-            exit={{ scale: 0.95, opacity: 0, y: 15 }}
+            exit={{ scale: 0.96, opacity: 0, y: 12 }}
             transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
             className="relative w-full max-w-5xl h-[88vh] flex flex-col bg-[#0b1121] rounded-2xl border border-white/[0.14] shadow-2xl overflow-hidden"
             onClick={(e) => e.stopPropagation()}
@@ -104,7 +116,7 @@ export const PdfPreviewModal: React.FC<PdfPreviewModalProps> = ({
                 <a
                   href={directDownloadUrl}
                   download={downloadName}
-                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs sm:text-sm font-semibold text-white bg-primary hover:bg-primary/90 rounded-xl transition-all shadow-md shadow-primary/20 active:scale-95 cursor-pointer"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs sm:text-sm font-semibold text-white bg-primary hover:bg-primary/90 rounded-xl transition-all shadow-md shadow-primary/20 active:scale-95 cursor-pointer focus-visible:ring-2 focus-visible:ring-primary"
                 >
                   <Download size={14} />
                   <span>Download</span>
@@ -113,15 +125,16 @@ export const PdfPreviewModal: React.FC<PdfPreviewModalProps> = ({
                   href={directDownloadUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center w-8 h-8 text-gray-400 hover:text-white hover:bg-white/10 rounded-xl transition-colors cursor-pointer"
+                  className="inline-flex items-center justify-center w-8 h-8 text-gray-400 hover:text-white hover:bg-white/10 rounded-xl transition-colors cursor-pointer focus-visible:ring-2 focus-visible:ring-primary"
                   title="Open in new tab"
+                  aria-label="Open in new tab"
                 >
                   <ExternalLink size={16} />
                 </a>
                 <button
                   type="button"
                   onClick={onClose}
-                  className="inline-flex items-center justify-center w-8 h-8 text-gray-400 hover:text-white hover:bg-white/10 rounded-xl transition-colors cursor-pointer"
+                  className="inline-flex items-center justify-center w-8 h-8 text-gray-400 hover:text-white hover:bg-white/10 rounded-xl transition-colors cursor-pointer focus-visible:ring-2 focus-visible:ring-primary"
                   aria-label="Close modal"
                 >
                   <X size={18} />

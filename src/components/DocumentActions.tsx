@@ -40,28 +40,28 @@ export const DocumentActions: React.FC<DocumentActionsProps> = ({ variant = 'her
           <button
             type="button"
             onClick={handlePreviewCV}
-            className="w-full px-3 py-2.5 text-xs font-semibold text-gray-200 bg-primary/[0.1] hover:bg-primary/[0.18] border border-primary/30 rounded-xl flex items-center justify-center gap-1.5 transition-all active:scale-95 cursor-pointer"
+            className="w-full px-3 py-2.5 text-xs font-semibold text-gray-200 bg-primary/[0.1] hover:bg-primary/[0.18] border border-primary/30 rounded-xl flex items-center justify-center gap-1.5 transition-all active:scale-95 cursor-pointer focus-visible:ring-2 focus-visible:ring-primary"
           >
             <Eye size={14} className="text-primary" /> Preview CV
           </button>
           <a
             href={DOCUMENT_CONFIG.cv.url}
             download={DOCUMENT_CONFIG.cv.filename}
-            className="w-full px-3 py-2.5 text-xs font-semibold text-white bg-primary hover:bg-primary/90 rounded-xl flex items-center justify-center gap-1.5 transition-all active:scale-95 shadow-sm shadow-primary/20 cursor-pointer"
+            className="w-full px-3 py-2.5 text-xs font-semibold text-white bg-primary hover:bg-primary/90 rounded-xl flex items-center justify-center gap-1.5 transition-all active:scale-95 shadow-sm shadow-primary/20 cursor-pointer focus-visible:ring-2 focus-visible:ring-primary"
           >
             <Download size={14} /> Download CV
           </a>
           <button
             type="button"
             onClick={handlePreviewResume}
-            className="w-full px-3 py-2.5 text-xs font-semibold text-gray-200 bg-secondary/[0.1] hover:bg-secondary/[0.18] border border-secondary/30 rounded-xl flex items-center justify-center gap-1.5 transition-all active:scale-95 cursor-pointer"
+            className="w-full px-3 py-2.5 text-xs font-semibold text-gray-200 bg-secondary/[0.1] hover:bg-secondary/[0.18] border border-secondary/30 rounded-xl flex items-center justify-center gap-1.5 transition-all active:scale-95 cursor-pointer focus-visible:ring-2 focus-visible:ring-secondary"
           >
             <Eye size={14} className="text-secondary" /> Preview Resume
           </button>
           <a
             href={DOCUMENT_CONFIG.resume.url}
             download={DOCUMENT_CONFIG.resume.filename}
-            className="w-full px-3 py-2.5 text-xs font-semibold text-white bg-secondary hover:bg-secondary/90 rounded-xl flex items-center justify-center gap-1.5 transition-all active:scale-95 shadow-sm shadow-secondary/20 cursor-pointer"
+            className="w-full px-3 py-2.5 text-xs font-semibold text-white bg-secondary hover:bg-secondary/90 rounded-xl flex items-center justify-center gap-1.5 transition-all active:scale-95 shadow-sm shadow-secondary/20 cursor-pointer focus-visible:ring-2 focus-visible:ring-secondary"
           >
             <Download size={14} /> Download Resume
           </a>
@@ -105,14 +105,14 @@ export const DocumentActions: React.FC<DocumentActionsProps> = ({ variant = 'her
                 <button
                   type="button"
                   onClick={handlePreviewCV}
-                  className="w-full inline-flex items-center justify-center gap-1.5 px-3 py-2.5 bg-white/[0.04] hover:bg-white/[0.09] border border-white/[0.12] text-gray-200 hover:text-white font-medium rounded-xl transition-all active:scale-[0.98] cursor-pointer text-xs"
+                  className="w-full inline-flex items-center justify-center gap-1.5 px-3 py-2.5 bg-white/[0.04] hover:bg-white/[0.09] border border-white/[0.12] text-gray-200 hover:text-white font-medium rounded-xl transition-all active:scale-[0.98] cursor-pointer text-xs focus-visible:ring-2 focus-visible:ring-primary"
                 >
                   <Eye size={14} className="text-primary" /> Preview CV
                 </button>
                 <a
                   href={DOCUMENT_CONFIG.cv.url}
                   download={DOCUMENT_CONFIG.cv.filename}
-                  className="w-full inline-flex items-center justify-center gap-1.5 px-3 py-2.5 bg-primary hover:bg-primary/90 text-white font-semibold rounded-xl transition-all active:scale-[0.98] cursor-pointer text-xs shadow-md shadow-primary/20"
+                  className="w-full inline-flex items-center justify-center gap-1.5 px-3 py-2.5 bg-primary hover:bg-primary/90 text-white font-semibold rounded-xl transition-all active:scale-[0.98] cursor-pointer text-xs shadow-md shadow-primary/20 focus-visible:ring-2 focus-visible:ring-primary"
                 >
                   <Download size={14} /> Download CV
                 </a>
@@ -130,14 +130,14 @@ export const DocumentActions: React.FC<DocumentActionsProps> = ({ variant = 'her
                 <button
                   type="button"
                   onClick={handlePreviewResume}
-                  className="w-full inline-flex items-center justify-center gap-1.5 px-3 py-2.5 bg-white/[0.04] hover:bg-white/[0.09] border border-white/[0.12] text-gray-200 hover:text-white font-medium rounded-xl transition-all active:scale-[0.98] cursor-pointer text-xs"
+                  className="w-full inline-flex items-center justify-center gap-1.5 px-3 py-2.5 bg-white/[0.04] hover:bg-white/[0.09] border border-white/[0.12] text-gray-200 hover:text-white font-medium rounded-xl transition-all active:scale-[0.98] cursor-pointer text-xs focus-visible:ring-2 focus-visible:ring-secondary"
                 >
                   <Eye size={14} className="text-secondary" /> Preview Resume
                 </button>
                 <a
                   href={DOCUMENT_CONFIG.resume.url}
                   download={DOCUMENT_CONFIG.resume.filename}
-                  className="w-full inline-flex items-center justify-center gap-1.5 px-3 py-2.5 bg-secondary hover:bg-secondary/90 text-white font-semibold rounded-xl transition-all active:scale-[0.98] cursor-pointer text-xs shadow-md shadow-secondary/20"
+                  className="w-full inline-flex items-center justify-center gap-1.5 px-3 py-2.5 bg-secondary hover:bg-secondary/90 text-white font-semibold rounded-xl transition-all active:scale-[0.98] cursor-pointer text-xs shadow-md shadow-secondary/20 focus-visible:ring-2 focus-visible:ring-secondary"
                 >
                   <Download size={14} /> Download Resume
                 </a>
@@ -168,7 +168,7 @@ export const DocumentActions: React.FC<DocumentActionsProps> = ({ variant = 'her
           <button
             type="button"
             onClick={handlePreviewCV}
-            className="px-3.5 py-2 hover:bg-[#36E3FF]/15 text-[#F5F7FA] hover:text-white font-semibold rounded-lg transition-all duration-200 active:scale-[0.97] cursor-pointer flex items-center gap-1.5 text-xs sm:text-sm"
+            className="px-3.5 py-2 hover:bg-[#36E3FF]/15 text-[#F5F7FA] hover:text-white font-semibold rounded-lg transition-all duration-200 active:scale-[0.97] cursor-pointer flex items-center gap-1.5 text-xs sm:text-sm focus-visible:ring-2 focus-visible:ring-[#36E3FF]"
           >
             <Eye size={14} className="text-[#36E3FF]" /> CV Preview
           </button>
@@ -176,7 +176,7 @@ export const DocumentActions: React.FC<DocumentActionsProps> = ({ variant = 'her
           <a
             href={DOCUMENT_CONFIG.cv.url}
             download={DOCUMENT_CONFIG.cv.filename}
-            className="px-3.5 py-2 bg-gradient-to-r from-[#6366f1] to-[#36E3FF] hover:opacity-95 text-white font-bold rounded-lg transition-all duration-200 active:scale-[0.97] cursor-pointer flex items-center gap-1.5 text-xs sm:text-sm shadow-sm"
+            className="px-3.5 py-2 bg-gradient-to-r from-[#6366f1] to-[#36E3FF] hover:opacity-95 text-white font-bold rounded-lg transition-all duration-200 active:scale-[0.97] cursor-pointer flex items-center gap-1.5 text-xs sm:text-sm shadow-sm focus-visible:ring-2 focus-visible:ring-primary"
           >
             <Download size={14} /> Download CV
           </a>
@@ -187,7 +187,7 @@ export const DocumentActions: React.FC<DocumentActionsProps> = ({ variant = 'her
           <button
             type="button"
             onClick={handlePreviewResume}
-            className="px-3.5 py-2 hover:bg-[#7C5CFF]/15 text-[#F5F7FA] hover:text-white font-semibold rounded-lg transition-all duration-200 active:scale-[0.97] cursor-pointer flex items-center gap-1.5 text-xs sm:text-sm"
+            className="px-3.5 py-2 hover:bg-[#7C5CFF]/15 text-[#F5F7FA] hover:text-white font-semibold rounded-lg transition-all duration-200 active:scale-[0.97] cursor-pointer flex items-center gap-1.5 text-xs sm:text-sm focus-visible:ring-2 focus-visible:ring-[#7C5CFF]"
           >
             <Eye size={14} className="text-[#B17DFF]" /> Resume Preview
           </button>
@@ -195,7 +195,7 @@ export const DocumentActions: React.FC<DocumentActionsProps> = ({ variant = 'her
           <a
             href={DOCUMENT_CONFIG.resume.url}
             download={DOCUMENT_CONFIG.resume.filename}
-            className="px-3.5 py-2 bg-gradient-to-r from-[#7C5CFF] to-[#B17DFF] hover:opacity-95 text-white font-bold rounded-lg transition-all duration-200 active:scale-[0.97] cursor-pointer flex items-center gap-1.5 text-xs sm:text-sm shadow-sm"
+            className="px-3.5 py-2 bg-gradient-to-r from-[#7C5CFF] to-[#B17DFF] hover:opacity-95 text-white font-bold rounded-lg transition-all duration-200 active:scale-[0.97] cursor-pointer flex items-center gap-1.5 text-xs sm:text-sm shadow-sm focus-visible:ring-2 focus-visible:ring-[#7C5CFF]"
           >
             <Download size={14} /> Download Resume
           </a>

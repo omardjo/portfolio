@@ -94,97 +94,6 @@ const MockupFrame = ({
   return <PhoneFrame src={src} alt={alt} eager={eager} />;
 };
 
-// Image carousel
-const ImageCarousel = ({
-  images,
-  alt,
-  mockupType,
-}: {
-  images: string[];
-  alt: string;
-  mockupType?: 'phone' | 'pc';
-}) => {
-  const [current, setCurrent] = useState(0);
-
-  const prev = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setCurrent((c) => (c - 1 + images.length) % images.length);
-  };
-  const next = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setCurrent((c) => (c + 1) % images.length);
-  };
-
-  return (
-    <div className="relative group/carousel">
-      <div className="flex justify-center py-3">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={current}
-            initial={{ opacity: 0, x: 25 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -25 }}
-            transition={{ duration: 0.25, ease: 'easeInOut' }}
-          >
-            <MockupFrame
-              src={images[current]}
-              alt={`${alt} ${current + 1}`}
-              eager={current === 0}
-              mockupType={mockupType}
-            />
-          </motion.div>
-        </AnimatePresence>
-      </div>
-
-      {images.length > 1 && (
-        <>
-          <button
-            type="button"
-            onClick={prev}
-            className="absolute left-0 top-1/2 -translate-y-1/2 w-9 h-9 bg-black/60 backdrop-blur-sm rounded-full flex items-center justify-center text-white opacity-0 group-hover/carousel:opacity-100 transition-all duration-200 hover:bg-primary/80 cursor-pointer active:scale-90 z-10"
-            aria-label="Previous image"
-          >
-            <ChevronLeft size={18} />
-          </button>
-          <button
-            type="button"
-            onClick={next}
-            className="absolute right-0 top-1/2 -translate-y-1/2 w-9 h-9 bg-black/60 backdrop-blur-sm rounded-full flex items-center justify-center text-white opacity-0 group-hover/carousel:opacity-100 transition-all duration-200 hover:bg-primary/80 cursor-pointer active:scale-90 z-10"
-            aria-label="Next image"
-          >
-            <ChevronRight size={18} />
-          </button>
-        </>
-      )}
-
-      {images.length > 1 && (
-        <div className="flex justify-center mt-3">
-          <div className="flex gap-1.5 bg-white/[0.04] backdrop-blur-sm rounded-full px-3 py-1.5">
-            {images.map((_, i) => (
-              <button
-                key={i}
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setCurrent(i);
-                }}
-                className={`rounded-full transition-all duration-300 cursor-pointer ${
-                  i === current ? 'bg-primary w-5 h-2' : 'bg-white/30 w-2 h-2 hover:bg-white/50'
-                }`}
-                aria-label={`Go to slide ${i + 1}`}
-              />
-            ))}
-          </div>
-        </div>
-      )}
-
-      <div className="absolute top-1 right-1 bg-black/60 backdrop-blur-sm rounded-lg px-2.5 py-1 text-xs text-white/80 font-medium z-10">
-        {current + 1}/{images.length}
-      </div>
-    </div>
-  );
-};
-
 // Multi-image screenshot grid
 const ScreenshotGrid = ({
   images,
@@ -216,7 +125,7 @@ const ScreenshotGrid = ({
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-20px' }}
-            transition={{ delay: i * 0.05, duration: 0.35 }}
+            transition={{ delay: i * 0.04, duration: 0.3 }}
             className={isLandscape && mockupType !== 'pc' ? 'col-span-2' : undefined}
           >
             <MockupFrame
@@ -288,11 +197,11 @@ export const Projects: React.FC<ProjectsProps> = ({ featuredIds }) => {
             return (
               <motion.div
                 key={project.id}
-                initial={{ opacity: 0, y: 25 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
-                transition={{ delay: index * 0.06, duration: 0.45 }}
-                className={`group relative glass-card rounded-2xl p-5 md:p-7 transition-all duration-300 ${glowClass}`}
+                transition={{ delay: index * 0.05, duration: 0.35 }}
+                className={`group relative glass-card rounded-2xl p-5 md:p-7 transition-all ${glowClass}`}
               >
                 {/* Number overlay */}
                 <div className="absolute top-5 left-5 w-9 h-9 bg-primary/90 backdrop-blur-sm rounded-lg flex items-center justify-center z-10 shadow-md">
@@ -346,7 +255,7 @@ export const Projects: React.FC<ProjectsProps> = ({ featuredIds }) => {
                         </span>
                       ))}
                     </div>
-                    <h3 className="text-xl md:text-2xl font-bold text-white mb-3 group-hover:text-primary transition-colors duration-300">
+                    <h3 className="text-xl md:text-2xl font-bold text-white mb-3 group-hover:text-primary transition-colors duration-200">
                       {project.title}
                     </h3>
                     <p className="text-slate-200 text-[15px] leading-relaxed mb-5 font-normal">
@@ -360,7 +269,7 @@ export const Projects: React.FC<ProjectsProps> = ({ featuredIds }) => {
                       <button
                         type="button"
                         onClick={() => openVideo(project.videoUrl!, project.title)}
-                        className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-semibold text-[#F5F7FA] bg-[#7C5CFF]/20 hover:bg-[#7C5CFF]/35 border border-[#7C5CFF]/40 rounded-xl transition-all cursor-pointer active:scale-[0.97] shadow-md hover:shadow-[0_0_16px_rgba(124,92,255,0.4)]"
+                        className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-semibold text-[#F5F7FA] bg-[#7C5CFF]/20 hover:bg-[#7C5CFF]/35 border border-[#7C5CFF]/40 rounded-xl transition-all cursor-pointer active:scale-[0.97] shadow-md hover:shadow-[0_0_16px_rgba(124,92,255,0.4)] focus-visible:ring-2 focus-visible:ring-primary"
                       >
                         <PlayCircle size={16} className="text-[#36E3FF]" /> Demo
                       </button>
@@ -370,7 +279,7 @@ export const Projects: React.FC<ProjectsProps> = ({ featuredIds }) => {
                         href={project.demoUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-semibold text-[#F5F7FA] bg-emerald-500/20 hover:bg-emerald-500/35 border border-emerald-500/35 rounded-xl transition-all cursor-pointer active:scale-[0.97] shadow-md hover:shadow-[0_0_16px_rgba(16,185,129,0.4)]"
+                        className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-semibold text-[#F5F7FA] bg-emerald-500/20 hover:bg-emerald-500/35 border border-emerald-500/35 rounded-xl transition-all cursor-pointer active:scale-[0.97] shadow-md hover:shadow-[0_0_16px_rgba(16,185,129,0.4)] focus-visible:ring-2 focus-visible:ring-emerald-400"
                       >
                         <ExternalLink size={15} className="text-emerald-400" /> Play Store
                       </a>
@@ -380,7 +289,7 @@ export const Projects: React.FC<ProjectsProps> = ({ featuredIds }) => {
                         href={project.repoUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-semibold text-[#F5F7FA] bg-white/[0.08] hover:bg-white/[0.16] border border-white/[0.18] rounded-xl transition-all cursor-pointer active:scale-[0.97] shadow-md hover:shadow-[0_0_16px_rgba(255,255,255,0.2)]"
+                        className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-semibold text-[#F5F7FA] bg-white/[0.08] hover:bg-white/[0.16] border border-white/[0.18] rounded-xl transition-all cursor-pointer active:scale-[0.97] shadow-md hover:shadow-[0_0_16px_rgba(255,255,255,0.2)] focus-visible:ring-2 focus-visible:ring-white"
                       >
                         <Github size={16} className="text-slate-200" /> Source Code
                       </a>
@@ -401,7 +310,7 @@ export const Projects: React.FC<ProjectsProps> = ({ featuredIds }) => {
           >
             <Link
               to="/projects"
-              className="inline-flex items-center gap-2.5 px-8 py-3.5 text-[15px] font-bold btn-secondary-glass rounded-xl active:scale-[0.97] cursor-pointer"
+              className="inline-flex items-center gap-2.5 px-8 py-3.5 text-[15px] font-bold btn-secondary-glass rounded-xl active:scale-[0.97] cursor-pointer focus-visible:ring-2 focus-visible:ring-primary"
             >
               View All Projects <ArrowRight size={18} className="text-[#36E3FF]" />
             </Link>

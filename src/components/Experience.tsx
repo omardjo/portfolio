@@ -41,8 +41,8 @@ export const Experience: React.FC<ExperienceProps> = ({ limit }) => {
                 key={exp.id}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-50px' }}
-                transition={{ duration: 0.35, delay: index * 0.06 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ duration: 0.35, delay: index * 0.05 }}
                 className="relative group"
               >
                 {/* Timeline dot */}
@@ -80,7 +80,7 @@ export const Experience: React.FC<ExperienceProps> = ({ limit }) => {
             >
               <Link
                 to="/experience"
-                className="inline-flex items-center gap-2.5 px-8 py-3.5 text-[15px] font-bold btn-secondary-glass rounded-xl active:scale-[0.97] cursor-pointer"
+                className="inline-flex items-center gap-2.5 px-8 py-3.5 text-[15px] font-bold btn-secondary-glass rounded-xl active:scale-[0.97] cursor-pointer focus-visible:ring-2 focus-visible:ring-primary"
               >
                 View Full Timeline <ArrowRight size={18} className="text-[#36E3FF]" />
               </Link>

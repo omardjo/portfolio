@@ -54,7 +54,7 @@ const Navbar: React.FC = () => {
       },
       {
         root: null,
-        rootMargin: '-30% 0px -50% 0px',
+        rootMargin: '-25% 0px -45% 0px',
         threshold: 0.1,
       }
     );
@@ -73,11 +73,23 @@ const Navbar: React.FC = () => {
     };
   }, [isHome]);
 
-  // Lock body scroll when mobile menu is open
+  // Lock body scroll when mobile menu is open & listen for Escape
   useEffect(() => {
-    document.body.style.overflow = isOpen ? 'hidden' : '';
+    if (!isOpen) return;
+
+    document.body.style.overflow = 'hidden';
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsOpen(false);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
     return () => {
       document.body.style.overflow = '';
+      window.removeEventListener('keydown', handleKeyDown);
     };
   }, [isOpen]);
 
@@ -120,7 +132,7 @@ const Navbar: React.FC = () => {
     <>
       {/* NAVBAR FIXED TOP */}
       <nav
-        className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-200 ${
           scrolled
             ? 'bg-[#070a13]/85 backdrop-blur-xl border-b border-white/[0.12] shadow-[0_10px_30px_rgba(0,0,0,0.5)]'
             : 'bg-transparent'
@@ -132,7 +144,7 @@ const Navbar: React.FC = () => {
             <Link
               to="/"
               onClick={() => setIsOpen(false)}
-              className="text-white font-extrabold text-xl tracking-tight hover:text-[#36E3FF] transition-colors select-none group"
+              className="text-white font-extrabold text-xl tracking-tight hover:text-[#36E3FF] transition-colors select-none group focus-visible:ring-2 focus-visible:ring-primary rounded-lg px-1"
             >
               Omar<span className="text-[#36E3FF] group-hover:text-[#7C5CFF] transition-colors">.</span>
             </Link>
@@ -147,7 +159,7 @@ const Navbar: React.FC = () => {
                     key={link.name}
                     type="button"
                     onClick={() => handleNavClick(link.href)}
-                    className={`px-4 py-1.5 text-[13px] font-semibold rounded-full transition-all duration-200 cursor-pointer relative group ${
+                    className={`px-4 py-1.5 text-[13px] font-semibold rounded-full transition-all duration-200 cursor-pointer relative group focus-visible:ring-2 focus-visible:ring-primary ${
                       isActive
                         ? 'text-white bg-white/[0.1] shadow-inner'
                         : 'text-[#D7DCE5] hover:text-white hover:bg-white/[0.06]'
@@ -156,7 +168,7 @@ const Navbar: React.FC = () => {
                     <span>{link.name}</span>
                     {/* Glowing Underline Indicator */}
                     <span
-                      className={`absolute bottom-0 left-4 right-4 h-[2px] bg-gradient-to-r from-[#36E3FF] to-[#7C5CFF] rounded-full transition-transform duration-300 origin-left ${
+                      className={`absolute bottom-0 left-4 right-4 h-[2px] bg-gradient-to-r from-[#36E3FF] to-[#7C5CFF] rounded-full transition-transform duration-200 origin-left ${
                         isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
                       }`}
                     />
@@ -168,7 +180,7 @@ const Navbar: React.FC = () => {
               <button
                 type="button"
                 onClick={() => handleNavClick('#contact')}
-                className="ml-2 px-5 py-2 text-[13px] font-bold text-white bg-gradient-to-r from-[#6366f1] via-[#7C5CFF] to-[#36E3FF] hover:opacity-95 rounded-full transition-all duration-200 cursor-pointer active:scale-[0.97] shadow-md hover:shadow-[0_0_20px_rgba(54,227,255,0.4)]"
+                className="ml-2 px-5 py-2 text-[13px] font-bold text-white bg-gradient-to-r from-[#6366f1] via-[#7C5CFF] to-[#36E3FF] hover:opacity-95 rounded-full transition-all duration-200 cursor-pointer active:scale-[0.97] shadow-md hover:shadow-[0_0_20px_rgba(54,227,255,0.4)] focus-visible:ring-2 focus-visible:ring-primary"
               >
                 Get in Touch
               </button>
@@ -178,7 +190,7 @@ const Navbar: React.FC = () => {
             <button
               type="button"
               onClick={() => setIsOpen((prev) => !prev)}
-              className="md:hidden relative w-10 h-10 flex items-center justify-center text-gray-200 hover:text-white transition-colors cursor-pointer"
+              className="md:hidden relative w-10 h-10 flex items-center justify-center text-gray-200 hover:text-white transition-colors cursor-pointer rounded-lg focus-visible:ring-2 focus-visible:ring-primary"
               aria-label="Toggle menu"
             >
               <AnimatePresence mode="wait">
@@ -219,6 +231,9 @@ const Navbar: React.FC = () => {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             className="fixed inset-0 z-[99] md:hidden"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Mobile Navigation"
           >
             {/* Backdrop */}
             <motion.div
@@ -247,9 +262,9 @@ const Navbar: React.FC = () => {
                       type="button"
                       initial={{ opacity: 0, x: -15 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: i * 0.04, duration: 0.2 }}
+                      transition={{ delay: i * 0.03, duration: 0.2 }}
                       onClick={() => handleNavClick(link.href)}
-                      className={`w-full text-left px-5 py-3.5 text-[15px] font-semibold rounded-xl transition-all duration-150 cursor-pointer ${
+                      className={`w-full text-left px-5 py-3.5 text-[15px] font-semibold rounded-xl transition-all duration-150 cursor-pointer focus-visible:ring-2 focus-visible:ring-primary ${
                         isActive
                           ? 'text-[#36E3FF] bg-white/[0.08] border-l-4 border-[#36E3FF]'
                           : 'text-[#D7DCE5] hover:bg-white/[0.06] hover:text-white'
@@ -266,9 +281,9 @@ const Navbar: React.FC = () => {
                   type="button"
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: navLinks.length * 0.04 + 0.04, duration: 0.2 }}
+                  transition={{ delay: navLinks.length * 0.03 + 0.03, duration: 0.2 }}
                   onClick={() => handleNavClick('#contact')}
-                  className="w-full text-center px-5 py-3.5 text-[15px] font-bold text-white bg-gradient-to-r from-[#6366f1] via-[#7C5CFF] to-[#36E3FF] rounded-xl active:scale-[0.97] transition-all duration-150 cursor-pointer shadow-lg shadow-[#7C5CFF]/30"
+                  className="w-full text-center px-5 py-3.5 text-[15px] font-bold text-white bg-gradient-to-r from-[#6366f1] via-[#7C5CFF] to-[#36E3FF] rounded-xl active:scale-[0.97] transition-all duration-150 cursor-pointer shadow-lg shadow-[#7C5CFF]/30 focus-visible:ring-2 focus-visible:ring-primary"
                 >
                   Get in Touch
                 </motion.button>

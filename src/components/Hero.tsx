@@ -30,7 +30,7 @@ export const Hero: React.FC = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.85 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             className="relative mb-5"
           >
             <HolographicAvatar
@@ -43,7 +43,7 @@ export const Hero: React.FC = () => {
           <motion.div
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.15, duration: 0.4 }}
+            transition={{ delay: 0.12, duration: 0.35 }}
             className="flex items-center gap-2 px-4 py-1.5 mb-5 bg-emerald-500/10 hover:bg-emerald-500/15 border border-emerald-500/25 rounded-full transition-all duration-200 cursor-default shadow-sm shadow-emerald-500/10"
           >
             <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
@@ -56,7 +56,7 @@ export const Hero: React.FC = () => {
           <motion.h1
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ delay: 0.18, duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
             className="text-4xl sm:text-5xl md:text-7xl font-extrabold mb-5 tracking-tight hero-title-shadow leading-[1.1]"
           >
             <span className="text-white">BUILDING BEAUTIFUL</span>
@@ -68,7 +68,7 @@ export const Hero: React.FC = () => {
           <motion.p
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.35, duration: 0.5 }}
+            transition={{ delay: 0.28, duration: 0.4 }}
             className="text-[#E8ECF7] text-base md:text-lg max-w-xl mx-auto mb-3 leading-relaxed font-normal drop-shadow-md"
           >
             Développeur mobile spécialisé <span className="text-[#36E3FF] font-semibold">Flutter & Firebase</span> avec 2+ ans d'expérience en applications cross-platform performantes.
@@ -78,7 +78,7 @@ export const Hero: React.FC = () => {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.45 }}
+            transition={{ delay: 0.38 }}
             className="flex items-center gap-1.5 text-gray-400 text-sm mb-7"
           >
             <MapPin size={14} className="text-[#36E3FF]" />
@@ -89,21 +89,21 @@ export const Hero: React.FC = () => {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.4 }}
+            transition={{ delay: 0.42, duration: 0.35 }}
             className="flex flex-col items-center gap-4 mb-14 w-full"
           >
             <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
               <MagneticButton
                 type="button"
                 onClick={() => scrollTo('contact')}
-                className="px-8 py-3.5 bg-gradient-to-r from-[#6366f1] via-[#7C5CFF] to-[#36E3FF] hover:opacity-95 text-white font-semibold rounded-xl transition-all duration-200 active:scale-[0.97] cursor-pointer text-[15px] shadow-lg shadow-[#7C5CFF]/30"
+                className="px-8 py-3.5 bg-gradient-to-r from-[#6366f1] via-[#7C5CFF] to-[#36E3FF] hover:opacity-95 text-white font-semibold rounded-xl transition-all duration-200 active:scale-[0.97] cursor-pointer text-[15px] shadow-lg shadow-[#7C5CFF]/30 focus-visible:ring-2 focus-visible:ring-primary"
               >
                 Get in Touch
               </MagneticButton>
               <MagneticButton
                 type="button"
                 onClick={() => scrollTo('projects')}
-                className="px-8 py-3.5 bg-white/[0.06] hover:bg-white/[0.12] text-white font-medium rounded-xl border border-white/[0.15] transition-all duration-200 active:scale-[0.97] cursor-pointer text-[15px] hover:border-white/30 backdrop-blur-md"
+                className="px-8 py-3.5 bg-white/[0.06] hover:bg-white/[0.12] text-white font-medium rounded-xl border border-white/[0.15] transition-all duration-200 active:scale-[0.97] cursor-pointer text-[15px] hover:border-white/30 backdrop-blur-md focus-visible:ring-2 focus-visible:ring-white"
               >
                 View Projects
               </MagneticButton>
@@ -115,7 +115,7 @@ export const Hero: React.FC = () => {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.9 }}
+            transition={{ delay: 0.8 }}
             className="absolute bottom-8 left-1/2 -translate-x-1/2 pointer-events-none"
           >
             <motion.div

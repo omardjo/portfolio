@@ -1,13 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 
-interface DistantStar {
-  x: number;
-  y: number;
-  size: number;
-  alpha: number;
-  colorIndex: number;
-}
-
 interface MidStar {
   x: number;
   y: number;
@@ -80,8 +72,8 @@ export const SpaceBackground: React.FC = () => {
     const isMobile = window.innerWidth < 768;
 
     const handleMouseMove = (e: MouseEvent) => {
-      targetMouseX = (e.clientX - width / 2) * 0.04;
-      targetMouseY = (e.clientY - height / 2) * 0.04;
+      targetMouseX = (e.clientX - width / 2) * 0.035;
+      targetMouseY = (e.clientY - height / 2) * 0.035;
     };
 
     const handleScroll = () => {
@@ -92,7 +84,7 @@ export const SpaceBackground: React.FC = () => {
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
     window.addEventListener('scroll', handleScroll, { passive: true });
 
-    // Star Colors
+    // Star Palette
     const starPalette = [
       '#ffffff',
       '#e0e7ff',
@@ -104,81 +96,99 @@ export const SpaceBackground: React.FC = () => {
       '#a855f7',
     ];
 
-    // Star Collections
-    let distantStars: DistantStar[] = [];
+    // Offscreen Canvas for Static Distant Stars
+    let offscreenCanvas: HTMLCanvasElement | null = null;
+    let offscreenHeight = 0;
+
     let midStars: MidStar[] = [];
     let brightStars: BrightStar[] = [];
     let dustParticles: DustParticle[] = [];
     let comets: Comet[] = [];
 
-    const initStars = () => {
-      // 1. Distant Micro-Stars (Dense layer - 4,000 to 5,500 on desktop, 1,600 on mobile)
+    const initDistantStarBuffer = (w: number, h: number, pixelRatio: number) => {
+      offscreenHeight = Math.floor(h * 2);
+      offscreenCanvas = document.createElement('canvas');
+      offscreenCanvas.width = Math.floor(w * pixelRatio);
+      offscreenCanvas.height = Math.floor(offscreenHeight * pixelRatio);
+
+      const offCtx = offscreenCanvas.getContext('2d');
+      if (!offCtx) return;
+
+      offCtx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+
       const distantCount = isMobile
-        ? Math.min(Math.floor((width * height) / 450), 1600)
-        : Math.min(Math.floor((width * height) / 200), 5200);
+        ? Math.min(Math.floor((w * h) / 400), 1800)
+        : Math.min(Math.floor((w * h) / 180), 5500);
 
-      distantStars = [];
-      for (let i = 0; i < distantCount; i++) {
-        distantStars.push({
-          x: Math.random() * width,
-          y: Math.random() * height * 3.5,
-          size: Math.random() * 0.9 + 0.5,
-          alpha: Math.random() * 0.5 + 0.25,
-          colorIndex: Math.floor(Math.random() * starPalette.length),
-        });
+      // Pre-render static stars grouped by color
+      for (let c = 0; c < starPalette.length; c++) {
+        offCtx.fillStyle = starPalette[c];
+        offCtx.beginPath();
+        for (let i = 0; i < distantCount / starPalette.length; i++) {
+          const sx = Math.random() * w;
+          const sy = Math.random() * offscreenHeight;
+          const sz = Math.random() * 0.9 + 0.4;
+          offCtx.rect(sx, sy, sz, sz);
+        }
+        offCtx.globalAlpha = 0.55;
+        offCtx.fill();
       }
+    };
 
-      // 2. Mid Shimmering Stars (900 on desktop, 350 on mobile)
-      const midCount = isMobile ? 320 : 950;
+    const initStars = () => {
+      initDistantStarBuffer(width, height, dpr);
+
+      // 2. Dynamic Mid Shimmering Stars (Curated count)
+      const midCount = isMobile ? 50 : 180;
       midStars = [];
       for (let i = 0; i < midCount; i++) {
         midStars.push({
           x: Math.random() * width,
-          y: Math.random() * height * 3.5,
+          y: Math.random() * height * 3,
           size: Math.random() * 1.3 + 1.0,
           baseAlpha: Math.random() * 0.45 + 0.45,
           twinkleSpeed: Math.random() * 0.025 + 0.008,
           twinklePhase: Math.random() * Math.PI * 2,
           colorIndex: Math.floor(Math.random() * starPalette.length),
-          parallax: Math.random() * 0.6 + 0.4,
+          parallax: Math.random() * 0.5 + 0.4,
         });
       }
 
-      // 3. Bright Feature Stars (160 on desktop, 60 on mobile)
-      const brightCount = isMobile ? 60 : 160;
+      // 3. Bright Feature Stars with Flares
+      const brightCount = isMobile ? 18 : 45;
       brightStars = [];
       for (let i = 0; i < brightCount; i++) {
         brightStars.push({
           x: Math.random() * width,
-          y: Math.random() * height * 3.5,
-          size: Math.random() * 1.8 + 1.6,
-          baseAlpha: Math.random() * 0.3 + 0.7,
-          twinkleSpeed: Math.random() * 0.035 + 0.012,
+          y: Math.random() * height * 3,
+          size: Math.random() * 1.6 + 1.5,
+          baseAlpha: Math.random() * 0.25 + 0.75,
+          twinkleSpeed: Math.random() * 0.03 + 0.01,
           twinklePhase: Math.random() * Math.PI * 2,
           color: starPalette[Math.floor(Math.random() * starPalette.length)],
-          hasSpikes: Math.random() > 0.35,
-          parallax: Math.random() * 0.8 + 0.8,
+          hasSpikes: true,
+          parallax: Math.random() * 0.7 + 0.8,
         });
       }
 
-      // 4. Atmospheric Cosmic Dust Particles
-      const dustCount = isMobile ? 40 : 120;
+      // 4. Atmospheric Cosmic Dust Embers
+      const dustCount = isMobile ? 25 : 60;
       dustParticles = [];
       for (let i = 0; i < dustCount; i++) {
         dustParticles.push({
           x: Math.random() * width,
           y: Math.random() * height,
-          vx: (Math.random() - 0.5) * 0.25,
-          vy: (Math.random() - 0.5) * 0.25 - 0.08,
-          size: Math.random() * 2.2 + 0.8,
-          alpha: Math.random() * 0.4 + 0.2,
+          vx: (Math.random() - 0.5) * 0.2,
+          vy: (Math.random() - 0.5) * 0.2 - 0.06,
+          size: Math.random() * 2.0 + 0.8,
+          alpha: Math.random() * 0.35 + 0.15,
           color: Math.random() > 0.5 ? 'rgba(99, 102, 241,' : 'rgba(6, 182, 212,',
         });
       }
     };
 
     const resize = () => {
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      dpr = isMobile ? Math.min(window.devicePixelRatio || 1, 1.5) : Math.min(window.devicePixelRatio || 1, 2);
       width = window.innerWidth;
       height = window.innerHeight;
       canvas.width = Math.floor(width * dpr);
@@ -191,24 +201,24 @@ export const SpaceBackground: React.FC = () => {
     resize();
     window.addEventListener('resize', resize, { passive: true });
 
-    // Comet / Shooting Star Spawner
+    // Comet / Shooting Star Spawner (Rare, intentional celestial event)
     let lastCometTime = Date.now();
-    let cometInterval = 7000 + Math.random() * 6000;
+    let cometInterval = 14000 + Math.random() * 10000;
 
     const triggerComet = () => {
       comets.push({
         x: Math.random() * width * 1.1 - width * 0.05,
-        y: Math.random() * (height * 0.4),
-        length: 120 + Math.random() * 120,
-        speed: 12 + Math.random() * 7,
-        angle: Math.PI / 4 + (Math.random() - 0.5) * 0.2,
+        y: Math.random() * (height * 0.35),
+        length: 140 + Math.random() * 120,
+        speed: 14 + Math.random() * 6,
+        angle: Math.PI / 4 + (Math.random() - 0.5) * 0.15,
         alpha: 1,
         active: true,
-        decay: 0.014,
+        decay: 0.012,
       });
     };
 
-    setTimeout(triggerComet, 1800);
+    setTimeout(triggerComet, 4000);
 
     let isTabActive = true;
     const handleVisibilityChange = () => {
@@ -224,21 +234,21 @@ export const SpaceBackground: React.FC = () => {
 
     let time = 0;
 
-    // Main Render Function
+    // Main Render Loop
     const render = () => {
       if (!isTabActive) {
         animationFrameId = requestAnimationFrame(render);
         return;
       }
 
-      time += 0.01;
+      time += 0.008;
 
       mouseX += (targetMouseX - mouseX) * 0.05;
       mouseY += (targetMouseY - mouseY) * 0.05;
 
       const scrollRatio = Math.min(Math.max(scrollY / maxScroll, 0), 1);
 
-      // Section Sky Interpolation
+      // Celestial Background Interpolation
       const bgDeepSpace: RGB = [7, 10, 19];
       const bgProjects: RGB = [9, 14, 28];
       const bgSunset: RGB = [18, 12, 26];
@@ -260,104 +270,68 @@ export const SpaceBackground: React.FC = () => {
       ctx.fillStyle = `rgb(${currentBgRGB[0]}, ${currentBgRGB[1]}, ${currentBgRGB[2]})`;
       ctx.fillRect(0, 0, width, height);
 
-      const scrollOffset = scrollY * 0.12;
+      const scrollOffset = scrollY * 0.1;
 
-      // 2. Volumetric Ambient Nebulae (Smooth radial glows)
-      let nebula1Color = 'rgba(76, 29, 149, 0.28)'; // Deep Indigo/Violet (Hero)
-      let nebula2Color = 'rgba(14, 116, 144, 0.22)'; // Electric Cyan (Hero)
+      // 2. Ambient Volumetric Nebulae
+      let nebula1Color = 'rgba(76, 29, 149, 0.25)'; // Hero
+      let nebula2Color = 'rgba(14, 116, 144, 0.20)';
 
       if (scrollRatio > 0.15 && scrollRatio < 0.45) {
-        nebula1Color = 'rgba(2, 132, 199, 0.26)'; // Cyan/Blue (Projects)
-        nebula2Color = 'rgba(124, 58, 237, 0.24)'; // Violet
+        nebula1Color = 'rgba(2, 132, 199, 0.24)'; // Projects
+        nebula2Color = 'rgba(124, 58, 237, 0.22)';
       } else if (scrollRatio >= 0.45 && scrollRatio < 0.7) {
-        nebula1Color = 'rgba(194, 65, 12, 0.25)'; // Amber/Gold (Experience)
-        nebula2Color = 'rgba(180, 83, 9, 0.22)';
+        nebula1Color = 'rgba(194, 65, 12, 0.22)'; // Experience
+        nebula2Color = 'rgba(180, 83, 9, 0.20)';
       } else if (scrollRatio >= 0.7 && scrollRatio < 0.85) {
-        nebula1Color = 'rgba(6, 182, 212, 0.26)'; // Crystal Cyan (Certificates)
-        nebula2Color = 'rgba(56, 189, 248, 0.22)';
+        nebula1Color = 'rgba(6, 182, 212, 0.24)'; // Certifications
+        nebula2Color = 'rgba(56, 189, 248, 0.20)';
       } else if (scrollRatio >= 0.85) {
-        nebula1Color = 'rgba(217, 119, 6, 0.24)'; // Warm Sunset / Prism (Contact)
-        nebula2Color = 'rgba(147, 51, 234, 0.25)';
+        nebula1Color = 'rgba(217, 119, 6, 0.22)'; // Contact
+        nebula2Color = 'rgba(147, 51, 234, 0.22)';
       }
 
       const g1 = ctx.createRadialGradient(
         width * 0.25 + mouseX * 1.5,
-        height * 0.25 - scrollOffset * 0.3 + Math.sin(time * 0.4) * 25,
+        height * 0.25 - scrollOffset * 0.25 + Math.sin(time * 0.35) * 20,
         30,
         width * 0.25 + mouseX * 1.5,
-        height * 0.25 - scrollOffset * 0.3,
-        width * 0.6
+        height * 0.25 - scrollOffset * 0.25,
+        width * 0.58
       );
       g1.addColorStop(0, nebula1Color);
-      g1.addColorStop(0.7, 'rgba(15, 23, 42, 0.06)');
+      g1.addColorStop(0.7, 'rgba(15, 23, 42, 0.05)');
       g1.addColorStop(1, 'rgba(7, 10, 19, 0)');
       ctx.fillStyle = g1;
       ctx.fillRect(0, 0, width, height);
 
       const g2 = ctx.createRadialGradient(
         width * 0.78 + mouseX * 1.8,
-        height * 0.68 - scrollOffset * 0.25 + Math.cos(time * 0.35) * 30,
+        height * 0.68 - scrollOffset * 0.2 + Math.cos(time * 0.3) * 25,
         40,
         width * 0.78 + mouseX * 1.8,
-        height * 0.68 - scrollOffset * 0.25,
-        width * 0.55
+        height * 0.68 - scrollOffset * 0.2,
+        width * 0.52
       );
       g2.addColorStop(0, nebula2Color);
-      g2.addColorStop(0.7, 'rgba(15, 23, 42, 0.06)');
+      g2.addColorStop(0.7, 'rgba(15, 23, 42, 0.05)');
       g2.addColorStop(1, 'rgba(7, 10, 19, 0)');
       ctx.fillStyle = g2;
       ctx.fillRect(0, 0, width, height);
 
-      // 3. Subtle Sinuous Aurora Ribbon (Projects)
-      if (scrollRatio > 0.12 && scrollRatio < 0.58 && !isMobile) {
-        ctx.save();
-        ctx.globalCompositeOperation = 'screen';
-        const ribbonAlpha = Math.sin(((scrollRatio - 0.12) / 0.46) * Math.PI) * 0.22;
+      // 3. LAYER 1: Pre-rendered Distant Starfield (1 drawImage call for thousands of stars!)
+      if (offscreenCanvas) {
+        const distantScrollY = (scrollY * 0.03) % offscreenHeight;
+        const drawY1 = -distantScrollY;
+        const drawY2 = drawY1 + offscreenHeight;
 
-        const rGrad = ctx.createLinearGradient(0, height * 0.2, width, height * 0.8);
-        rGrad.addColorStop(0, `rgba(6, 182, 212, ${ribbonAlpha})`);
-        rGrad.addColorStop(0.5, `rgba(168, 85, 247, ${ribbonAlpha * 0.85})`);
-        rGrad.addColorStop(1, 'rgba(59, 130, 246, 0)');
-
-        ctx.strokeStyle = rGrad;
-        ctx.lineWidth = 16;
-        ctx.beginPath();
-        ctx.moveTo(-50, height * 0.35 + Math.sin(time * 0.3) * 30);
-        ctx.bezierCurveTo(
-          width * 0.3,
-          height * 0.2 + Math.cos(time * 0.25) * 45,
-          width * 0.7,
-          height * 0.55 + Math.sin(time * 0.4) * 45,
-          width + 50,
-          height * 0.3 + Math.cos(time * 0.3) * 30
-        );
-        ctx.stroke();
-        ctx.restore();
-      }
-
-      // 4. BATCHED TIER 1: Distant Micro-Stars (Zero-overhead batching by palette color)
-      const distantCycle = height * 1.5;
-      for (let c = 0; c < starPalette.length; c++) {
-        ctx.fillStyle = starPalette[c];
-        ctx.beginPath();
-        for (let i = 0; i < distantStars.length; i++) {
-          const star = distantStars[i];
-          if (star.colorIndex !== c) continue;
-
-          const starYRel = (star.y - scrollY * 0.04) % distantCycle;
-          const drawY = (starYRel < 0 ? starYRel + distantCycle : starYRel) - height * 0.2;
-          const drawX = star.x + mouseX * 0.25;
-
-          if (drawY < -5 || drawY > height + 5 || drawX < -5 || drawX > width + 5) continue;
-
-          ctx.rect(drawX, drawY, star.size, star.size);
+        ctx.drawImage(offscreenCanvas, mouseX * 0.2, drawY1, width, offscreenHeight);
+        if (drawY2 < height) {
+          ctx.drawImage(offscreenCanvas, mouseX * 0.2, drawY2, width, offscreenHeight);
         }
-        ctx.globalAlpha = 0.55;
-        ctx.fill();
       }
 
-      // 5. BATCHED TIER 2: Mid Shimmering Stars
-      const midCycle = height * 1.6;
+      // 4. LAYER 2: Batched Mid Shimmering Stars
+      const midCycle = height * 1.5;
       for (let c = 0; c < starPalette.length; c++) {
         ctx.fillStyle = starPalette[c];
         ctx.beginPath();
@@ -369,7 +343,7 @@ export const SpaceBackground: React.FC = () => {
             star.twinklePhase += star.twinkleSpeed;
           }
 
-          const starYRel = (star.y - scrollY * (0.06 * star.parallax)) % midCycle;
+          const starYRel = (star.y - scrollY * (0.05 * star.parallax)) % midCycle;
           const drawY = (starYRel < 0 ? starYRel + midCycle : starYRel) - height * 0.25;
           const drawX = star.x + mouseX * star.parallax;
 
@@ -381,8 +355,8 @@ export const SpaceBackground: React.FC = () => {
         ctx.fill();
       }
 
-      // 6. TIER 3: Bright Prominent Stars & Cross Diffraction Flares
-      const brightCycle = height * 1.7;
+      // 5. LAYER 3: Bright Feature Stars & Cross Flares
+      const brightCycle = height * 1.6;
       for (let i = 0; i < brightStars.length; i++) {
         const star = brightStars[i];
 
@@ -390,10 +364,10 @@ export const SpaceBackground: React.FC = () => {
           star.twinklePhase += star.twinkleSpeed;
         }
 
-        const alphaMod = prefersReducedMotion ? star.baseAlpha : star.baseAlpha + Math.sin(star.twinklePhase) * 0.25;
-        const finalAlpha = Math.max(0.2, Math.min(1, alphaMod));
+        const alphaMod = prefersReducedMotion ? star.baseAlpha : star.baseAlpha + Math.sin(star.twinklePhase) * 0.22;
+        const finalAlpha = Math.max(0.25, Math.min(1, alphaMod));
 
-        const starYRel = (star.y - scrollY * (0.08 * star.parallax)) % brightCycle;
+        const starYRel = (star.y - scrollY * (0.07 * star.parallax)) % brightCycle;
         const drawY = (starYRel < 0 ? starYRel + brightCycle : starYRel) - height * 0.3;
         const drawX = star.x + mouseX * star.parallax;
 
@@ -408,8 +382,8 @@ export const SpaceBackground: React.FC = () => {
         // Cross-Diffraction Flares
         if (star.hasSpikes && finalAlpha > 0.65) {
           ctx.strokeStyle = star.color;
-          ctx.lineWidth = 0.6;
-          const spikeLen = star.size * 2.6;
+          ctx.lineWidth = 0.55;
+          const spikeLen = star.size * 2.5;
           ctx.beginPath();
           ctx.moveTo(drawX - spikeLen, drawY);
           ctx.lineTo(drawX + spikeLen, drawY);
@@ -419,13 +393,13 @@ export const SpaceBackground: React.FC = () => {
         }
       }
 
-      // 7. Atmospheric Cosmic Dust Embers
+      // 6. Cosmic Dust Embers
       ctx.globalAlpha = 1;
       for (let i = 0; i < dustParticles.length; i++) {
         const p = dustParticles[i];
         if (!prefersReducedMotion) {
-          p.x += p.vx + mouseX * 0.008;
-          p.y += p.vy - scrollY * 0.0002;
+          p.x += p.vx + mouseX * 0.006;
+          p.y += p.vy - scrollY * 0.00015;
           if (p.x < 0) p.x = width;
           if (p.x > width) p.x = 0;
           if (p.y < 0) p.y = height;
@@ -438,12 +412,12 @@ export const SpaceBackground: React.FC = () => {
         ctx.fill();
       }
 
-      // 8. Dynamic Comets / Meteor Trails
+      // 7. LAYER 4: Rare Celestial Event (Comets / Shooting Stars)
       const now = Date.now();
       if (!prefersReducedMotion && now - lastCometTime > cometInterval) {
         triggerComet();
         lastCometTime = now;
-        cometInterval = 7000 + Math.random() * 7000;
+        cometInterval = 14000 + Math.random() * 10000;
       }
 
       for (let i = comets.length - 1; i >= 0; i--) {
@@ -467,12 +441,12 @@ export const SpaceBackground: React.FC = () => {
 
         const cometGrad = ctx.createLinearGradient(headX, headY, tailX, tailY);
         cometGrad.addColorStop(0, `rgba(255, 255, 255, ${c.alpha})`);
-        cometGrad.addColorStop(0.35, `rgba(99, 102, 241, ${c.alpha * 0.75})`);
-        cometGrad.addColorStop(0.7, `rgba(6, 182, 212, ${c.alpha * 0.35})`);
+        cometGrad.addColorStop(0.35, `rgba(99, 102, 241, ${c.alpha * 0.7})`);
+        cometGrad.addColorStop(0.7, `rgba(6, 182, 212, ${c.alpha * 0.3})`);
         cometGrad.addColorStop(1, 'rgba(7, 10, 19, 0)');
 
         ctx.strokeStyle = cometGrad;
-        ctx.lineWidth = 2.0;
+        ctx.lineWidth = 1.8;
         ctx.beginPath();
         ctx.moveTo(headX, headY);
         ctx.lineTo(tailX, tailY);
@@ -480,7 +454,7 @@ export const SpaceBackground: React.FC = () => {
 
         ctx.fillStyle = `rgba(255, 255, 255, ${c.alpha})`;
         ctx.beginPath();
-        ctx.arc(headX, headY, 2.5, 0, Math.PI * 2);
+        ctx.arc(headX, headY, 2.2, 0, Math.PI * 2);
         ctx.fill();
       }
 
@@ -499,6 +473,7 @@ export const SpaceBackground: React.FC = () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', resize);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
+      offscreenCanvas = null;
     };
   }, []);
 

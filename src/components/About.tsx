@@ -21,7 +21,7 @@ const SkillBar = ({ name, level, color }: { name: string; level: number; color: 
           initial={{ width: 0 }}
           whileInView={{ width: `${level}%` }}
           viewport={{ once: true }}
-          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className={`h-full rounded-full ${colors[color] || colors.primary} shadow-[0_0_10px_currentColor]`}
         />
       </div>
@@ -69,7 +69,7 @@ export const About: React.FC = () => {
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.4 }}
+            transition={{ duration: 0.35 }}
             className="space-y-6"
           >
             <div className="glass-card rounded-2xl p-6 md:p-8">
@@ -113,7 +113,7 @@ export const About: React.FC = () => {
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4 }}
+              transition={{ duration: 0.35 }}
               className="glass-card rounded-2xl p-6 md:p-8"
             >
               <h3 className="text-lg font-bold text-white mb-6 tracking-wide">Technical Skills</h3>
@@ -126,7 +126,7 @@ export const About: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4 }}
+              transition={{ duration: 0.35 }}
               className="glass-card rounded-2xl p-6 md:p-8"
             >
               <h3 className="text-lg font-bold text-white mb-5 tracking-wide">Langues</h3>
@@ -138,7 +138,7 @@ export const About: React.FC = () => {
                 ].map((l) => (
                   <div
                     key={l.lang}
-                    className="bg-white/[0.03] border border-white/[0.08] hover:border-primary/40 p-4 rounded-xl text-center transition-all duration-300 hover:-translate-y-0.5"
+                    className="bg-white/[0.03] border border-white/[0.08] hover:border-primary/40 p-4 rounded-xl text-center transition-all duration-200 hover:-translate-y-0.5"
                   >
                     <div className="w-10 h-7 mx-auto mb-2 overflow-hidden rounded shadow-sm">
                       <img src={l.flag} alt={l.lang} className="w-full h-full object-cover" loading="lazy" />
