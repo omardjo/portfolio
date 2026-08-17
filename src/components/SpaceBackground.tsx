@@ -61,6 +61,7 @@ export const SpaceBackground: React.FC = () => {
     let width = 0;
     let height = 0;
     let dpr = 1;
+    let isMobile = false;
 
     let targetMouseX = 0;
     let targetMouseY = 0;
@@ -69,9 +70,8 @@ export const SpaceBackground: React.FC = () => {
     let scrollY = window.scrollY;
     let maxScroll = 1;
 
-    const isMobile = window.innerWidth < 768;
-
     const handleMouseMove = (e: MouseEvent) => {
+      if (isMobile) return;
       targetMouseX = (e.clientX - width / 2) * 0.035;
       targetMouseY = (e.clientY - height / 2) * 0.035;
     };
@@ -106,7 +106,7 @@ export const SpaceBackground: React.FC = () => {
     let comets: Comet[] = [];
 
     const initDistantStarBuffer = (w: number, h: number, pixelRatio: number) => {
-      offscreenHeight = Math.floor(h * 2);
+      offscreenHeight = Math.floor(h * (isMobile ? 1.5 : 2));
       offscreenCanvas = document.createElement('canvas');
       offscreenCanvas.width = Math.floor(w * pixelRatio);
       offscreenCanvas.height = Math.floor(offscreenHeight * pixelRatio);
@@ -116,15 +116,16 @@ export const SpaceBackground: React.FC = () => {
 
       offCtx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
 
+      // Adaptive star count
       const distantCount = isMobile
-        ? Math.min(Math.floor((w * h) / 400), 1800)
+        ? Math.min(Math.floor((w * h) / 380), 1400)
         : Math.min(Math.floor((w * h) / 180), 5500);
 
-      // Pre-render static stars grouped by color
       for (let c = 0; c < starPalette.length; c++) {
         offCtx.fillStyle = starPalette[c];
         offCtx.beginPath();
-        for (let i = 0; i < distantCount / starPalette.length; i++) {
+        const starsPerColor = Math.floor(distantCount / starPalette.length);
+        for (let i = 0; i < starsPerColor; i++) {
           const sx = Math.random() * w;
           const sy = Math.random() * offscreenHeight;
           const sz = Math.random() * 0.9 + 0.4;
@@ -138,13 +139,13 @@ export const SpaceBackground: React.FC = () => {
     const initStars = () => {
       initDistantStarBuffer(width, height, dpr);
 
-      // 2. Dynamic Mid Shimmering Stars (Curated count)
-      const midCount = isMobile ? 50 : 180;
+      // Dynamic Mid Shimmering Stars
+      const midCount = isMobile ? 35 : 180;
       midStars = [];
       for (let i = 0; i < midCount; i++) {
         midStars.push({
           x: Math.random() * width,
-          y: Math.random() * height * 3,
+          y: Math.random() * height * (isMobile ? 2 : 3),
           size: Math.random() * 1.3 + 1.0,
           baseAlpha: Math.random() * 0.45 + 0.45,
           twinkleSpeed: Math.random() * 0.025 + 0.008,
@@ -154,32 +155,32 @@ export const SpaceBackground: React.FC = () => {
         });
       }
 
-      // 3. Bright Feature Stars with Flares
-      const brightCount = isMobile ? 18 : 45;
+      // Bright Feature Stars with Flares
+      const brightCount = isMobile ? 12 : 45;
       brightStars = [];
       for (let i = 0; i < brightCount; i++) {
         brightStars.push({
           x: Math.random() * width,
-          y: Math.random() * height * 3,
-          size: Math.random() * 1.6 + 1.5,
+          y: Math.random() * height * (isMobile ? 2 : 3),
+          size: Math.random() * 1.5 + 1.4,
           baseAlpha: Math.random() * 0.25 + 0.75,
           twinkleSpeed: Math.random() * 0.03 + 0.01,
           twinklePhase: Math.random() * Math.PI * 2,
           color: starPalette[Math.floor(Math.random() * starPalette.length)],
-          hasSpikes: true,
+          hasSpikes: !isMobile,
           parallax: Math.random() * 0.7 + 0.8,
         });
       }
 
-      // 4. Atmospheric Cosmic Dust Embers
-      const dustCount = isMobile ? 25 : 60;
+      // Atmospheric Cosmic Dust Embers
+      const dustCount = isMobile ? 15 : 60;
       dustParticles = [];
       for (let i = 0; i < dustCount; i++) {
         dustParticles.push({
           x: Math.random() * width,
           y: Math.random() * height,
-          vx: (Math.random() - 0.5) * 0.2,
-          vy: (Math.random() - 0.5) * 0.2 - 0.06,
+          vx: (Math.random() - 0.5) * (isMobile ? 0.12 : 0.2),
+          vy: (Math.random() - 0.5) * (isMobile ? 0.12 : 0.2) - 0.05,
           size: Math.random() * 2.0 + 0.8,
           alpha: Math.random() * 0.35 + 0.15,
           color: Math.random() > 0.5 ? 'rgba(99, 102, 241,' : 'rgba(6, 182, 212,',
@@ -188,7 +189,9 @@ export const SpaceBackground: React.FC = () => {
     };
 
     const resize = () => {
-      dpr = isMobile ? Math.min(window.devicePixelRatio || 1, 1.5) : Math.min(window.devicePixelRatio || 1, 2);
+      isMobile = window.innerWidth < 768 || window.matchMedia('(hover: none)').matches;
+      // Intelligently cap DPR on mobile to 1.15 to avoid rendering 3 million pixels on 3x screens
+      dpr = isMobile ? Math.min(window.devicePixelRatio || 1, 1.15) : Math.min(window.devicePixelRatio || 1, 2);
       width = window.innerWidth;
       height = window.innerHeight;
       canvas.width = Math.floor(width * dpr);
@@ -201,24 +204,26 @@ export const SpaceBackground: React.FC = () => {
     resize();
     window.addEventListener('resize', resize, { passive: true });
 
-    // Comet / Shooting Star Spawner (Rare, intentional celestial event)
+    // Comet / Shooting Star Spawner
     let lastCometTime = Date.now();
-    let cometInterval = 14000 + Math.random() * 10000;
+    let cometInterval = isMobile ? 22000 : 14000 + Math.random() * 10000;
 
     const triggerComet = () => {
       comets.push({
         x: Math.random() * width * 1.1 - width * 0.05,
         y: Math.random() * (height * 0.35),
-        length: 140 + Math.random() * 120,
-        speed: 14 + Math.random() * 6,
+        length: isMobile ? 90 : 140,
+        speed: isMobile ? 12 : 14,
         angle: Math.PI / 4 + (Math.random() - 0.5) * 0.15,
         alpha: 1,
         active: true,
-        decay: 0.012,
+        decay: isMobile ? 0.018 : 0.012,
       });
     };
 
-    setTimeout(triggerComet, 4000);
+    if (!isMobile) {
+      setTimeout(triggerComet, 4000);
+    }
 
     let isTabActive = true;
     const handleVisibilityChange = () => {
@@ -241,10 +246,12 @@ export const SpaceBackground: React.FC = () => {
         return;
       }
 
-      time += 0.008;
+      time += isMobile ? 0.005 : 0.008;
 
-      mouseX += (targetMouseX - mouseX) * 0.05;
-      mouseY += (targetMouseY - mouseY) * 0.05;
+      if (!isMobile) {
+        mouseX += (targetMouseX - mouseX) * 0.05;
+        mouseY += (targetMouseY - mouseY) * 0.05;
+      }
 
       const scrollRatio = Math.min(Math.max(scrollY / maxScroll, 0), 1);
 
@@ -292,11 +299,11 @@ export const SpaceBackground: React.FC = () => {
 
       const g1 = ctx.createRadialGradient(
         width * 0.25 + mouseX * 1.5,
-        height * 0.25 - scrollOffset * 0.25 + Math.sin(time * 0.35) * 20,
-        30,
+        height * 0.25 - scrollOffset * 0.25 + Math.sin(time * 0.35) * (isMobile ? 10 : 20),
+        20,
         width * 0.25 + mouseX * 1.5,
         height * 0.25 - scrollOffset * 0.25,
-        width * 0.58
+        width * (isMobile ? 0.7 : 0.58)
       );
       g1.addColorStop(0, nebula1Color);
       g1.addColorStop(0.7, 'rgba(15, 23, 42, 0.05)');
@@ -306,11 +313,11 @@ export const SpaceBackground: React.FC = () => {
 
       const g2 = ctx.createRadialGradient(
         width * 0.78 + mouseX * 1.8,
-        height * 0.68 - scrollOffset * 0.2 + Math.cos(time * 0.3) * 25,
-        40,
+        height * 0.68 - scrollOffset * 0.2 + Math.cos(time * 0.3) * (isMobile ? 12 : 25),
+        30,
         width * 0.78 + mouseX * 1.8,
         height * 0.68 - scrollOffset * 0.2,
-        width * 0.52
+        width * (isMobile ? 0.65 : 0.52)
       );
       g2.addColorStop(0, nebula2Color);
       g2.addColorStop(0.7, 'rgba(15, 23, 42, 0.05)');
@@ -331,7 +338,7 @@ export const SpaceBackground: React.FC = () => {
       }
 
       // 4. LAYER 2: Batched Mid Shimmering Stars
-      const midCycle = height * 1.5;
+      const midCycle = height * (isMobile ? 1.3 : 1.5);
       for (let c = 0; c < starPalette.length; c++) {
         ctx.fillStyle = starPalette[c];
         ctx.beginPath();
@@ -355,8 +362,8 @@ export const SpaceBackground: React.FC = () => {
         ctx.fill();
       }
 
-      // 5. LAYER 3: Bright Feature Stars & Cross Flares
-      const brightCycle = height * 1.6;
+      // 5. LAYER 3: Bright Feature Stars
+      const brightCycle = height * (isMobile ? 1.4 : 1.6);
       for (let i = 0; i < brightStars.length; i++) {
         const star = brightStars[i];
 
@@ -379,7 +386,7 @@ export const SpaceBackground: React.FC = () => {
         ctx.arc(drawX, drawY, star.size, 0, Math.PI * 2);
         ctx.fill();
 
-        // Cross-Diffraction Flares
+        // Cross-Diffraction Flares (desktop only for max performance)
         if (star.hasSpikes && finalAlpha > 0.65) {
           ctx.strokeStyle = star.color;
           ctx.lineWidth = 0.55;
@@ -412,12 +419,12 @@ export const SpaceBackground: React.FC = () => {
         ctx.fill();
       }
 
-      // 7. LAYER 4: Rare Celestial Event (Comets / Shooting Stars)
+      // 7. LAYER 4: Rare Celestial Event (Comets)
       const now = Date.now();
       if (!prefersReducedMotion && now - lastCometTime > cometInterval) {
         triggerComet();
         lastCometTime = now;
-        cometInterval = 14000 + Math.random() * 10000;
+        cometInterval = isMobile ? 24000 : 14000 + Math.random() * 10000;
       }
 
       for (let i = comets.length - 1; i >= 0; i--) {
@@ -446,7 +453,7 @@ export const SpaceBackground: React.FC = () => {
         cometGrad.addColorStop(1, 'rgba(7, 10, 19, 0)');
 
         ctx.strokeStyle = cometGrad;
-        ctx.lineWidth = 1.8;
+        ctx.lineWidth = isMobile ? 1.4 : 1.8;
         ctx.beginPath();
         ctx.moveTo(headX, headY);
         ctx.lineTo(tailX, tailY);
@@ -454,7 +461,7 @@ export const SpaceBackground: React.FC = () => {
 
         ctx.fillStyle = `rgba(255, 255, 255, ${c.alpha})`;
         ctx.beginPath();
-        ctx.arc(headX, headY, 2.2, 0, Math.PI * 2);
+        ctx.arc(headX, headY, isMobile ? 1.8 : 2.2, 0, Math.PI * 2);
         ctx.fill();
       }
 

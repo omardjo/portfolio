@@ -88,56 +88,59 @@ export const PdfPreviewModal: React.FC<PdfPreviewModalProps> = ({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.2 }}
-          className="fixed inset-0 z-[1100] flex items-center justify-center bg-black/85 backdrop-blur-md p-3 sm:p-6"
+          transition={{ duration: 0.18 }}
+          className="fixed inset-0 z-[1100] flex items-center justify-center bg-black/85 backdrop-blur-md p-2 sm:p-4 md:p-6"
           onClick={onClose}
           role="dialog"
           aria-modal="true"
           aria-label={title}
         >
           <motion.div
-            initial={{ scale: 0.96, opacity: 0, y: 12 }}
+            initial={{ scale: 0.96, opacity: 0, y: 10 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
-            exit={{ scale: 0.96, opacity: 0, y: 12 }}
-            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="relative w-full max-w-5xl h-[88vh] flex flex-col bg-[#0b1121] rounded-2xl border border-white/[0.14] shadow-2xl overflow-hidden"
+            exit={{ scale: 0.96, opacity: 0, y: 10 }}
+            transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+            className="relative w-full max-w-5xl h-[92vh] sm:h-[88vh] flex flex-col bg-[#0b1121] rounded-2xl border border-white/[0.14] shadow-2xl overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Modal Header */}
-            <div className="flex items-center justify-between px-5 py-3.5 border-b border-white/[0.08] bg-[#0f172a]/95 backdrop-blur-xl">
-              <div className="flex items-center gap-3 truncate mr-3">
-                <div className="w-2.5 h-2.5 rounded-full bg-primary flex-shrink-0" />
-                <h3 className="text-sm sm:text-base font-bold text-white tracking-wide truncate">
+            <div className="flex items-center justify-between px-3.5 sm:px-5 py-3 border-b border-white/[0.08] bg-[#0f172a]/95 backdrop-blur-xl">
+              <div className="flex items-center gap-2 sm:gap-3 truncate mr-2">
+                <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-primary flex-shrink-0" />
+                <h3 className="text-xs sm:text-base font-bold text-white tracking-wide truncate">
                   {title}
                 </h3>
               </div>
 
-              <div className="flex items-center gap-2 flex-shrink-0">
+              <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
                 <a
                   href={directDownloadUrl}
                   download={downloadName}
-                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs sm:text-sm font-semibold text-white bg-primary hover:bg-primary/90 rounded-xl transition-all shadow-md shadow-primary/20 active:scale-95 cursor-pointer focus-visible:ring-2 focus-visible:ring-primary"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs sm:text-sm font-semibold text-white bg-primary hover:bg-primary/90 rounded-xl transition-all shadow-md shadow-primary/20 active:scale-95 cursor-pointer min-h-[36px] focus-visible:ring-2 focus-visible:ring-primary"
+                  style={{ touchAction: 'manipulation' }}
                 >
-                  <Download size={14} />
+                  <Download size={13} />
                   <span>Download</span>
                 </a>
                 <a
                   href={directDownloadUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center w-8 h-8 text-gray-400 hover:text-white hover:bg-white/10 rounded-xl transition-colors cursor-pointer focus-visible:ring-2 focus-visible:ring-primary"
+                  className="inline-flex items-center justify-center w-9 h-9 min-w-[36px] min-h-[36px] text-gray-400 hover:text-white hover:bg-white/10 rounded-xl transition-colors cursor-pointer focus-visible:ring-2 focus-visible:ring-primary"
+                  style={{ touchAction: 'manipulation' }}
                   title="Open in new tab"
                   aria-label="Open in new tab"
                 >
-                  <ExternalLink size={16} />
+                  <ExternalLink size={15} />
                 </a>
                 <button
                   type="button"
                   onClick={onClose}
-                  className="inline-flex items-center justify-center w-8 h-8 text-gray-400 hover:text-white hover:bg-white/10 rounded-xl transition-colors cursor-pointer focus-visible:ring-2 focus-visible:ring-primary"
+                  className="inline-flex items-center justify-center w-9 h-9 min-w-[36px] min-h-[36px] text-gray-400 hover:text-white hover:bg-white/10 rounded-xl transition-colors cursor-pointer focus-visible:ring-2 focus-visible:ring-primary"
+                  style={{ touchAction: 'manipulation' }}
                   aria-label="Close modal"
                 >
-                  <X size={18} />
+                  <X size={17} />
                 </button>
               </div>
             </div>
@@ -156,16 +159,16 @@ export const PdfPreviewModal: React.FC<PdfPreviewModalProps> = ({
                   title={title}
                   className="w-full h-full border-0"
                 >
-                  <div className="flex flex-col items-center justify-center p-8 text-center space-y-4">
-                    <p className="text-gray-300">
+                  <div className="flex flex-col items-center justify-center p-6 text-center space-y-4">
+                    <p className="text-gray-300 text-sm">
                       Votre navigateur ne supporte pas l'affichage PDF direct.
                     </p>
                     <a
                       href={directDownloadUrl}
                       download={downloadName}
-                      className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white font-semibold rounded-xl"
+                      className="inline-flex items-center gap-2 px-5 py-3 bg-primary text-white font-semibold rounded-xl text-sm"
                     >
-                      <Download size={18} />
+                      <Download size={16} />
                       Download {title}
                     </a>
                   </div>

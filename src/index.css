@@ -241,8 +241,40 @@ input, textarea, select {
 }
 
 .project-card-glow-emerald:hover {
-  box-shadow: 0 16px 40px -6px rgba(0, 0, 0, 0.65), 0 0 32px -2px rgba(168, 85, 247, 0.35);
+  box-shadow: 0 16px 40px -6px rgba(0, 0, 0, 0.65), 0 0 32px -2px rgba(16, 185, 129, 0.35);
   border-color: rgba(16, 185, 129, 0.35);
+}
+
+/* --- MOBILE SPECIFIC PERFORMANCE TUNING (< 768px) --- */
+@media (max-width: 768px) {
+  .glass-card {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    background: rgba(11, 15, 25, 0.88);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 0 12px -2px rgba(99, 102, 241, 0.08);
+  }
+
+  .prism-glass-card {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    background: rgba(11, 15, 25, 0.88);
+  }
+
+  .btn-secondary-glass {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    background: rgba(15, 21, 37, 0.88);
+  }
+
+  .hero-spotlight-zone {
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+
+  .animate-spin-slow,
+  .animate-spin-reverse-slow {
+    animation-duration: 40s;
+  }
 }
 
 /* Reduced motion preferences */

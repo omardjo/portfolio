@@ -20,7 +20,7 @@ const Navbar: React.FC = () => {
     const handleScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          const isScrolled = window.scrollY > 30;
+          const isScrolled = window.scrollY > 25;
           setScrolled((prev) => (prev !== isScrolled ? isScrolled : prev));
           ticking = false;
         });
@@ -54,7 +54,7 @@ const Navbar: React.FC = () => {
       },
       {
         root: null,
-        rootMargin: '-25% 0px -45% 0px',
+        rootMargin: '-20% 0px -40% 0px',
         threshold: 0.1,
       }
     );
@@ -122,7 +122,7 @@ const Navbar: React.FC = () => {
         doScroll();
       } else {
         navigate('/');
-        setTimeout(doScroll, 350);
+        setTimeout(doScroll, 300);
       }
     },
     [isHome, navigate]
@@ -134,11 +134,11 @@ const Navbar: React.FC = () => {
       <nav
         className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-200 ${
           scrolled
-            ? 'bg-[#070a13]/85 backdrop-blur-xl border-b border-white/[0.12] shadow-[0_10px_30px_rgba(0,0,0,0.5)]'
+            ? 'bg-[#070a13]/90 md:bg-[#070a13]/85 backdrop-blur-md md:backdrop-blur-xl border-b border-white/[0.1] shadow-lg shadow-black/40'
             : 'bg-transparent'
         }`}
       >
-        <div className="max-w-6xl mx-auto px-5 md:px-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8">
           <div className="flex items-center justify-between h-16 md:h-[72px]">
             {/* Logo */}
             <Link
@@ -159,7 +159,7 @@ const Navbar: React.FC = () => {
                     key={link.name}
                     type="button"
                     onClick={() => handleNavClick(link.href)}
-                    className={`px-4 py-1.5 text-[13px] font-semibold rounded-full transition-all duration-200 cursor-pointer relative group focus-visible:ring-2 focus-visible:ring-primary ${
+                    className={`px-4 py-1.5 text-[13px] font-semibold rounded-full transition-all duration-150 cursor-pointer relative group focus-visible:ring-2 focus-visible:ring-primary ${
                       isActive
                         ? 'text-white bg-white/[0.1] shadow-inner'
                         : 'text-[#D7DCE5] hover:text-white hover:bg-white/[0.06]'
@@ -168,7 +168,7 @@ const Navbar: React.FC = () => {
                     <span>{link.name}</span>
                     {/* Glowing Underline Indicator */}
                     <span
-                      className={`absolute bottom-0 left-4 right-4 h-[2px] bg-gradient-to-r from-[#36E3FF] to-[#7C5CFF] rounded-full transition-transform duration-200 origin-left ${
+                      className={`absolute bottom-0 left-4 right-4 h-[2px] bg-gradient-to-r from-[#36E3FF] to-[#7C5CFF] rounded-full transition-transform duration-150 origin-left ${
                         isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
                       }`}
                     />
@@ -180,17 +180,18 @@ const Navbar: React.FC = () => {
               <button
                 type="button"
                 onClick={() => handleNavClick('#contact')}
-                className="ml-2 px-5 py-2 text-[13px] font-bold text-white bg-gradient-to-r from-[#6366f1] via-[#7C5CFF] to-[#36E3FF] hover:opacity-95 rounded-full transition-all duration-200 cursor-pointer active:scale-[0.97] shadow-md hover:shadow-[0_0_20px_rgba(54,227,255,0.4)] focus-visible:ring-2 focus-visible:ring-primary"
+                className="ml-2 px-5 py-2 text-[13px] font-bold text-white bg-gradient-to-r from-[#6366f1] via-[#7C5CFF] to-[#36E3FF] hover:opacity-95 rounded-full transition-all duration-150 cursor-pointer active:scale-[0.97] shadow-md hover:shadow-[0_0_20px_rgba(54,227,255,0.4)] focus-visible:ring-2 focus-visible:ring-primary"
               >
                 Get in Touch
               </button>
             </div>
 
-            {/* Hamburger Button */}
+            {/* Hamburger Button (44px+ touch target) */}
             <button
               type="button"
               onClick={() => setIsOpen((prev) => !prev)}
-              className="md:hidden relative w-10 h-10 flex items-center justify-center text-gray-200 hover:text-white transition-colors cursor-pointer rounded-lg focus-visible:ring-2 focus-visible:ring-primary"
+              className="md:hidden relative w-11 h-11 min-w-[44px] min-h-[44px] flex items-center justify-center text-gray-200 hover:text-white transition-colors cursor-pointer rounded-xl focus-visible:ring-2 focus-visible:ring-primary active:scale-95"
+              style={{ touchAction: 'manipulation' }}
               aria-label="Toggle menu"
             >
               <AnimatePresence mode="wait">
@@ -200,9 +201,9 @@ const Navbar: React.FC = () => {
                     initial={{ rotate: -90, opacity: 0 }}
                     animate={{ rotate: 0, opacity: 1 }}
                     exit={{ rotate: 90, opacity: 0 }}
-                    transition={{ duration: 0.15 }}
+                    transition={{ duration: 0.12 }}
                   >
-                    <X size={22} />
+                    <X size={24} />
                   </motion.div>
                 ) : (
                   <motion.div
@@ -210,9 +211,9 @@ const Navbar: React.FC = () => {
                     initial={{ rotate: 90, opacity: 0 }}
                     animate={{ rotate: 0, opacity: 1 }}
                     exit={{ rotate: -90, opacity: 0 }}
-                    transition={{ duration: 0.15 }}
+                    transition={{ duration: 0.12 }}
                   >
-                    <Menu size={22} />
+                    <Menu size={24} />
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -229,7 +230,7 @@ const Navbar: React.FC = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: 0.18 }}
             className="fixed inset-0 z-[99] md:hidden"
             role="dialog"
             aria-modal="true"
@@ -240,19 +241,19 @@ const Navbar: React.FC = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="absolute inset-0 bg-[#070a13]/85 backdrop-blur-xl"
+              className="absolute inset-0 bg-[#070a13]/85 backdrop-blur-md"
               onClick={() => setIsOpen(false)}
             />
 
             {/* Menu panel */}
             <motion.div
-              initial={{ y: -20, opacity: 0 }}
+              initial={{ y: -16, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              exit={{ y: -20, opacity: 0 }}
-              transition={{ duration: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
-              className="absolute top-[72px] inset-x-0 mx-3 bg-[#0f172a]/95 border border-white/[0.14] rounded-2xl shadow-2xl overflow-hidden backdrop-blur-2xl"
+              exit={{ y: -16, opacity: 0 }}
+              transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              className="absolute top-[68px] inset-x-0 mx-3 bg-[#0f172a]/95 border border-white/[0.14] rounded-2xl shadow-2xl overflow-hidden backdrop-blur-xl"
             >
-              <div className="p-4 flex flex-col gap-1.5">
+              <div className="p-3.5 flex flex-col gap-1.5">
                 {navLinks.map((link, i) => {
                   const isActive = activeSection === link.href;
 
@@ -260,11 +261,11 @@ const Navbar: React.FC = () => {
                     <motion.button
                       key={link.name}
                       type="button"
-                      initial={{ opacity: 0, x: -15 }}
+                      initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: i * 0.03, duration: 0.2 }}
+                      transition={{ delay: i * 0.02, duration: 0.15 }}
                       onClick={() => handleNavClick(link.href)}
-                      className={`w-full text-left px-5 py-3.5 text-[15px] font-semibold rounded-xl transition-all duration-150 cursor-pointer focus-visible:ring-2 focus-visible:ring-primary ${
+                      className={`w-full text-left px-4 py-3 text-[15px] font-semibold rounded-xl transition-all duration-150 cursor-pointer min-h-[44px] flex items-center focus-visible:ring-2 focus-visible:ring-primary ${
                         isActive
                           ? 'text-[#36E3FF] bg-white/[0.08] border-l-4 border-[#36E3FF]'
                           : 'text-[#D7DCE5] hover:bg-white/[0.06] hover:text-white'
@@ -275,15 +276,15 @@ const Navbar: React.FC = () => {
                   );
                 })}
 
-                <div className="h-px bg-gradient-to-r from-transparent via-white/[0.12] to-transparent mx-3 my-2" />
+                <div className="h-px bg-gradient-to-r from-transparent via-white/[0.12] to-transparent mx-2 my-1.5" />
 
                 <motion.button
                   type="button"
-                  initial={{ opacity: 0, y: 10 }}
+                  initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: navLinks.length * 0.03 + 0.03, duration: 0.2 }}
+                  transition={{ delay: navLinks.length * 0.02 + 0.02, duration: 0.15 }}
                   onClick={() => handleNavClick('#contact')}
-                  className="w-full text-center px-5 py-3.5 text-[15px] font-bold text-white bg-gradient-to-r from-[#6366f1] via-[#7C5CFF] to-[#36E3FF] rounded-xl active:scale-[0.97] transition-all duration-150 cursor-pointer shadow-lg shadow-[#7C5CFF]/30 focus-visible:ring-2 focus-visible:ring-primary"
+                  className="w-full text-center px-4 py-3.5 text-[15px] font-bold text-white bg-gradient-to-r from-[#6366f1] via-[#7C5CFF] to-[#36E3FF] rounded-xl active:scale-[0.97] transition-all duration-150 cursor-pointer shadow-lg shadow-[#7C5CFF]/30 min-h-[44px] flex items-center justify-center focus-visible:ring-2 focus-visible:ring-primary"
                 >
                   Get in Touch
                 </motion.button>

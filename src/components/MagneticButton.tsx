@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
 
 interface MagneticButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -16,6 +16,8 @@ export const MagneticButton: React.FC<MagneticButtonProps> = ({
   ...props
 }) => {
   const ref = useRef<HTMLButtonElement | null>(null);
+  const [canHover, setCanHover] = useState(false);
+
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
@@ -23,8 +25,12 @@ export const MagneticButton: React.FC<MagneticButtonProps> = ({
   const springX = useSpring(x, springConfig);
   const springY = useSpring(y, springConfig);
 
+  useEffect(() => {
+    setCanHover(window.matchMedia('(hover: hover) and (pointer: fine)').matches);
+  }, []);
+
   const handleMouseMove = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (!ref.current) return;
+    if (!canHover || !ref.current) return;
     const { left, top, width, height } = ref.current.getBoundingClientRect();
     const centerX = left + width / 2;
     const centerY = top + height / 2;
@@ -33,6 +39,7 @@ export const MagneticButton: React.FC<MagneticButtonProps> = ({
   };
 
   const handleMouseLeave = () => {
+    if (!canHover) return;
     x.set(0);
     y.set(0);
   };
@@ -42,9 +49,9 @@ export const MagneticButton: React.FC<MagneticButtonProps> = ({
       ref={ref}
       type={type}
       onClick={onClick}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{ x: springX, y: springY }}
+      onMouseMove={canHover ? handleMouseMove : undefined}
+      onMouseLeave={canHover ? handleMouseLeave : undefined}
+      style={canHover ? { x: springX, y: springY } : undefined}
       className={`relative group overflow-hidden ${className}`}
       {...(props as any)}
     >

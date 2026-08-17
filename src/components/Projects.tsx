@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { PlayCircle, Github, ArrowRight, ExternalLink, ChevronLeft, ChevronRight, Calendar, MapPin } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { PlayCircle, Github, ArrowRight, ExternalLink, Calendar, MapPin } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { PROJECTS } from '../constants';
 import { VideoModal } from './VideoModal';
@@ -11,29 +11,31 @@ interface ProjectsProps {
 
 // Phone frame component
 const PhoneFrame = ({ src, alt, eager }: { src: string; alt: string; eager?: boolean }) => (
-  <div className="relative bg-gradient-to-b from-gray-800/50 to-gray-900/70 rounded-[22px] border border-white/[0.12] shadow-xl shadow-black/40 p-2 md:p-2.5 aspect-[9/19] w-full max-w-[220px] mx-auto">
+  <div className="relative bg-gradient-to-b from-gray-800/50 to-gray-900/70 rounded-[20px] sm:rounded-[22px] border border-white/[0.12] shadow-lg sm:shadow-xl shadow-black/40 p-1.5 sm:p-2 md:p-2.5 aspect-[9/19] w-full max-w-[200px] sm:max-w-[220px] mx-auto">
     {/* Notch */}
-    <div className="absolute top-[7px] left-1/2 -translate-x-1/2 w-14 h-[3.5px] bg-white/[0.15] rounded-full z-10" />
-    <div className="w-full h-full rounded-[16px] overflow-hidden bg-black/40">
+    <div className="absolute top-[6px] sm:top-[7px] left-1/2 -translate-x-1/2 w-12 sm:w-14 h-[3px] sm:h-[3.5px] bg-white/[0.15] rounded-full z-10" />
+    <div className="w-full h-full rounded-[14px] sm:rounded-[16px] overflow-hidden bg-black/40">
       <img
         src={src}
         alt={alt}
         className="w-full h-full object-contain"
         loading={eager ? 'eager' : 'lazy'}
+        decoding="async"
       />
     </div>
   </div>
 );
 
 const LandscapePhoneFrame = ({ src, alt, eager }: { src: string; alt: string; eager?: boolean }) => (
-  <div className="relative bg-gradient-to-r from-gray-800/50 to-gray-900/70 rounded-[22px] border border-white/[0.12] shadow-xl shadow-black/40 p-2 md:p-2.5 aspect-[19/9] w-full max-w-[420px] mx-auto">
-    <div className="absolute left-[7px] top-1/2 -translate-y-1/2 h-14 w-[3.5px] bg-white/[0.15] rounded-full z-10" />
-    <div className="w-full h-full rounded-[16px] overflow-hidden bg-black/40">
+  <div className="relative bg-gradient-to-r from-gray-800/50 to-gray-900/70 rounded-[20px] sm:rounded-[22px] border border-white/[0.12] shadow-lg sm:shadow-xl shadow-black/40 p-1.5 sm:p-2 md:p-2.5 aspect-[19/9] w-full max-w-[380px] sm:max-w-[420px] mx-auto">
+    <div className="absolute left-[6px] sm:left-[7px] top-1/2 -translate-y-1/2 h-12 sm:h-14 w-[3px] sm:w-[3.5px] bg-white/[0.15] rounded-full z-10" />
+    <div className="w-full h-full rounded-[14px] sm:rounded-[16px] overflow-hidden bg-black/40">
       <img
         src={src}
         alt={alt}
         className="w-full h-full object-contain"
         loading={eager ? 'eager' : 'lazy'}
+        decoding="async"
       />
     </div>
   </div>
@@ -43,16 +45,16 @@ const LandscapePhoneFrame = ({ src, alt, eager }: { src: string; alt: string; ea
 const PCFrame = ({ src, alt, eager }: { src: string; alt: string; eager?: boolean }) => (
   <div className="relative w-full max-w-[520px] mx-auto">
     {/* Laptop screen */}
-    <div className="bg-gradient-to-b from-gray-700/60 to-gray-800/70 rounded-t-lg border border-white/[0.12] border-b-0 shadow-xl shadow-black/40 p-[3px] pt-0">
+    <div className="bg-gradient-to-b from-gray-700/60 to-gray-800/70 rounded-t-lg border border-white/[0.12] border-b-0 shadow-xl shadow-black/40 p-[2px] sm:p-[3px] pt-0">
       {/* Browser top bar */}
-      <div className="flex items-center gap-2 px-3 py-2 bg-gray-900/90 rounded-t-lg">
+      <div className="flex items-center gap-2 px-2.5 sm:px-3 py-1.5 sm:py-2 bg-gray-900/90 rounded-t-lg">
         <div className="flex gap-1.5">
-          <div className="w-[9px] h-[9px] rounded-full bg-red-500/80" />
-          <div className="w-[9px] h-[9px] rounded-full bg-yellow-500/80" />
-          <div className="w-[9px] h-[9px] rounded-full bg-green-500/80" />
+          <div className="w-[8px] sm:w-[9px] h-[8px] sm:h-[9px] rounded-full bg-red-500/80" />
+          <div className="w-[8px] sm:w-[9px] h-[8px] sm:h-[9px] rounded-full bg-yellow-500/80" />
+          <div className="w-[8px] sm:w-[9px] h-[8px] sm:h-[9px] rounded-full bg-green-500/80" />
         </div>
         <div className="flex-1 mx-2">
-          <div className="bg-gray-800/90 rounded-md px-3 py-0.5 text-[10px] text-gray-400 font-mono truncate border border-white/[0.04]">
+          <div className="bg-gray-800/90 rounded-md px-2.5 sm:px-3 py-0.5 text-[9px] sm:text-[10px] text-gray-400 font-mono truncate border border-white/[0.04]">
             https://app.mavision.site
           </div>
         </div>
@@ -64,13 +66,14 @@ const PCFrame = ({ src, alt, eager }: { src: string; alt: string; eager?: boolea
           alt={alt}
           className="w-full h-auto object-contain"
           loading={eager ? 'eager' : 'lazy'}
+          decoding="async"
         />
       </div>
     </div>
     {/* Laptop base */}
     <div className="relative">
-      <div className="mx-auto w-[110%] -ml-[5%] h-[14px] bg-gradient-to-b from-gray-600/40 to-gray-700/50 rounded-b-xl border border-t-0 border-white/[0.08]" />
-      <div className="mx-auto w-[30%] h-[4px] bg-gray-600/40 rounded-b-md" />
+      <div className="mx-auto w-[110%] -ml-[5%] h-[12px] sm:h-[14px] bg-gradient-to-b from-gray-600/40 to-gray-700/50 rounded-b-xl border border-t-0 border-white/[0.08]" />
+      <div className="mx-auto w-[30%] h-[3px] sm:h-[4px] bg-gray-600/40 rounded-b-md" />
     </div>
   </div>
 );
@@ -112,8 +115,8 @@ const ScreenshotGrid = ({
     <div
       className={
         mockupType === 'pc'
-          ? 'grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6'
-          : `grid grid-cols-2 sm:grid-cols-3 ${phoneColumns} gap-3 md:gap-4 rounded-2xl border border-white/[0.08] bg-[#05070d]/60 p-3 md:p-4 shadow-inner shadow-black/40`
+          ? 'grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 md:gap-6'
+          : `grid grid-cols-2 sm:grid-cols-3 ${phoneColumns} gap-2.5 sm:gap-3 md:gap-4 rounded-xl sm:rounded-2xl border border-white/[0.08] bg-[#05070d]/60 p-2.5 sm:p-3 md:p-4 shadow-inner shadow-black/40`
       }
     >
       {images.map((img, i) => {
@@ -122,10 +125,10 @@ const ScreenshotGrid = ({
         return (
           <motion.div
             key={i}
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-20px' }}
-            transition={{ delay: i * 0.04, duration: 0.3 }}
+            viewport={{ once: true, margin: '-10px' }}
+            transition={{ delay: i * 0.03, duration: 0.25 }}
             className={isLandscape && mockupType !== 'pc' ? 'col-span-2' : undefined}
           >
             <MockupFrame
@@ -158,15 +161,15 @@ export const Projects: React.FC<ProjectsProps> = ({ featuredIds }) => {
   };
 
   return (
-    <section id="projects" className="py-20 md:py-28 relative">
-      <div className="container mx-auto px-5 md:px-8 max-w-6xl relative z-10">
+    <section id="projects" className="py-16 sm:py-20 md:py-28 relative">
+      <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-6xl relative z-10">
         {/* Section header */}
-        <div className="mb-14 md:mb-16">
+        <div className="mb-10 sm:mb-14 md:mb-16">
           <motion.p
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="text-primary text-sm font-semibold tracking-widest uppercase mb-3"
+            className="text-primary text-xs sm:text-sm font-semibold tracking-widest uppercase mb-2 sm:mb-3"
           >
             Portfolio
           </motion.p>
@@ -174,14 +177,14 @@ export const Projects: React.FC<ProjectsProps> = ({ featuredIds }) => {
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-3xl md:text-4xl font-bold text-white tracking-tight"
+            className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight"
           >
             {featuredIds ? 'Featured Projects' : 'All Projects'}
           </motion.h2>
         </div>
 
         {/* Project cards */}
-        <div className="space-y-10 md:space-y-14">
+        <div className="space-y-8 sm:space-y-10 md:space-y-14">
           {displayedProjects.map((project, index) => {
             const hasMultiImages = project.images && project.images.length > 1;
             const frameType = project.mockupType || 'phone';
@@ -197,14 +200,14 @@ export const Projects: React.FC<ProjectsProps> = ({ featuredIds }) => {
             return (
               <motion.div
                 key={project.id}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-40px' }}
-                transition={{ delay: index * 0.05, duration: 0.35 }}
-                className={`group relative glass-card rounded-2xl p-5 md:p-7 transition-all ${glowClass}`}
+                viewport={{ once: true, margin: '-30px' }}
+                transition={{ delay: index * 0.04, duration: 0.3 }}
+                className={`group relative glass-card rounded-2xl p-4 sm:p-5 md:p-7 transition-all ${glowClass}`}
               >
                 {/* Number overlay */}
-                <div className="absolute top-5 left-5 w-9 h-9 bg-primary/90 backdrop-blur-sm rounded-lg flex items-center justify-center z-10 shadow-md">
+                <div className="absolute top-4 left-4 sm:top-5 sm:left-5 w-8 h-8 sm:w-9 sm:h-9 bg-primary/90 backdrop-blur-sm rounded-lg flex items-center justify-center z-10 shadow-md">
                   <span className="text-white font-bold text-xs tracking-wider">
                     {String(index + 1).padStart(2, '0')}
                   </span>
@@ -212,7 +215,7 @@ export const Projects: React.FC<ProjectsProps> = ({ featuredIds }) => {
 
                 {/* Adaptive mockup frame */}
                 {hasMultiImages ? (
-                  <div className="mb-6 mt-8">
+                  <div className="mb-5 sm:mb-6 mt-6 sm:mt-8">
                     <ScreenshotGrid
                       images={project.images!}
                       alt={project.title}
@@ -221,7 +224,7 @@ export const Projects: React.FC<ProjectsProps> = ({ featuredIds }) => {
                     />
                   </div>
                 ) : (
-                  <div className="mb-6 mt-8 flex justify-center">
+                  <div className="mb-5 sm:mb-6 mt-6 sm:mt-8 flex justify-center">
                     <MockupFrame src={project.image} alt={project.title} mockupType={frameType} />
                   </div>
                 )}
@@ -230,46 +233,47 @@ export const Projects: React.FC<ProjectsProps> = ({ featuredIds }) => {
                 <div className="flex flex-col justify-between py-1">
                   <div>
                     {(project.period || project.type) && (
-                      <div className="flex flex-wrap items-center gap-2 mb-3">
+                      <div className="flex flex-wrap items-center gap-2 mb-2.5 sm:mb-3">
                         {project.type && (
-                          <span className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded-full">
+                          <span className="inline-flex items-center gap-1 px-2.5 sm:px-3 py-0.5 sm:py-1 text-[11px] sm:text-xs font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded-full">
                             <MapPin size={11} />
                             {project.type}
                           </span>
                         )}
                         {project.period && (
-                          <span className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-medium text-gray-400 bg-white/[0.04] border border-white/[0.08] rounded-full">
+                          <span className="inline-flex items-center gap-1 px-2.5 sm:px-3 py-0.5 sm:py-1 text-[11px] sm:text-xs font-medium text-gray-400 bg-white/[0.04] border border-white/[0.08] rounded-full">
                             <Calendar size={11} />
                             {project.period}
                           </span>
                         )}
                       </div>
                     )}
-                    <div className="flex flex-wrap gap-2 mb-4">
+                    <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-3 sm:mb-4">
                       {project.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="px-3.5 py-1 text-xs font-semibold text-primary/90 glass-pill rounded-full cursor-default"
+                          className="px-2.5 sm:px-3.5 py-0.5 sm:py-1 text-[11px] sm:text-xs font-semibold text-primary/90 glass-pill rounded-full cursor-default"
                         >
                           {tag}
                         </span>
                       ))}
                     </div>
-                    <h3 className="text-xl md:text-2xl font-bold text-white mb-3 group-hover:text-primary transition-colors duration-200">
+                    <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-2 sm:mb-3 group-hover:text-primary transition-colors duration-150">
                       {project.title}
                     </h3>
-                    <p className="text-slate-200 text-[15px] leading-relaxed mb-5 font-normal">
+                    <p className="text-slate-200 text-sm sm:text-[15px] leading-relaxed mb-4 sm:mb-5 font-normal">
                       {project.fullDescription || project.description}
                     </p>
                   </div>
 
-                  {/* Action buttons */}
-                  <div className="flex items-center gap-3 flex-wrap">
+                  {/* Action buttons (min 44px height for mobile ergonomics) */}
+                  <div className="flex items-center gap-2.5 sm:gap-3 flex-wrap">
                     {project.videoUrl && (
                       <button
                         type="button"
                         onClick={() => openVideo(project.videoUrl!, project.title)}
-                        className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-semibold text-[#F5F7FA] bg-[#7C5CFF]/20 hover:bg-[#7C5CFF]/35 border border-[#7C5CFF]/40 rounded-xl transition-all cursor-pointer active:scale-[0.97] shadow-md hover:shadow-[0_0_16px_rgba(124,92,255,0.4)] focus-visible:ring-2 focus-visible:ring-primary"
+                        className="inline-flex items-center justify-center min-h-[44px] gap-2 px-4 py-2.5 text-xs sm:text-sm font-semibold text-[#F5F7FA] bg-[#7C5CFF]/20 hover:bg-[#7C5CFF]/35 border border-[#7C5CFF]/40 rounded-xl transition-all cursor-pointer active:scale-[0.97] shadow-md hover:shadow-[0_0_16px_rgba(124,92,255,0.4)] focus-visible:ring-2 focus-visible:ring-primary"
+                        style={{ touchAction: 'manipulation' }}
                       >
                         <PlayCircle size={16} className="text-[#36E3FF]" /> Demo
                       </button>
@@ -279,7 +283,8 @@ export const Projects: React.FC<ProjectsProps> = ({ featuredIds }) => {
                         href={project.demoUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-semibold text-[#F5F7FA] bg-emerald-500/20 hover:bg-emerald-500/35 border border-emerald-500/35 rounded-xl transition-all cursor-pointer active:scale-[0.97] shadow-md hover:shadow-[0_0_16px_rgba(16,185,129,0.4)] focus-visible:ring-2 focus-visible:ring-emerald-400"
+                        className="inline-flex items-center justify-center min-h-[44px] gap-2 px-4 py-2.5 text-xs sm:text-sm font-semibold text-[#F5F7FA] bg-emerald-500/20 hover:bg-emerald-500/35 border border-emerald-500/35 rounded-xl transition-all cursor-pointer active:scale-[0.97] shadow-md hover:shadow-[0_0_16px_rgba(16,185,129,0.4)] focus-visible:ring-2 focus-visible:ring-emerald-400"
+                        style={{ touchAction: 'manipulation' }}
                       >
                         <ExternalLink size={15} className="text-emerald-400" /> Play Store
                       </a>
@@ -289,7 +294,8 @@ export const Projects: React.FC<ProjectsProps> = ({ featuredIds }) => {
                         href={project.repoUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-semibold text-[#F5F7FA] bg-white/[0.08] hover:bg-white/[0.16] border border-white/[0.18] rounded-xl transition-all cursor-pointer active:scale-[0.97] shadow-md hover:shadow-[0_0_16px_rgba(255,255,255,0.2)] focus-visible:ring-2 focus-visible:ring-white"
+                        className="inline-flex items-center justify-center min-h-[44px] gap-2 px-4 py-2.5 text-xs sm:text-sm font-semibold text-[#F5F7FA] bg-white/[0.08] hover:bg-white/[0.16] border border-white/[0.18] rounded-xl transition-all cursor-pointer active:scale-[0.97] shadow-md hover:shadow-[0_0_16px_rgba(255,255,255,0.2)] focus-visible:ring-2 focus-visible:ring-white"
+                        style={{ touchAction: 'manipulation' }}
                       >
                         <Github size={16} className="text-slate-200" /> Source Code
                       </a>
@@ -306,11 +312,11 @@ export const Projects: React.FC<ProjectsProps> = ({ featuredIds }) => {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="text-center mt-12 md:mt-14"
+            className="text-center mt-10 sm:mt-12 md:mt-14"
           >
             <Link
               to="/projects"
-              className="inline-flex items-center gap-2.5 px-8 py-3.5 text-[15px] font-bold btn-secondary-glass rounded-xl active:scale-[0.97] cursor-pointer focus-visible:ring-2 focus-visible:ring-primary"
+              className="inline-flex items-center gap-2.5 px-7 sm:px-8 py-3.5 text-sm sm:text-[15px] font-bold btn-secondary-glass rounded-xl active:scale-[0.97] cursor-pointer min-h-[44px] focus-visible:ring-2 focus-visible:ring-primary"
             >
               View All Projects <ArrowRight size={18} className="text-[#36E3FF]" />
             </Link>
