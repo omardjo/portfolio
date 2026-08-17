@@ -9,8 +9,8 @@ interface ProjectsProps {
   featuredIds?: string[];
 }
 
-// Phone frame component
-const PhoneFrame = ({ src, alt, eager }: { src: string; alt: string; eager?: boolean }) => (
+// Phone frame component with explicit intrinsic aspect ratio dimensions to prevent CLS
+const PhoneFrame = ({ src, alt }: { src: string; alt: string }) => (
   <div className="relative bg-gradient-to-b from-gray-800/50 to-gray-900/70 rounded-[20px] sm:rounded-[22px] border border-white/[0.12] shadow-lg sm:shadow-xl shadow-black/40 p-1.5 sm:p-2 md:p-2.5 aspect-[9/19] w-full max-w-[200px] sm:max-w-[220px] mx-auto">
     {/* Notch */}
     <div className="absolute top-[6px] sm:top-[7px] left-1/2 -translate-x-1/2 w-12 sm:w-14 h-[3px] sm:h-[3.5px] bg-white/[0.15] rounded-full z-10" />
@@ -19,14 +19,16 @@ const PhoneFrame = ({ src, alt, eager }: { src: string; alt: string; eager?: boo
         src={src}
         alt={alt}
         className="w-full h-full object-contain"
-        loading={eager ? 'eager' : 'lazy'}
+        loading="lazy"
         decoding="async"
+        width={220}
+        height={464}
       />
     </div>
   </div>
 );
 
-const LandscapePhoneFrame = ({ src, alt, eager }: { src: string; alt: string; eager?: boolean }) => (
+const LandscapePhoneFrame = ({ src, alt }: { src: string; alt: string }) => (
   <div className="relative bg-gradient-to-r from-gray-800/50 to-gray-900/70 rounded-[20px] sm:rounded-[22px] border border-white/[0.12] shadow-lg sm:shadow-xl shadow-black/40 p-1.5 sm:p-2 md:p-2.5 aspect-[19/9] w-full max-w-[380px] sm:max-w-[420px] mx-auto">
     <div className="absolute left-[6px] sm:left-[7px] top-1/2 -translate-y-1/2 h-12 sm:h-14 w-[3px] sm:w-[3.5px] bg-white/[0.15] rounded-full z-10" />
     <div className="w-full h-full rounded-[14px] sm:rounded-[16px] overflow-hidden bg-black/40">
@@ -34,15 +36,17 @@ const LandscapePhoneFrame = ({ src, alt, eager }: { src: string; alt: string; ea
         src={src}
         alt={alt}
         className="w-full h-full object-contain"
-        loading={eager ? 'eager' : 'lazy'}
+        loading="lazy"
         decoding="async"
+        width={420}
+        height={199}
       />
     </div>
   </div>
 );
 
-// PC / Laptop browser mockup frame
-const PCFrame = ({ src, alt, eager }: { src: string; alt: string; eager?: boolean }) => (
+// PC / Laptop browser mockup frame with explicit dimensions
+const PCFrame = ({ src, alt }: { src: string; alt: string }) => (
   <div className="relative w-full max-w-[520px] mx-auto">
     {/* Laptop screen */}
     <div className="bg-gradient-to-b from-gray-700/60 to-gray-800/70 rounded-t-lg border border-white/[0.12] border-b-0 shadow-xl shadow-black/40 p-[2px] sm:p-[3px] pt-0">
@@ -65,8 +69,10 @@ const PCFrame = ({ src, alt, eager }: { src: string; alt: string; eager?: boolea
           src={src}
           alt={alt}
           className="w-full h-auto object-contain"
-          loading={eager ? 'eager' : 'lazy'}
+          loading="lazy"
           decoding="async"
+          width={520}
+          height={380}
         />
       </div>
     </div>
@@ -82,19 +88,17 @@ const PCFrame = ({ src, alt, eager }: { src: string; alt: string; eager?: boolea
 const MockupFrame = ({
   src,
   alt,
-  eager,
   mockupType,
   orientation = 'portrait',
 }: {
   src: string;
   alt: string;
-  eager?: boolean;
   mockupType?: 'phone' | 'pc';
   orientation?: 'portrait' | 'landscape';
 }) => {
-  if (mockupType === 'pc') return <PCFrame src={src} alt={alt} eager={eager} />;
-  if (orientation === 'landscape') return <LandscapePhoneFrame src={src} alt={alt} eager={eager} />;
-  return <PhoneFrame src={src} alt={alt} eager={eager} />;
+  if (mockupType === 'pc') return <PCFrame src={src} alt={alt} />;
+  if (orientation === 'landscape') return <LandscapePhoneFrame src={src} alt={alt} />;
+  return <PhoneFrame src={src} alt={alt} />;
 };
 
 // Multi-image screenshot grid
@@ -134,7 +138,6 @@ const ScreenshotGrid = ({
             <MockupFrame
               src={img}
               alt={`${alt} ${i + 1}`}
-              eager={i === 0}
               mockupType={mockupType}
               orientation={isLandscape ? 'landscape' : 'portrait'}
             />
@@ -266,7 +269,7 @@ export const Projects: React.FC<ProjectsProps> = ({ featuredIds }) => {
                     </p>
                   </div>
 
-                  {/* Action buttons (min 44px height for mobile ergonomics) */}
+                  {/* Action buttons */}
                   <div className="flex items-center gap-2.5 sm:gap-3 flex-wrap">
                     {project.videoUrl && (
                       <button

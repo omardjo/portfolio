@@ -1,6 +1,45 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
+const TunisiaFlag = () => (
+  <svg viewBox="0 0 1200 800" className="w-full h-full object-cover">
+    <rect width="1200" height="800" fill="#E70013" />
+    <circle cx="600" cy="400" r="200" fill="#FFFFFF" />
+    <circle cx="640" cy="400" r="150" fill="#E70013" />
+    <circle cx="670" cy="400" r="120" fill="#FFFFFF" />
+    <polygon
+      points="620,400 660,412 636,380 636,420 660,388"
+      fill="#E70013"
+    />
+  </svg>
+);
+
+const UKFlag = () => (
+  <svg viewBox="0 0 60 30" className="w-full h-full object-cover">
+    <clipPath id="uk-s">
+      <path d="M0,0 v30 h60 v-30 z"/>
+    </clipPath>
+    <clipPath id="uk-t">
+      <path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z"/>
+    </clipPath>
+    <g clipPath="url(#uk-s)">
+      <path d="M0,0 v30 h60 v-30 z" fill="#012169"/>
+      <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" strokeWidth="6"/>
+      <path d="M0,0 L60,30 M60,0 L0,30" clipPath="url(#uk-t)" stroke="#C8102E" strokeWidth="4"/>
+      <path d="M30,0 v30 M0,15 h60" stroke="#fff" strokeWidth="10"/>
+      <path d="M30,0 v30 M0,15 h60" stroke="#C8102E" strokeWidth="6"/>
+    </g>
+  </svg>
+);
+
+const FranceFlag = () => (
+  <svg viewBox="0 0 3 2" className="w-full h-full object-cover">
+    <rect width="1" height="2" fill="#002654" />
+    <rect x="1" width="1" height="2" fill="#FFFFFF" />
+    <rect x="2" width="1" height="2" fill="#CE1126" />
+  </svg>
+);
+
 const SkillBar = ({ name, level, color }: { name: string; level: number; color: string }) => {
   const colors: Record<string, string> = {
     primary: 'bg-primary',
@@ -132,19 +171,19 @@ export const About: React.FC = () => {
               <h3 className="text-lg font-bold text-white mb-5 tracking-wide">Langues</h3>
               <div className="grid grid-cols-3 gap-3">
                 {[
-                  { lang: 'Arabe', level: 'Maternelle', flag: 'https://flagcdn.com/w80/tn.png' },
-                  { lang: 'Anglais', level: 'Professionnel', flag: 'https://flagcdn.com/w80/gb.png' },
-                  { lang: 'Français', level: 'Professionnel', flag: 'https://flagcdn.com/w80/fr.png' },
-                ].map((l) => (
+                  { lang: 'Arabe', level: 'Maternelle', FlagComponent: TunisiaFlag },
+                  { lang: 'Anglais', level: 'Professionnel', FlagComponent: UKFlag },
+                  { lang: 'Français', level: 'Professionnel', FlagComponent: FranceFlag },
+                ].map(({ lang, level, FlagComponent }) => (
                   <div
-                    key={l.lang}
+                    key={lang}
                     className="bg-white/[0.03] border border-white/[0.08] hover:border-primary/40 p-4 rounded-xl text-center transition-all duration-200 hover:-translate-y-0.5"
                   >
                     <div className="w-10 h-7 mx-auto mb-2 overflow-hidden rounded shadow-sm">
-                      <img src={l.flag} alt={l.lang} className="w-full h-full object-cover" loading="lazy" />
+                      <FlagComponent />
                     </div>
-                    <div className="text-white text-sm font-semibold">{l.lang}</div>
-                    <div className="text-gray-400 text-xs mt-1">{l.level}</div>
+                    <div className="text-white text-sm font-semibold">{lang}</div>
+                    <div className="text-gray-400 text-xs mt-1">{level}</div>
                   </div>
                 ))}
               </div>

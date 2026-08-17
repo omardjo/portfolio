@@ -26,7 +26,7 @@ export const Hero: React.FC = () => {
       <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-5xl relative z-10">
         <div className="flex flex-col items-center text-center">
 
-          {/* HOLOGRAPHIC HERO PROFILE AVATAR */}
+          {/* HOLOGRAPHIC HERO PROFILE AVATAR (LCP optimized) */}
           <motion.div
             initial={{ opacity: 0, scale: 0.85 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -34,7 +34,7 @@ export const Hero: React.FC = () => {
             className="relative mb-4 sm:mb-5"
           >
             <HolographicAvatar
-              imageSrc="/assets/images/myPhoto.jpg"
+              imageSrc="/assets/images/myPhoto.webp"
               altText="Omar Djebbi"
             />
           </motion.div>

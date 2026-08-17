@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Suspense, lazy } from 'react';
 import './index.css'; 
 
 import { HashRouter as Router, Routes, Route, useLocation, Link } from 'react-router-dom';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { ArrowLeft } from 'lucide-react';
 
-// Import Components
+// Import Core Layout & Components
 import { Layout } from './components/Layout';
 import { Hero } from './components/Hero';
 import { About } from './components/About';
@@ -13,7 +13,9 @@ import { Projects } from './components/Projects';
 import { Experience } from './components/Experience';
 import { Certifications } from './components/Certifications';
 import { Contact } from './components/Contact';
-import { Chatbot } from './components/Chatbot';
+
+// Lazy-load Chatbot (Loaded on-demand, not blocking initial render)
+const Chatbot = lazy(() => import('./components/Chatbot').then(m => ({ default: m.Chatbot })));
 
 // ScrollToTop Helper
 const ScrollToTop = () => {
@@ -37,7 +39,7 @@ const BackButton = () => (
   </div>
 );
 
-// Page Components
+// Home Page
 const Home = () => (
   <>
     <Hero />
@@ -106,7 +108,9 @@ const App: React.FC = () => {
             <Route path="/experience" element={<AllExperiencePage />} />
             <Route path="/certificates" element={<AllCertificationsPage />} />
           </Routes>
-          <Chatbot />
+          <Suspense fallback={null}>
+            <Chatbot />
+          </Suspense>
         </Layout>
       </Router>
     </HelmetProvider>

@@ -2,11 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 
 interface HolographicAvatarProps {
-  imageSrc: string;
-  altText: string;
+  imageSrc?: string;
+  altText?: string;
 }
 
-export const HolographicAvatar: React.FC<HolographicAvatarProps> = ({ imageSrc, altText }) => {
+export const HolographicAvatar: React.FC<HolographicAvatarProps> = ({
+  imageSrc = '/assets/images/myPhoto.webp',
+  altText = 'Omar Djebbi',
+}) => {
   const [canHover, setCanHover] = useState(false);
 
   // 3D Mouse Tilt Physics
@@ -72,14 +75,20 @@ export const HolographicAvatar: React.FC<HolographicAvatarProps> = ({ imageSrc, 
       >
         {/* Holographic Ring Edge */}
         <div className="w-28 h-28 sm:w-32 sm:h-32 md:w-40 md:h-40 rounded-full overflow-hidden ring-[3px] ring-[#36E3FF]/40 ring-offset-[4px] sm:ring-offset-[6px] ring-offset-[#070a13] shadow-xl md:shadow-2xl shadow-[#7C5CFF]/20 md:shadow-[#7C5CFF]/25 transition-all duration-300 group-hover:ring-[#36E3FF] group-hover:shadow-[0_0_40px_rgba(54,227,255,0.45)]">
-          <img
-            src={imageSrc}
-            alt={altText}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-            loading="eager"
-            width={160}
-            height={160}
-          />
+          <picture>
+            <source srcSet="/assets/images/myPhoto.webp" type="image/webp" />
+            <img
+              src={imageSrc}
+              alt={altText}
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              loading="eager"
+              decoding="async"
+              // @ts-expect-error React 18 fetchPriority support
+              fetchpriority="high"
+              width={160}
+              height={160}
+            />
+          </picture>
 
           {/* Holographic Light Reflection Sweep */}
           <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/15 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out pointer-events-none" />

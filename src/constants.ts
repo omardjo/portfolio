@@ -8,8 +8,8 @@ export const PROJECTS: Project[] = [
     description: 'Application de blog moderne avec Android Jetpack Compose et FastAPI : authentification, articles, catégories, tags, suivi de lecture, profils, notifications FCM et backend AWS.',
     fullDescription: 'Développement d’une application de blog moderne avec Android Jetpack Compose et FastAPI : authentification, gestion des articles, catégories, tags, suivi de lecture, profils utilisateurs, notifications avec FCM, connexion à PostgreSQL sur AWS RDS, et tests d’API avec Postman. Déploiement backend sur une instance Amazon EC2 et amélioration continue de l’UI/UX pour une publication future sur Google Play Store.',
     tags: ['Android Jetpack Compose', 'FastAPI', 'Postman', 'Amazon EC2', 'AWS RDS', 'PostgreSQL', 'FCM', 'REST API'],
-    image: '/assets/images/image1.jpeg',
-    images: ['/assets/images/image1.jpeg', '/assets/images/image2.jpeg', '/assets/images/image3.jpeg', '/assets/images/image4.jpeg', '/assets/images/image5.jpeg'],
+    image: '/assets/images/image1.webp',
+    images: ['/assets/images/image1.webp', '/assets/images/image2.webp', '/assets/images/image3.webp', '/assets/images/image4.webp', '/assets/images/image5.webp'],
     type: 'Mobile App',
     mockupType: 'phone'
   },
@@ -18,21 +18,21 @@ export const PROJECTS: Project[] = [
     title: 'Kidora Tutoring App',
     description: 'Application éducative gamifiée pour enfants 4-12 ans avec tableau de bord parental et suivi de progression en temps réel.',
     tags: ['React Native', 'Spring Boot'],
-    image: '/assets/images/kidora1.jpeg',
+    image: '/assets/images/kidora1.webp',
     images: [
-      '/assets/images/kidora1.jpeg',
-      '/assets/images/kidora2.jpeg',
-      '/assets/images/kidora3.jpeg',
-      '/assets/images/kidora4.jpeg',
-      '/assets/images/kidora5.jpeg',
-      '/assets/images/kidora6.jpeg',
-      '/assets/images/kidora7.jpeg',
-      '/assets/images/kidora8.jpeg',
-      '/assets/images/kidora9.jpeg',
-      '/assets/images/kidora10.jpeg',
-      '/assets/images/kidora11.jpeg',
+      '/assets/images/kidora1.webp',
+      '/assets/images/kidora2.webp',
+      '/assets/images/kidora3.webp',
+      '/assets/images/kidora4.webp',
+      '/assets/images/kidora5.webp',
+      '/assets/images/kidora6.webp',
+      '/assets/images/kidora7.webp',
+      '/assets/images/kidora8.webp',
+      '/assets/images/kidora9.webp',
+      '/assets/images/kidora10.webp',
+      '/assets/images/kidora11.webp',
     ],
-    landscapeImages: ['/assets/images/kidora10.jpeg', '/assets/images/kidora11.jpeg'],
+    landscapeImages: ['/assets/images/kidora10.webp', '/assets/images/kidora11.webp'],
     videoUrl: '/assets/videos/NewVideoKiodraFixed.mp4',
     demoUrl: '#',
     mockupType: 'phone'
@@ -42,7 +42,7 @@ export const PROJECTS: Project[] = [
     title: 'Production Tracking (MES)',
     description: 'Système MES de suivi de production en temps réel pour 50+ lignes avec analytics avancées.',
     tags: ['Flutter Web', 'Dynamics BC', 'AL'],
-    image: '/assets/images/mes-screenshot.png',
+    image: '/assets/images/mes-screenshot.webp',
     videoUrl: '/assets/videos/MesPresentationLV.mp4',
     mockupType: 'pc'
   },
@@ -51,7 +51,7 @@ export const PROJECTS: Project[] = [
     title: 'Stripe Integration App',
     description: 'Application mobile de paiement sécurisé avec gateway Stripe, gestion fournisseurs/inventaire et chatbot IA. Zéro erreur de transaction.',
     tags: ['Flutter', 'Nest.js', 'Stripe', 'Firebase'],
-    image: '/assets/images/stripe-screenshot.png',
+    image: '/assets/images/stripe-screenshot.webp',
     videoUrl: '/assets/videos/StripeIntegration.mp4',
     mockupType: 'pc'
   },
@@ -60,7 +60,7 @@ export const PROJECTS: Project[] = [
     title: 'Career Recommendation',
     description: 'Application Flutter avec web scraping GitHub/LinkedIn et recommandation de carrière IA avec 95% de précision.',
     tags: ['Flutter', 'Flask', 'AI', 'Firebase'],
-    image: '/assets/images/career-recommendation-screenshot.png',
+    image: '/assets/images/career-recommendation-screenshot.webp',
     videoUrl: '/assets/videos/CareerRecommendation.mp4',
     mockupType: 'pc'
   },
@@ -69,7 +69,7 @@ export const PROJECTS: Project[] = [
     title: 'Safe Travel App',
     description: 'Application de sécurité enrichie par IA servant 200+ utilisateurs avec fonctions d\'urgence.',
     tags: ['Node.js', 'AI', 'Flutter'],
-    image: '/assets/images/safe-travel-screenshot.png',
+    image: '/assets/images/safe-travel-screenshot.webp',
     repoUrl: 'https://github.com/safeTravel-IA/SafeTravelFrontEnd',
     mockupType: 'pc'
   },
@@ -78,7 +78,7 @@ export const PROJECTS: Project[] = [
     title: 'Learnverse Platform',
     description: 'Plateforme éducative web supportant 50+ cours avec suivi d\'inscription.',
     tags: ['Angular', 'Django'],
-    image: '/assets/images/learnverse-screenshot.png',
+    image: '/assets/images/learnverse-screenshot.webp',
     videoUrl: '/assets/videos/LearnVerseVideo.mp4',
     mockupType: 'pc'
   },
@@ -87,7 +87,7 @@ export const PROJECTS: Project[] = [
     title: '3D Solar System',
     description: 'Simulation 3D avec mécanique orbitale réaliste.',
     tags: ['Unity', 'C#'],
-    image: '/assets/images/solar-system-screenshot.jpg',
+    image: '/assets/images/solar-system-screenshot.webp',
     repoUrl: 'https://gitlab.com/omardjo/solar_system_project.git',
     mockupType: 'phone'
   }
@@ -153,6 +153,18 @@ export const EXPERIENCES: Experience[] = [
   },
   {
     id: 'intern_esprit',
+    role: 'Mobile Development Intern',
+    company: 'ESPRIT, cité El Ghazela, Tunis',
+    period: 'Jun 2024 - Aug 2024',
+    details: [
+      'Implemented web scraping functionality from GitHub/LinkedIn to match user CVs with jobs.',
+      'Developed a user review system enhancing platform credibility and engagement by 45%.',
+      'Integrated advanced filtering algorithms improving recommendation accuracy by 35%.'
+    ],
+    color: 'secondary'
+  },
+  {
+    id: 'intern_esprit_2',
     role: 'Mobile Development Intern',
     company: 'ESPRIT, cité El Ghazela, Tunis',
     period: 'Jun 2024 - Aug 2024',
@@ -239,7 +251,7 @@ export const CERTIFICATES: Certificate[] = [
     description: 'Certified Hashgraph Developer from Hedera Hashgraph Foundation. Validated skills in distributed ledger technology.',
     tags: ['Blockchain', 'Hedera'],
     icon: 'box',
-    color: '#22c55e', // Green
+    color: '#22c55e',
     pdfUrl: '/assets/certificates/Hashgraph_Developer.pdf'
   },
   {
@@ -249,7 +261,7 @@ export const CERTIFICATES: Certificate[] = [
     description: 'Validated comprehensive knowledge of HTML5, CSS3, JavaScript, and modern web development frameworks.',
     tags: ['HTML/CSS', 'JS'],
     icon: 'globe',
-    color: '#a855f7', // Purple
+    color: '#a855f7',
     pdfUrl: '/assets/certificates/Web_Development_Professional.pdf'
   },
   {
@@ -259,7 +271,7 @@ export const CERTIFICATES: Certificate[] = [
     description: 'Demonstrated comprehensive knowledge of advanced SQL querying techniques including complex joins, subqueries, and window functions.',
     tags: ['SQL', 'Data'],
     icon: 'database',
-    color: '#f97316', // Orange
+    color: '#f97316',
     pdfUrl: '/assets/certificates/Advanced_SQL.pdf'
   },
   {
@@ -269,7 +281,7 @@ export const CERTIFICATES: Certificate[] = [
     description: 'Certified CSS Developer from Great Learning. Mastered layout techniques and responsive design principles.',
     tags: ['CSS', 'Design'],
     icon: 'layout',
-    color: '#ec4899', // Pink
+    color: '#ec4899',
     pdfUrl: '/assets/certificates/CSS_Developer.pdf'
   }
 ];
